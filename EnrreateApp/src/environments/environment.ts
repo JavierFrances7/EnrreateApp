@@ -22,14 +22,16 @@
 export const environment = {
   production: false,
     firebaseConfig: {
-      apiKey: "AIzaSyBFhH2mI73YdzP0McHjJZgD5qa-lPKadOc",
-      authDomain: "prueba1firebase-3609d.firebaseapp.com",
-      projectId: "prueba1firebase-3609d",
-      storageBucket: "prueba1firebase-3609d.appspot.com",
-      messagingSenderId: "671700216818",
-      appId: "1:671700216818:web:79f4c65e0893c00dc0196b"
-  }
+      apiKey: "AIzaSyA304v8skCl7HXEHCGLQcY3iIzWn_R0lxA",
+      authDomain: "proyecto-fin-grado-1.firebaseapp.com",
+      projectId: "proyecto-fin-grado-1",
+      storageBucket: "proyecto-fin-grado-1.appspot.com",
+      messagingSenderId: "1089387969214",
+      appId: "1:1089387969214:web:1d02404944afa8fb7a7cef"
+      }
 };
+
+
 
 /*
  * For easier debugging in development mode, you can import the following file
