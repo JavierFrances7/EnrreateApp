@@ -1,27 +1,64 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Home
-    </ion-title>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-grid class="grid1">
+
+    <ion-row class="fila1">
+      <h1 class="titulo-logo">LOGO</h1>
+      <ion-col>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="fila2">
+      <ion-col>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
   <form [formGroup]="validation_login" (ngSubmit)="onSubmit(validation_login.value)">
+    <ion-slide>
+      <div class="div-login">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <h1>Iniciar Sesión</h1>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-list>
+                <ion-item>
+                  <ion-icon name="mail" class="icon-login"></ion-icon>
+                  <ion-input type="email" placeholder="Correo"></ion-input>
+                </ion-item>
+                <br />
+                <ion-item>
+                  <ion-icon name="lock-closed-outline" class="icon-login"></ion-icon>
+                  <ion-input type="password" placeholder="Contraseña" formControlName="contrasena"></ion-input>
+                </ion-item>
 
-  <ion-item>
-    <ion-label>Correo: </ion-label>
-    <ion-input type="email"  formControlName="correo"></ion-input>
-  </ion-item>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <!--POSIBILIDAD DE CAMBIAR EL COLOR A tertiary-->
+              <ion-button type="submit" fill="solid" expand="full" shape="round" color="dark">
+                Entrar
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-label>
+                <p>¿Aún no tienes cuenta? <a (click)="abrirRegistroUsuario()" class="enlace">Regístrate.</a></p>
+              </ion-label>
+            </ion-col>
+          </ion-row>
 
-  <ion-item>
-    <ion-label>Contraseña:</ion-label>
-    <ion-input type="password"  formControlName="contrasena"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-button type="submit">INICIAR SESIÓN</ion-button>
-  </ion-item>
-  <a (click)="abrirRegistroUsuario()">¿Aún no tienes cuenta? Regístrate.</a>
+        </ion-grid>
+      </div>
+    </ion-slide>
   </form>
 </ion-content>
