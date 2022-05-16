@@ -24,7 +24,7 @@ export class FirebaseAuthService {
             if (this.angularFireAuth.currentUser) {  //antes del logout se comprueba que hay usuario logueado
                 this.angularFireAuth.signOut()
                     .then(() => {
-                        console.log("LOG Out");
+                        console.log("Se ha cerrado sesión correctamente");
                         resolve(null);
                     }).catch((error) => {
                         reject();
@@ -36,6 +36,13 @@ export class FirebaseAuthService {
     //Método que retorna los detalles del usuario
     userDetails() {
         return this.angularFireAuth.user;
+    }
+
+
+    //Método que devuelve el uid del usuario logueado en firebase
+    async getUid(){
+        const usuario = await this.angularFireAuth.currentUser;
+        return usuario.uid;
     }
 
 }//end_class

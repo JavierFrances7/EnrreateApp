@@ -7,7 +7,21 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <form [formGroup]="validation_login" (ngSubmit)="onSubmit(validation_login.value)">
 
-  
- 
+  <ion-item>
+    <ion-label>Correo: </ion-label>
+    <ion-input type="email"  formControlName="correo"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Contraseña:</ion-label>
+    <ion-input type="password"  formControlName="contrasena"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-button type="submit">INICIAR SESIÓN</ion-button>
+  </ion-item>
+  <a (click)="abrirRegistroUsuario()">¿Aún no tienes cuenta? Regístrate.</a>
+  </form>
 </ion-content>

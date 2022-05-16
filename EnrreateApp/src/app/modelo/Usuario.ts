@@ -15,6 +15,7 @@ export class Usuario {
         usuario.email = jsonObject['email'];
         usuario.diplayName = jsonObject['diplayName'];
         usuario.emailVerificado = jsonObject['emailVerificado'];
+        usuario.role = jsonObject['role'];
         return usuario;
 }
 }
