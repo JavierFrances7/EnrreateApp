@@ -30,6 +30,25 @@ export class RegistroEstablecimientoPage implements OnInit {
         });
 }
 
+async registroEstablecimiento(email:string, contrasena:string){
+
+  //TODO: Este método tambien guardará los objetos establecimiento en la base de datos, para posteriormente con su uid de firebase comprobar el role que tiene y asi dar acceso a un sitio u otro.
+
+  this.firebaseAuthService.registerUser(email,contrasena)
+  .then((data) => {
+    console.log("Registro Establecimiento Exitoso");
+    this.firebaseAuthService.userDetails()
+      .subscribe(data => {
+        console.log(data);
+      });
+      this.router.navigate(['/home']);
+  })
+  .catch((error) => {
+    console.log("Error en el registro: " + error);
+    this.router.navigate(['/registro-usuario']);
+
+  });
+}
 
 
   

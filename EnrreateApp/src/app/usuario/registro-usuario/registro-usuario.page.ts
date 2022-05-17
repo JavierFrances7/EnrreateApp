@@ -42,7 +42,7 @@ async registroUsuario(email:string, contrasena:string){
 
   this.firebaseAuthService.registerUser(email,contrasena)
   .then((data) => {
-    console.log("Registro Exitoso");
+    console.log("Registro Usuario Exitoso");
     this.firebaseAuthService.userDetails()
       .subscribe(data => {
         console.log(data);

@@ -26,7 +26,11 @@ const routes: Routes = [
   {
     path: 'registro-establecimiento',
     loadChildren: () => import('./establecimiento/registro-establecimiento/registro-establecimiento.module').then( m => m.RegistroEstablecimientoPageModule)
+  },  {
+    path: 'inicio-establecimiento',
+    loadChildren: () => import('./establecimiento/inicio-establecimiento/inicio-establecimiento/inicio-establecimiento.module').then( m => m.InicioEstablecimientoPageModule)
   },
+
 
 
 ];
