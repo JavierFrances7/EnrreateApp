@@ -56,4 +56,8 @@ async registroUsuario(email:string, contrasena:string){
   });
 }
 
+abrirRegistroEstablecimiento(){
+  this.router.navigate(['/registro-establecimiento']);
+}
+
 }

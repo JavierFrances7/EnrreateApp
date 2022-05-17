@@ -13,19 +13,19 @@ const routes: Routes = [
   },
   {
     path: 'inicio-usuario-base',
-    loadChildren: () => import('./usuario_base/inicio-usuario-base/inicio-usuario-base.module').then( m => m.InicioUsuarioBasePageModule)
+    loadChildren: () => import('./usuario/inicio-usuario/inicio-usuario-base.module').then( m => m.InicioUsuarioBasePageModule)
   },
   {
     path: 'inicio-usuario-base',
-    loadChildren: () => import('./usuario_base/inicio-usuario-base/inicio-usuario-base.module').then( m => m.InicioUsuarioBasePageModule)
+    loadChildren: () => import('./usuario/inicio-usuario/inicio-usuario-base.module').then( m => m.InicioUsuarioBasePageModule)
   },
   {
     path: 'registro-usuario',
-    loadChildren: () => import('./usuario_base/registro-usuario/registro-usuario.module').then( m => m.RegistroUsuarioPageModule)
+    loadChildren: () => import('./usuario/registro-usuario/registro-usuario.module').then( m => m.RegistroUsuarioPageModule)
   },
   {
     path: 'registro-establecimiento',
-    loadChildren: () => import('./gerente_establecimiento/registro-establecimiento/registro-establecimiento.module').then( m => m.RegistroEstablecimientoPageModule)
+    loadChildren: () => import('./establecimiento/registro-establecimiento/registro-establecimiento.module').then( m => m.RegistroEstablecimientoPageModule)
   },
 
 
