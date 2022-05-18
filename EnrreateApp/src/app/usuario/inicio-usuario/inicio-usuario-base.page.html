@@ -1,9 +1,52 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>inicio_usuario_base</ion-title>
+    <ion-buttons>
+      <ion-button slot="start" (click)="activarMenuUsuario()">
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
+<ion-menu side="start" menuId="menu-inicio-usuario" contentId="contenidoPrincipal">
+  <ion-header>
+    <ion-toolbar class="toolbar-inicio-usuario">
+      <!--***METER NOMBRE DE USUARIO o Algo así***-->
+      <ion-title>NOMBRE USUARIO</ion-title>
 
-<ion-content>
-
+      <ion-buttons slot="primary">
+        <ion-button (click)="activarMenuUsuario()">
+          <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <!--El ion-menu-toggle hace que al pulsar cualquier cosa dentro de el, el menú se cierre tambien-->
+      <ion-menu-toggle>
+        <ion-item (click)="clickItem1Menu()">
+          <ion-icon name="log-out-outline"></ion-icon>
+          <ion-label>&nbsp;ITEM1</ion-label>
+        </ion-item>
+        <ion-item (click)="clickItem2Menu()">
+          <ion-icon name="log-out-outline"></ion-icon>
+          <ion-label>&nbsp;ITEM2</ion-label>
+        </ion-item>
+        <ion-item (click)="clickItem3Menu()">
+          <ion-icon name="log-out-outline"></ion-icon>
+          <ion-label>&nbsp;ITEM3</ion-label>
+        </ion-item>
+        <ion-item (click)="clickItem4Menu()">
+          <ion-icon name="log-out-outline"></ion-icon>
+          <ion-label>&nbsp;ITEM4</ion-label>
+        </ion-item>
+        <ion-item (click)="clickItem5Menu()">
+          <ion-icon name="log-out-outline"></ion-icon>
+          <ion-label>&nbsp;Cerrar Sesión</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+<ion-content id="contenidoPrincipal">
 </ion-content>
