@@ -1,4 +1,21 @@
 .toolbar-inicio-usuario{
     background-color:  rgb(161, 12, 211);
+}
 
+.toolbar-inicio-usuario {
+    --background: var(--ion-background-color,linear-gradient(to  left,rgb(161, 12, 211), rgb(194, 112, 36))) !important;
+    color:white;
+}
+
+.titulo-toolbar-inicio-usuario{
+    font-size: 14px;
+}
+
+
+.content-menu{
+    --ion-background-color: rgb(210, 167, 127);
+}
+
+.toolbar-pagina{
+    --ion-background-color: rgb(161, 12, 211);
 }

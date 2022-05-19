@@ -30,6 +30,10 @@ const routes: Routes = [
     path: 'inicio-establecimiento',
     loadChildren: () => import('./establecimiento/inicio-establecimiento/inicio-establecimiento/inicio-establecimiento.module').then( m => m.InicioEstablecimientoPageModule)
   },
+  {
+    path: 'perfil-usuario',
+    loadChildren: () => import('./usuario/perfil-usuario/perfil-usuario.module').then( m => m.PerfilUsuarioPageModule)
+  },
 
 
 
