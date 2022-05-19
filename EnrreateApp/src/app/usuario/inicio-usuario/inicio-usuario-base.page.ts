@@ -75,7 +75,7 @@ export class InicioUsuarioBasePage implements OnInit {
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
 
-      this.getAddressFromCoords(resp.coords.latitude, resp.coords.longitude);
+      this.getDireccionDesdeCoordenadas(resp.coords.latitude, resp.coords.longitude);
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapaOpciones);
 
@@ -84,7 +84,7 @@ export class InicioUsuarioBasePage implements OnInit {
         this.latitud = this.map.center.lat();
         this.longitud = this.map.center.lng();
 
-        this.getAddressFromCoords(this.map.center.lat(), this.map.center.lng())
+        this.getDireccionDesdeCoordenadas(this.map.center.lat(), this.map.center.lng())
       });
 
     }).catch((error) => {
@@ -92,7 +92,7 @@ export class InicioUsuarioBasePage implements OnInit {
     });
   }
 
-  getAddressFromCoords(latitud, longitud) {
+  getDireccionDesdeCoordenadas(latitud, longitud) {
     console.log("LATITUD: " + latitud + "LONGITUD: " + longitud);
     let options: NativeGeocoderOptions = {
       useLocale: true,
