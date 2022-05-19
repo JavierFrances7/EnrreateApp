@@ -88,12 +88,12 @@ export class InicioUsuarioBasePage implements OnInit {
       });
 
     }).catch((error) => {
-      console.log('Error getting location', error);
+      console.log('Error obteniendo ubicacion', error);
     });
   }
 
   getAddressFromCoords(latitud, longitud) {
-    console.log("getAddressFromCoords " + latitud + " " + longitud);
+    console.log("LATITUD: " + latitud + "LONGITUD: " + longitud);
     let options: NativeGeocoderOptions = {
       useLocale: true,
       maxResults: 5
