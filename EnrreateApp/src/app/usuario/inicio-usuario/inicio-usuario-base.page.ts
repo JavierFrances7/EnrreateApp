@@ -29,68 +29,86 @@ export class InicioUsuarioBasePage implements OnInit {
     this.cargarMapa();
   }
 
+
+
+  borrarLUEGO(){
+    this.router.navigate(['/inicio-establecimiento']);
+  }
+
+//MÉTODOS MENÚ
+  //Método que 
+    clickItem1Menu(){
+        this.router.navigate(['/registro-usuario']);
+    }
+  //Método que redirecciona hacia el perfil de usuario
+    verPerfil(){
+      this.router.navigate(['/perfil-usuario']);
+    }
+
+    irLoginApp(){
+      this.router.navigate(['/home']);    
+    }
+
   //Método que detecta si el menú esta abierto (si es así lo cierra) y viceversa
-  activarMenuUsuario(){
-    this.menuCtrl.toggle();
-  }
-
- clickItem1Menu(){
-      this.router.navigate(['/registro-usuario']);
-  }
+    activarMenuUsuario(){
+      this.menuCtrl.toggle();
+    }
+  //FIN MÉTODOS MENÚ
 
 
-//Método que cierra la sesión del usuario  
-  async cerrarSesionUsuario(){
-    this.firebaseAuthService.logoutUser()
-    .then((data) => {
-      console.log("Logout Exitoso");
-      this.firebaseAuthService.userDetails()
-        .subscribe(data => {
-          console.log(data);
-        });
-        this.router.navigate(['/home']);
-    })
-    .catch((error) => {
-      console.log("Error en el logout: " + error);
-    });
-  }
-
-  verPerfil(){
-    this.router.navigate(['/perfil-usuario']);
-  }
-
-  cargarMapa() {
-    var options = {
-      timeout: 20000 //sorry I use this much milliseconds
-  }
-    this.geolocation.getCurrentPosition().then((resp) => {
-
-      this.latitud = resp.coords.latitude;
-      this.longitud = resp.coords.longitude;
-
-      let latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
-      let mapaOpciones = {
-        center: latLng,
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      }
-
-      this.getDireccionDesdeCoordenadas(resp.coords.latitude, resp.coords.longitude);
-
-      this.map = new google.maps.Map(this.mapElement.nativeElement, mapaOpciones);
-
-      this.map.addListener('dragend', () => {
-
-        this.latitud = this.map.center.lat();
-        this.longitud = this.map.center.lng();
-
-        this.getDireccionDesdeCoordenadas(this.map.center.lat(), this.map.center.lng())
+//MÉTODOS LOGOUT
+  //Método que cierra la sesión del usuario  
+    async cerrarSesionUsuario(){
+      this.firebaseAuthService.logoutUser()
+      .then((data) => {
+        console.log("Logout Exitoso");
+        this.firebaseAuthService.userDetails()
+          .subscribe(data => {
+            console.log(data);
+          });
+          this.irLoginApp();
+      })
+      .catch((error) => {
+        console.log("Error en el logout: " + error);
       });
+    }
+//FIN MÉTODOS LOGOUT
 
-    }).catch((error) => {
-      console.log('Error obteniendo ubicacion', error);
-    });
-  }
+
+//MÉTODOS MAPA
+    //Método que carga el mapa
+    cargarMapa() {
+      var options = {
+        timeout: 20000
+    }
+      this.geolocation.getCurrentPosition().then((resp) => {
+
+        this.latitud = resp.coords.latitude;
+        this.longitud = resp.coords.longitude;
+
+        let latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
+        let mapaOpciones = {
+          center: latLng,
+          zoom: 12,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+
+        this.getDireccionDesdeCoordenadas(resp.coords.latitude, resp.coords.longitude);
+
+        this.map = new google.maps.Map(this.mapElement.nativeElement, mapaOpciones);
+
+        this.map.addListener('dragend', () => {
+
+          this.latitud = this.map.center.lat();
+          this.longitud = this.map.center.lng();
+
+          this.getDireccionDesdeCoordenadas(this.map.center.lat(), this.map.center.lng())
+        });
+
+      }).catch((error) => {
+        console.log('Error obteniendo ubicacion', error);
+      });
+    }
 
   getDireccionDesdeCoordenadas(latitud, longitud) {
     console.log("LATITUD: " + latitud + "LONGITUD: " + longitud);

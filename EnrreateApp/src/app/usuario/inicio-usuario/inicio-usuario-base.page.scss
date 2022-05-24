@@ -1,8 +1,16 @@
-.toolbar-inicio-usuario{
-    background-color:  rgb(161, 12, 211);
+//ESTILOS TOOLBAR
+
+.toolbar-pagina{
+  --ion-background-color: rgb(161, 12, 211);
+  color:white;
+
 }
 
-.toolbar-inicio-usuario {
+//FIN ESTILOS TOOLBAR
+
+//ESTILOS MENU LATERAL
+
+.toolbar-menu-usuario {
     --background: var(--ion-background-color,linear-gradient(to  left,rgb(161, 12, 211), rgb(194, 112, 36))) !important;
     color:white;
 }
@@ -16,12 +24,10 @@
     --ion-background-color: rgb(210, 167, 127);
 }
 
-.toolbar-pagina{
-    --ion-background-color: rgb(161, 12, 211);
-}
+// FIN ESTILOS MENU LATERAL
 
 
-//CSS PARA EL MAPA
+//ESTILOS MAPA
 
 #map_canvas {
     width: 90%;
@@ -56,4 +62,4 @@
     }
   }
 
-  //FIN CSS MAPA
+  //FIN ESTILOS MAPA

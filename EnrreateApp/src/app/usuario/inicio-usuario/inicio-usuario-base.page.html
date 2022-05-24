@@ -4,6 +4,11 @@
       <ion-button slot="start" (click)="activarMenuUsuario()">
         <ion-icon slot="icon-only" name="menu"></ion-icon>
       </ion-button>
+
+      <ion-button slot="start" (click)="borrarLUEGO()">
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+      </ion-button>
+
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -12,7 +17,7 @@
 
 <ion-menu side="start" menuId="menu-inicio-usuario" contentId="contenidoPrincipal">
   <ion-header>
-    <ion-toolbar class="toolbar-inicio-usuario">
+    <ion-toolbar class="toolbar-menu-usuario">
       <!--***CAMBIAR LA RUTA DE LA IMAGEN Y NOMBRE DE USUARIO***-->
       <!--El ion chip es como un boton que contiene la foto del usuario y su nombre-->
       <ion-chip (click)="verPerfil()">
@@ -34,20 +39,20 @@
       <!--El ion-menu-toggle hace que al pulsar cualquier cosa dentro de el, el menú se cierre tambien-->
       <ion-menu-toggle>
         <ion-item (click)="clickItem1Menu()" class="list-menu">
-          <ion-icon name="log-out-outline"></ion-icon>
-          <ion-label>&nbsp;ITEM1</ion-label>
+          <ion-icon name="calendar-number-outline"></ion-icon>
+          <ion-label>&nbsp;Eventos Guardados</ion-label>
         </ion-item>
         <ion-item (click)="clickItem2Menu()">
-          <ion-icon name="log-out-outline"></ion-icon>
-          <ion-label>&nbsp;ITEM2</ion-label>
+          <ion-icon name="notifications-outline"></ion-icon>
+          <ion-label>&nbsp;Notificaciones</ion-label>
         </ion-item>
-        <ion-item (click)="clickItem3Menu()">
-          <ion-icon name="log-out-outline"></ion-icon>
-          <ion-label>&nbsp;ITEM3</ion-label>
+        <ion-item (click)="clickMenuVerPerfil()">
+          <ion-icon name="person-outline"></ion-icon>
+          <ion-label>&nbsp;Perfil</ion-label>
         </ion-item>
         <ion-item (click)="clickItem4Menu()">
-          <ion-icon name="log-out-outline"></ion-icon>
-          <ion-label>&nbsp;ITEM4</ion-label>
+          <ion-icon name="settings-outline"></ion-icon>
+          <ion-label>&nbsp;Configuración</ion-label>
         </ion-item>
         <ion-item (click)="cerrarSesionUsuario()">
           <ion-icon name="log-out-outline"></ion-icon>
