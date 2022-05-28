@@ -1,19 +1,18 @@
 export class Usuario {
-    uid: string;
+    uidUsuario: string;
     nombre:string;
     apellidos:string;
     nombreUsuario:string;
     correo:string;
-    fechaNacimiento:string;
+    fechaNacimiento:Date;
     //Esta es para el login con google
-    displayName:string;
 
     constructor() {
     }
 
     public static createFromJsonObject(jsonObject: any): Usuario {
         let usuario: Usuario = new Usuario();
-        usuario.uid = jsonObject['uidUsuario'];
+        usuario.uidUsuario = jsonObject['uidUsuario'];
         usuario.nombre = jsonObject['nombre'];
         usuario.apellidos = jsonObject['apellidos'];
         usuario.nombreUsuario = jsonObject['nombreUsuario'];  

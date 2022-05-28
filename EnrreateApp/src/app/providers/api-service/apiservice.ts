@@ -6,14 +6,13 @@ import { Usuario } from 'src/app/modelo/usuario';
 @Injectable()
 export class ApiServiceProvider {
  
-    private URL = "/api/usuarios";
+    private URL = "http://127.0.0.1:8099/api";
  
     constructor(public http: HttpClient) {
     }
  
 
     getUsuarios(): Promise<Usuario[]> {
-        console.log
         let promise = new Promise<Usuario[]>((resolve, reject) => {
             this.http.get(this.URL +"/usuarios").toPromise()
                 .then((data: any) => {

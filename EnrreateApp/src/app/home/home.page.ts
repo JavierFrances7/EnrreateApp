@@ -13,22 +13,22 @@ import { FirebaseAuthService } from '../providers/firebase-auth-service';
 export class HomePage implements OnInit{
 
   private validation_login: FormGroup;
-  usuarios: Usuario[] = new Array();
-
-
+  private usuarios = new Array<Usuario>();
   constructor(public firebaseAuthService: FirebaseAuthService, private router: Router, public formBuilder: FormBuilder, public apiServiceProvider : ApiServiceProvider) {}
 
+ngOnInit()  {
 
-  ngOnInit()  {
     this.apiServiceProvider.getUsuarios()
       .then((usuarios: Usuario[]) => {
         this.usuarios = usuarios;
-        console.log("USUARIOS" +this.usuarios);
+        console.log(this.usuarios);
 
       })
       .catch((error: string) => {
         console.log(error);
       });
+
+
 
     //Inicializamos el formulario reactivo que controlará el formato del email y que la contraseña no se deje vacía.
     this.validation_login = this.formBuilder.group({
