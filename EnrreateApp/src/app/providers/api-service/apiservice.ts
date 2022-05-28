@@ -1,35 +1,37 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Usuario } from 'src/app/modelo/usuario';
 
  
 @Injectable()
 export class ApiServiceProvider {
  
-    private URL = "http://localhost:3000";
+    private URL = "/api/usuarios";
  
     constructor(public http: HttpClient) {
     }
  
- /*
-    getHoteles(): Promise<Hotel[]> {
-        let promise = new Promise<Hotel[]>((resolve, reject) => {
-            this.http.get(this.URL + "/hoteles").toPromise()
+
+    getUsuarios(): Promise<Usuario[]> {
+        console.log
+        let promise = new Promise<Usuario[]>((resolve, reject) => {
+            this.http.get(this.URL +"/usuarios").toPromise()
                 .then((data: any) => {
-                    let hoteles = new Array<Hotel>();
-                    data.forEach(hotelJson => {
-                        let cliente = Hotel.createFromJsonObject(hotelJson);
-                        hoteles.push(cliente);
+                    let usuarios = new Array<Usuario>();
+                    data.forEach(usuarioJson => {
+                        let usuario = Usuario.createFromJsonObject(usuarioJson);
+                        usuarios.push(usuario);
                     });
-                    resolve(hoteles);
+                    resolve(usuarios);
                 })
                 .catch((error: Error) => {
                     reject(error.message);
                 });
         });
         return promise;
-    }//end_getClientes
+    }//end_getUsuarios
     
-    */
+   
    
  /*
     insertarFactura(nuevaFactura: Factura): Promise<Factura> {
