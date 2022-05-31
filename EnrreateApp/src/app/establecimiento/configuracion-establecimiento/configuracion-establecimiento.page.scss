@@ -1,0 +1,73 @@
+//ESTILOS TOOLBAR
+
+.toolbar-pagina{
+  --background: var(--ion-background-color,linear-gradient(to  left,rgb(161, 12, 211), rgb(194, 112, 36))) !important;
+  color:white;
+}
+
+.titulo-pagina{
+  font-size: 12px;
+  width: auto;
+  margin-left: -20px;
+}
+
+//FIN ESTILOS TOOLBAR
+
+.toolbar-menu-establecimiento {
+  --background: var(--ion-background-color,linear-gradient(to  left,rgb(161, 12, 211), rgb(194, 112, 36))) !important;
+  color:white;
+}
+
+.titulo-toolbar-inicio-establecimiento{
+  font-size: 14px;
+}
+
+//ESTILOS MENU LATERAL 
+
+.content-menu{
+  --ion-background-color: rgb(210, 167, 127);
+}
+
+// FIN ESTILOS MENU LATERAL
+//ESTILOS MAPA
+
+#map_canvas {
+    width: 90%;
+    height: 80%;
+    border: 1px solid red;
+  }
+  
+  
+  #address {
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  #map {
+    width: 100%;
+    height: 88vh;
+  }
+  
+  .map-wrapper {
+    position: relative;
+  
+    #map_center {
+      position: absolute;
+      z-index: 99;
+      height: 40px;
+      width: 40px;
+      top: 50%;
+      left: 50%;
+      margin-left: -21px;
+      margin-top: -41px;
+    }
+  }
+
+  //FIN ESTILOS MAPA
+
+  //CONTENEDOR SUPERIOR
+
+  .contenedor-superior{
+    --ion-background-color: rgb(254, 219, 188);
+  }

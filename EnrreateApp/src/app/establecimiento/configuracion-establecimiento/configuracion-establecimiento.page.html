@@ -1,10 +1,71 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>configuracion-establecimiento</ion-title>
-  </ion-toolbar>
-</ion-header>
+  <!--MENU LATERAL-->
+  <ion-header>
+    <ion-toolbar class="toolbar-pagina">
+      <ion-buttons>
+        <ion-button slot="start" (click)="activarMenuEstablecimiento()">
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+        <ion-title class="titulo-pagina">Situa tu establecimiento</ion-title>        
+      </ion-buttons>
 
-<ion-content>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-menu side="start" menuId="menu-inicio-establecimiento" contentId="contenidoPrincipal">
+    <ion-header>
+      <ion-toolbar class="toolbar-menu-establecimiento">
+        <!--***CAMBIAR LA RUTA DE LA IMAGEN Y NOMBRE DE ESTABLECIMIENTO***-->
+        <!--El ion chip es como un boton que contiene la foto del establecimiento y su nombre-->
+        <ion-chip (click)="clickMenuVerPerfil()">
+          <ion-avatar>
+            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+          </ion-avatar>
+          <ion-label>NOMBRE DE ESTABLECIMIENTO</ion-label>
+        </ion-chip>
+        <ion-buttons slot="primary">
+          <ion-button (click)="activarMenuEstablecimiento()">
+            <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+  
+    <ion-content class="content-menu">
+      <ion-list class="list-menu">
+        <!--El ion-menu-toggle hace que al pulsar cualquier cosa dentro de el, el menú se cierre tambien-->
+        <ion-menu-toggle>
+          <ion-item (click)="clickItem1Menu()" class="list-menu">
+            <ion-icon name="stats-chart-outline"></ion-icon>
+            <ion-label>&nbsp;Estadísticas</ion-label>
+          </ion-item>
+          <ion-item (click)="clickItem2Menu()">
+            <ion-icon name="calendar-number-outline"></ion-icon>
+            <ion-label>&nbsp;Mis Eventos</ion-label>
+          </ion-item>
+          <ion-item (click)="clickItem3Menu()">
+            <ion-icon name="help-outline"></ion-icon>
+            <ion-label>&nbsp;Preguntas</ion-label>
+          </ion-item>
+          <ion-item (click)="clickMenuVerPerfil()">
+            <ion-icon name="storefront-outline"></ion-icon>
+            <ion-label>&nbsp;Perfil</ion-label>
+          </ion-item>
+          <ion-item (click)="clickMenuConfiguracion()">
+            <ion-icon name="settings-outline"></ion-icon>
+            <ion-label>&nbsp;Configuración</ion-label>
+          </ion-item>
+          <ion-item (click)="cerrarSesionEstablecimiento()">
+            <ion-icon name="log-out-outline"></ion-icon>
+            <ion-label>&nbsp;Cerrar Sesión</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  
+    <!--FIN MENU LATERAL-->
+
+<ion-content class="contenedor-superior">
   <form [formGroup]="validation_configuracion_establecimiento" (ngSubmit)="onSubmit(validation_configuracion_establecimiento.value)">
               <ion-list>
                 <ion-item>
@@ -15,10 +76,16 @@
                   <ion-icon name="person-outline" class="icon-login"></ion-icon>
                   <ion-input type="name" placeholder="Nombre Gestor" formControlName="nombreGestor"></ion-input>
                 </ion-item>
-                <ion-item>
-                  <ion-icon name="mail-outline" class="icon-login"></ion-icon>
-                  <ion-input type="email" placeholder="Correo" formControlName="correo"></ion-input>
-                </ion-item>
-              </ion-list>
+              </ion-list>      
   </form>
+  <ion-content id="contenidoPrincipal">
+    <div class="map-wrapper">
+      <div id="map_center">
+        <img class="marker-centro" src="assets/icon/marker-mapa.png" />
+      </div>
+      <div #map id="map"></div>
+    </div>
+    
+  </ion-content>
 </ion-content>
+

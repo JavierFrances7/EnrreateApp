@@ -26,6 +26,11 @@ export class InicioEstablecimientoPage implements OnInit {
     this.router.navigate(['/perfil-establecimiento']);
   }
 
+  //Método que redirecciona hacia el perfil del establecimiento
+  clickMenuConfiguracion(){
+    this.router.navigate(['/configuracion-establecimiento']);
+  }
+
   //Método que detecta si el menú esta abierto (si es así lo cierra) y viceversa
     activarMenuEstablecimiento(){
         this.menuCtrl.toggle();
