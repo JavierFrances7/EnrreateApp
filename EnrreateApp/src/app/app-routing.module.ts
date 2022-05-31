@@ -38,6 +38,10 @@ const routes: Routes = [
     path: 'perfil-establecimiento',
     loadChildren: () => import('./establecimiento/perfil-establecimiento/perfil-establecimiento.module').then( m => m.PerfilEstablecimientoPageModule)
   },
+  {
+    path: 'configuracion-establecimiento',
+    loadChildren: () => import('./establecimiento/configuracion-establecimiento/configuracion-establecimiento.module').then( m => m.ConfiguracionEstablecimientoPageModule)
+  },
 
 
 

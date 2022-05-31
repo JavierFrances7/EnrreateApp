@@ -13,9 +13,9 @@
     </ion-row>
 
   </ion-grid>
-  <form [formGroup]="validation_registro_usuario" (ngSubmit)="onSubmit(validation_registro_usuario.value)">
     <ion-slide>
       <div class="div-login">
+        <form [formGroup]="validation_registro_usuario" (ngSubmit)="onSubmit(validation_registro_usuario.value)">
         <ion-grid>
           <ion-row>
             <ion-col>
@@ -27,11 +27,19 @@
               <ion-list>
                 <ion-item>
                   <ion-icon name="person-outline" class="icon-login"></ion-icon>
-                  <ion-input type="name" placeholder="Nombre y Apellidos"></ion-input>
+                  <ion-input type="text" placeholder="Nombre" formControlName="nombre"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-icon name="person-outline" class="icon-login"></ion-icon>
+                  <ion-input type="text" placeholder="Apellidos" formControlName="apellidos"></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-icon name="people-outline" class="icon-login"></ion-icon>
-                  <ion-input type="name" placeholder="Nombre Usuario"></ion-input>
+                  <ion-input type="text" placeholder="Nombre Usuario" formControlName="nombreUsuario"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-icon name="calendar-outline" class="icon-login"></ion-icon>
+                  <ion-input type="date" placeholder="Calendario" formControlName="fechaNacimiento"></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-icon name="mail-outline" class="icon-login"></ion-icon>
@@ -65,7 +73,7 @@
             </ion-col>
           </ion-row>
         </ion-grid>
+      </form>
       </div>
     </ion-slide>
-  </form>
 </ion-content>

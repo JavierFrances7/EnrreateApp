@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>configuracion-establecimiento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="validation_configuracion_establecimiento" (ngSubmit)="onSubmit(validation_configuracion_establecimiento.value)">
+              <ion-list>
+                <ion-item>
+                  <ion-icon name="storefront-outline" class="icon-login"></ion-icon>
+                  <ion-input type="name" placeholder="Nombre Comercial" formControlName="nombreEstablecimiento"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-icon name="person-outline" class="icon-login"></ion-icon>
+                  <ion-input type="name" placeholder="Nombre Gestor" formControlName="nombreGestor"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-icon name="mail-outline" class="icon-login"></ion-icon>
+                  <ion-input type="email" placeholder="Correo" formControlName="correo"></ion-input>
+                </ion-item>
+              </ion-list>
+  </form>
+</ion-content>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder,FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Usuario } from 'src/app/modelo/usuario';
+import { ApiServiceProvider } from 'src/app/providers/api-service/apiservice';
 import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
 
 @Component({
@@ -9,30 +11,47 @@ import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
   styleUrls: ['./registro-usuario.page.scss'],
 })
 export class RegistroUsuarioPage implements OnInit {
-
+  
+  //Inicializamos el usuario al que le cargaremos los datos del formulario de registro
+  usuario: Usuario=new Usuario();
   private validation_registro_usuario: FormGroup;
 
 
-  constructor(public firebaseAuthService: FirebaseAuthService, private router: Router, public formBuilder: FormBuilder) { }
+  constructor(public firebaseAuthService: FirebaseAuthService, private router: Router, public formBuilder: FormBuilder, public apiService : ApiServiceProvider) { }
 
   ngOnInit() {
         //Inicializamos el formulario reactivo que controlará el formato del email y que la contraseña no se deje vacía.
         this.validation_registro_usuario = this.formBuilder.group({
+          nombre: new FormControl('', Validators.compose([
+            Validators.required
+          ])),
+          apellidos: new FormControl('', Validators.compose([
+            Validators.required
+          ])),      
+          nombreUsuario: new FormControl('', Validators.compose([
+            Validators.required
+          ])),
+          fechaNacimiento: new FormControl('', Validators.compose([
+            Validators.required
+          ])),
           correo: new FormControl('', Validators.compose([
             Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]     
             )),
-          contrasena: new FormControl('', Validators.compose([
-            Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}'),
-          ])),
-          contrasenaConfirmada: new FormControl('', Validators.compose([
-            Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}'),
-          ]))
+            contrasena: new FormControl('', Validators.compose([
+              Validators.required
+            ])),
+            contrasenaConfirmada: new FormControl('', Validators.compose([
+                Validators.required]))
           });
   }
 
   onSubmit(values) {
-    //Al pulsar el boton de sumbit se inicia el metodo login con los valores del formulario.
-    this.registroUsuario(values['correo'], values['contrasena'])
+    this.usuario.nombre=values['nombre'];
+    this.usuario.apellidos=values['apellidos'];
+    this.usuario.nombreUsuario=values['nombreUsuario'];
+    this.usuario.fechaNacimiento=values['fechaNacimiento'];
+    this.usuario.correo=values['correo'];
+    this.registroUsuario(values['correo'], values['contrasena']);
     }
 
 //Método asíncrono que registra a un nuevo usuario en la aplicación
@@ -45,7 +64,8 @@ async registroUsuario(email:string, contrasena:string){
     console.log("Registro Usuario Exitoso");
     this.firebaseAuthService.userDetails()
       .subscribe(data => {
-        console.log(data);
+        this.usuario.uidUsuario=data.uid;
+        this.apiService.insertarUsuario(this.usuario);
       });
       this.router.navigate(['/home']);
   })

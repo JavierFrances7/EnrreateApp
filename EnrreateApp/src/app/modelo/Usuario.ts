@@ -1,14 +1,11 @@
 export class Usuario {
-    uidUsuario: string;
-    nombre:string;
-    apellidos:string;
-    nombreUsuario:string;
-    correo:string;
-    fechaNacimiento:Date;
+    uidUsuario: string=null;
+    nombre:string=null;
+    apellidos:string=null;
+    nombreUsuario:string=null;
+    correo:string=null;
+    fechaNacimiento:Date=null;
     //Esta es para el login con google
-
-    constructor() {
-    }
 
     public static createFromJsonObject(jsonObject: any): Usuario {
         let usuario: Usuario = new Usuario();
