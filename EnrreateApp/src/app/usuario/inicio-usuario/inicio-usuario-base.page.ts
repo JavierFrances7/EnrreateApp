@@ -4,6 +4,9 @@ import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@io
 import { MenuController } from '@ionic/angular';
 import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
+import { Establecimiento } from 'src/app/modelo/Establecimiento';
+import { ApiServiceProvider } from 'src/app/providers/api-service/apiservice';
+
 
 
 declare var google;
@@ -17,19 +20,38 @@ export class InicioUsuarioBasePage implements OnInit {
 
   @ViewChild('map', { static: false }) mapElement: ElementRef;
   map: any;
-  direccion: string;
+  establecimientos = new Array<Establecimiento>();
+  infoWindows: any;
 
+  direccion: string;
   latitud: number;
   longitud: number;
 
 
-  constructor(private menuCtrl : MenuController, private router: Router, public firebaseAuthService: FirebaseAuthService, private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder) { }
-
-  ngOnInit() {
-    this.cargarMapa();
+  constructor(private menuCtrl : MenuController, private router: Router, public firebaseAuthService: FirebaseAuthService, private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder,public apiServiceProvider: ApiServiceProvider) { 
+    this.infoWindows = [];
   }
 
+  ngOnInit() {
+    
+    //Obtenemos los establecimientos de la base de datos
+    this.apiServiceProvider.getEstablecimientos()
+      .then((establecimientos: Establecimiento[]) => {
+        this.establecimientos = establecimientos;
+      
+      //Cargamos el mapa una vez obtenidos los establecimientos
+      if(this.establecimientos!=null){
+        this.cargarMapa();
+      }
 
+      })
+      .catch((error: string) => {
+        console.log(error);
+      });
+
+
+
+  }
 
   borrarLUEGO(){
     this.router.navigate(['/inicio-establecimiento']);
@@ -54,6 +76,7 @@ export class InicioUsuarioBasePage implements OnInit {
       this.menuCtrl.toggle();
     }
   //FIN MÉTODOS MENÚ
+
 
 
 //MÉTODOS LOGOUT
@@ -93,51 +116,65 @@ export class InicioUsuarioBasePage implements OnInit {
           mapTypeId: google.maps.MapTypeId.ROADMAP
         }
 
-        this.getDireccionDesdeCoordenadas(resp.coords.latitude, resp.coords.longitude);
-
         this.map = new google.maps.Map(this.mapElement.nativeElement, mapaOpciones);
 
-        this.map.addListener('dragend', () => {
-
-          this.latitud = this.map.center.lat();
-          this.longitud = this.map.center.lng();
-
-          this.getDireccionDesdeCoordenadas(this.map.center.lat(), this.map.center.lng())
-        });
+      //Recorremos los establecimientos recogidos de la base de datos y los posicionamos en el mapa
+      for (let inx in this.establecimientos){
+        this.anadirEstablecimientosMapa(this.establecimientos[inx]);
+    }
 
       }).catch((error) => {
         console.log('Error obteniendo ubicacion', error);
       });
     }
 
-  getDireccionDesdeCoordenadas(latitud, longitud) {
-    console.log("LATITUD: " + latitud + "LONGITUD: " + longitud);
-    let options: NativeGeocoderOptions = {
-      useLocale: true,
-      maxResults: 5
-    };
 
-    this.nativeGeocoder.reverseGeocode(latitud, longitud, options)
-      .then((result: NativeGeocoderResult[]) => {
-        this.direccion = "";
-        let responseAddress = [];
-        for (let [key, value] of Object.entries(result[0])) {
-          if (value.length > 0)
-            responseAddress.push(value);
+  anadirEstablecimientosMapa(establecimiento:Establecimiento) {
+    //Si se le cambia el nombre a la constante position deja de funcionar, ya que google no reconoce el parametro
+    const position = new google.maps.LatLng(establecimiento.latitud, establecimiento.longitud);
+    const establecimientoMarker = new google.maps.Marker({ position, title: establecimiento.nombreEstablecimiento });
+    this.anadeInfoWindowMarker(establecimientoMarker, establecimiento);
+    establecimientoMarker.setMap(this.map);
+    console.log("MARKER INSERTADO")
+  }
 
-        }
-        responseAddress.reverse();
-        for (let value of responseAddress) {
-          this.direccion += value + ", ";
-        }
-        this.direccion = this.direccion.slice(0, -2);
+//Metodo que crea una infoWindow personalizada al pulsar sobre un marker 
+
+  anadeInfoWindowMarker(marker, establecimiento:Establecimiento) {
+
+   //Variable que almacena el contenido en formato HTML para insertar en cada marker 
+    var infoWindowContent = '<div id="contentInfoWindow" class="contenedor-infowindow">' +
+    '<ion-avatar><img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"></ion-avatar>' +
+    '<h4 id="tituloInfowindow" class="titulo-infowindow">' + establecimiento.nombreEstablecimiento + '</h4>' +
+    '<p id="direccionInfowindow" class="direccion-infowindow">' + establecimiento.direccion + '</p>' +
+    '<ion-button id="botonIrAEstablecimiento" class="boton-infowindow-ir-establecimiento"> IR a ' + establecimiento.nombreEstablecimiento + '</ion-button>' +
+    '<ion-button id="botonVerPerfilEstablecimiento" class="boton-infowindow-ver-perfil"> VER PERIL </ion-button>' +
+    '</div>';
+    var infoWindow = new google.maps.InfoWindow({
+      content: infoWindowContent
+    });
+    marker.addListener('click', () => {
+      this.cerrarTodasInfoWindows();
+      infoWindow.open(this.map, marker);
+    });
+
+    //Una vez el DOM este listo le añadimos un listener al boton dentro de la infowindow
+    google.maps.event.addListener(infoWindow, 'domready', function() {
+      google.maps.event.addDomListener(document.getElementById("botonVerPerfilEstablecimiento"), 'click', function(e) {
+
+        //TODO: AQUI HAY QUE IMPLEMENTAR CODIGO QUE REDIRECCIONE A UNA PAGINA DONDE SE VE EL PERFIL DEL 
+          console.log(establecimiento.nombreEstablecimiento);
       })
-      .catch((error: any) => {
-        this.direccion = "Direccion no Disponible";
-      });
+    });
+    this.infoWindows.push(infoWindow);
 
   }
 
+
+  cerrarTodasInfoWindows() {
+    for(let window of this.infoWindows) {
+      window.close();
+    }
+  //FIN METODOS MAPA
 }
-
-
+}

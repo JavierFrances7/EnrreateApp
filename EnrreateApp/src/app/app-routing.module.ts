@@ -42,6 +42,10 @@ const routes: Routes = [
     path: 'configuracion-establecimiento',
     loadChildren: () => import('./establecimiento/configuracion-establecimiento/configuracion-establecimiento.module').then( m => m.ConfiguracionEstablecimientoPageModule)
   },
+  {
+    path: 'cliente-ver-perfil-establecimiento',
+    loadChildren: () => import('./usuario/cliente-ver-perfil-establecimiento/cliente-ver-perfil-establecimiento.module').then( m => m.ClienteVerPerfilEstablecimientoPageModule)
+  },
 
 
 

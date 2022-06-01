@@ -5,6 +5,13 @@ export class Establecimiento {
     correo:string;
     displayName:string;
     verificadoAdmin: boolean;
+    latitud:number;
+    longitud:number;
+    ciudad:string;
+    direccion:string;
+    aforoMaximo:number;
+	valoracionMedia:number;
+
 
     constructor() {
     }
@@ -17,6 +24,12 @@ export class Establecimiento {
         establecimiento.correo = jsonObject['correo'];
         establecimiento.displayName = jsonObject['displayName'];
         establecimiento.verificadoAdmin = jsonObject['verificadoAdmin'];
+        establecimiento.latitud = jsonObject['latitud'];
+        establecimiento.longitud = jsonObject['longitud'];
+        establecimiento.ciudad = jsonObject['ciudad'];
+        establecimiento.direccion = jsonObject['direccion'];
+        establecimiento.aforoMaximo = jsonObject['aforoMaximo'];
+        establecimiento.valoracionMedia = jsonObject['valoracionMedia'];
         return establecimiento;
 }
 }
