@@ -113,15 +113,18 @@ export class InicioUsuarioBasePage implements OnInit {
         let mapaOpciones = {
           center: latLng,
           zoom: 12,
+          mapTypeControl: false,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         }
 
         this.map = new google.maps.Map(this.mapElement.nativeElement, mapaOpciones);
+        
 
       //Recorremos los establecimientos recogidos de la base de datos y los posicionamos en el mapa
       for (let inx in this.establecimientos){
         this.anadirEstablecimientosMapa(this.establecimientos[inx]);
     }
+    
 
       }).catch((error) => {
         console.log('Error obteniendo ubicacion', error);
@@ -143,12 +146,27 @@ export class InicioUsuarioBasePage implements OnInit {
   anadeInfoWindowMarker(marker, establecimiento:Establecimiento) {
 
    //Variable que almacena el contenido en formato HTML para insertar en cada marker 
-    var infoWindowContent = '<div id="contentInfoWindow" class="contenedor-infowindow">' +
-    '<ion-avatar><img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"></ion-avatar>' +
-    '<h4 id="tituloInfowindow" class="titulo-infowindow">' + establecimiento.nombreEstablecimiento + '</h4>' +
-    '<p id="direccionInfowindow" class="direccion-infowindow">' + establecimiento.direccion + '</p>' +
-    '<ion-button id="botonIrAEstablecimiento" class="boton-infowindow-ir-establecimiento"> IR a ' + establecimiento.nombreEstablecimiento + '</ion-button>' +
-    '<ion-button id="botonVerPerfilEstablecimiento" class="boton-infowindow-ver-perfil"> VER PERIL </ion-button>' +
+    var infoWindowContent = '<div id="contentInfoWindow">' +
+    '<ion-grid>'+
+      //Primera fila del grid
+    '<ion-row><ion-col size="3"></ion-col><ion-col size="6">'+
+    '<ion-avatar id="botonVerPerfilEstablecimiento"><img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"></ion-avatar>' +
+    '</ion-col><ion-col size="3"></ion-col></ion-row>'+
+      //Segunda fila del grid
+    '<ion-row><ion-col size="2"></ion-col><ion-col size="8">'+
+    '<p id="tituloInfowindow" style="text-transform: uppercase; text-align: center; font-weight: bold; font-size:15px;">' + establecimiento.nombreEstablecimiento + '</p>' +
+    '</ion-col><ion-col size="2"></ion-col></ion-row>'+
+    //Tercera fila del grid
+    '<ion-row><p id="direccionInfowindow"  style="text-align: left; ">' + establecimiento.direccion + '</p></ion-row>' +
+    //Cuarta fila del grid
+    '<ion-row><p id="aforoMaximoInfowindow"  style="text-align: left; ">Aforo Máximo: ' + establecimiento.aforoMaximo + '</p></ion-row>' +
+    //Quinta fila del grid
+      '<ion-row><p id="valoracionMediaInfowindow"  style="text-align: left; "><ion-icon name="star"></ion-icon>&nbsp' + establecimiento.valoracionMedia + '</p></ion-row>' +
+    //Ultima fila del grid
+    '<ion-row>'+
+    '<ion-col><ion-button id="botonIrAEstablecimiento"> IR a ' + establecimiento.nombreEstablecimiento + '</ion-button></ion-col>' +
+    '</ion-row>'+
+    '</ion-grid>'+
     '</div>';
     var infoWindow = new google.maps.InfoWindow({
       content: infoWindowContent
@@ -160,7 +178,16 @@ export class InicioUsuarioBasePage implements OnInit {
 
     //Una vez el DOM este listo le añadimos un listener al boton dentro de la infowindow
     google.maps.event.addListener(infoWindow, 'domready', function() {
+      
+      //Listener que se activa al pulsar sobre el avatar del infowindow
       google.maps.event.addDomListener(document.getElementById("botonVerPerfilEstablecimiento"), 'click', function(e) {
+
+        //TODO: AQUI HAY QUE IMPLEMENTAR CODIGO QUE REDIRECCIONE A UNA PAGINA DONDE SE VE EL PERFIL DEL 
+          console.log(establecimiento.nombreEstablecimiento);
+      })
+
+      //Listener que se activa al pulsar sobre el boton de ir al establecimiento 
+      google.maps.event.addDomListener(document.getElementById("botonIrAEstablecimiento"), 'click', function(e) {
 
         //TODO: AQUI HAY QUE IMPLEMENTAR CODIGO QUE REDIRECCIONE A UNA PAGINA DONDE SE VE EL PERFIL DEL 
           console.log(establecimiento.nombreEstablecimiento);
