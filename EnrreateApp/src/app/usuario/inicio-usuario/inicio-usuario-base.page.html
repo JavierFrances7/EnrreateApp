@@ -1,19 +1,14 @@
-<ion-header >
+<ion-header>
   <ion-toolbar class="toolbar-pagina">
     <ion-buttons>
       <ion-button slot="start" (click)="activarMenuUsuario()">
         <ion-icon slot="icon-only" name="menu"></ion-icon>
       </ion-button>
-
-      <ion-button slot="start" (click)="borrarLUEGO()">
-        <ion-icon slot="icon-only" name="menu"></ion-icon>
-      </ion-button>
-
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-  <!--MENU LATERAL-->
+<!--MENU LATERAL-->
 
 <ion-menu side="start" menuId="menu-inicio-usuario" contentId="contenidoPrincipal">
   <ion-header>
@@ -63,7 +58,7 @@
   </ion-content>
 </ion-menu>
 
-  <!--FIN MENU LATERAL-->
+<!--FIN MENU LATERAL-->
 
 <ion-content id="contenidoPrincipal">
 
@@ -72,5 +67,5 @@
     </div>
     <div #map id="map"></div>
   </div>
-  
+
 </ion-content>
