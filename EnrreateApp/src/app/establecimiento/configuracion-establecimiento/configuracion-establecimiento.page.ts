@@ -103,6 +103,7 @@ irLoginApp(){
         let mapaOpciones = {
           center: latLng,
           zoom: 12,
+          mapTypeControl: false,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         }
 

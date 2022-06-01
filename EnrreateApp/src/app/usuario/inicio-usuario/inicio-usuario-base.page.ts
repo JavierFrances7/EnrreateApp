@@ -164,7 +164,7 @@ export class InicioUsuarioBasePage implements OnInit {
       '<ion-row><p id="valoracionMediaInfowindow"  style="text-align: left; "><ion-icon name="star"></ion-icon>&nbsp' + establecimiento.valoracionMedia + '</p></ion-row>' +
     //Ultima fila del grid
     '<ion-row>'+
-    '<ion-col><ion-button id="botonIrAEstablecimiento"> IR a ' + establecimiento.nombreEstablecimiento + '</ion-button></ion-col>' +
+    '<ion-col><ion-button id="botonIrAEstablecimiento" expand="block" style="--background: rgb(161, 12, 211);"> IR a ' + establecimiento.nombreEstablecimiento + '</ion-button></ion-col>' +
     '</ion-row>'+
     '</ion-grid>'+
     '</div>';
