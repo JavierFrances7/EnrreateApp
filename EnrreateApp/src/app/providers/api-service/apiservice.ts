@@ -12,6 +12,9 @@ export class ApiServiceProvider {
 
     constructor(public http: HttpClient, public fireAuth: FirebaseAuthService) {
     }
+    /*------------------ MÉTODOS ADMIN ------------------*/
+    
+    /*------------------ FIN MÉTODOS ADMIN ------------------*/
 
 
     /*------------------ MÉTODOS USUARIOS ------------------*/

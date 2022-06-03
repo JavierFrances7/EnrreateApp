@@ -5,7 +5,7 @@ export class Usuario {
     nombreUsuario:string=null;
     correo:string=null;
     fechaNacimiento:Date=null;
-    //Esta es para el login con google
+    displayName:string=null;
 
     public static createFromJsonObject(jsonObject: any): Usuario {
         let usuario: Usuario = new Usuario();
@@ -15,6 +15,7 @@ export class Usuario {
         usuario.nombreUsuario = jsonObject['nombreUsuario'];  
         usuario.correo = jsonObject['correo'];              
         usuario.fechaNacimiento = jsonObject['fechaNacimiento'];
+        usuario.displayName = jsonObject['displayName'];
         return usuario;
 }
 }
