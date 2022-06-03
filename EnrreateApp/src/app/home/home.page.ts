@@ -70,28 +70,31 @@ export class HomePage implements OnInit {
         this.firebaseAuthService.userDetails()
           .subscribe(data => {
             //Comprobamos si el usuario es un establecimiento
-            for (let inx in this.establecimientos) {
+            if (data != null) {
 
-              if (data.uid == this.establecimientos[inx].uidEstablecimiento) {
+              for (let inx in this.establecimientos) {
 
-                this.router.navigate(['/inicio-establecimiento']);
+                if (data.uid == this.establecimientos[inx].uidEstablecimiento) {
 
-              } else {
+                  this.router.navigate(['/inicio-establecimiento']);
 
-                console.log("El usuario no es un establecimiento");
+                } else {
 
-                //Comprobamos si el usuario es un usuario
+                  console.log("El usuario no es un establecimiento");
 
-                for (let inx in this.usuarios) {
+                  //Comprobamos si el usuario es un usuario
 
-                  if (data.uid == this.usuarios[inx].uidUsuario) {
+                  for (let inx in this.usuarios) {
 
-                    this.router.navigate(['/inicio-usuario-base']);
+                    if (data.uid == this.usuarios[inx].uidUsuario) {
 
-                  } else {
+                      this.router.navigate(['/inicio-usuario-base']);
 
-                    console.log("El usuario no es un usuario personal");
+                    } else {
 
+                      console.log("El usuario no es un usuario personal");
+                      
+                    }
                   }
                 }
               }

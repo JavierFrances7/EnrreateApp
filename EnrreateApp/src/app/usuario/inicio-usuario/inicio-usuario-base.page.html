@@ -33,19 +33,19 @@
     <ion-list class="list-menu">
       <!--El ion-menu-toggle hace que al pulsar cualquier cosa dentro de el, el menú se cierre tambien-->
       <ion-menu-toggle>
-        <ion-item (click)="clickItem1Menu()" class="list-menu">
+        <ion-item (click)="verEventosGuardados()" class="list-menu">
           <ion-icon name="calendar-number-outline"></ion-icon>
           <ion-label>&nbsp;Eventos Guardados</ion-label>
         </ion-item>
-        <ion-item (click)="clickItem2Menu()">
+        <ion-item (click)="verNotificaciones()">
           <ion-icon name="notifications-outline"></ion-icon>
           <ion-label>&nbsp;Notificaciones</ion-label>
         </ion-item>
-        <ion-item (click)="clickMenuVerPerfil()">
+        <ion-item (click)="verPerfil()">
           <ion-icon name="person-outline"></ion-icon>
           <ion-label>&nbsp;Perfil</ion-label>
         </ion-item>
-        <ion-item (click)="clickItem4Menu()">
+        <ion-item (click)="verConfiguracion()">
           <ion-icon name="settings-outline"></ion-icon>
           <ion-label>&nbsp;Configuración</ion-label>
         </ion-item>

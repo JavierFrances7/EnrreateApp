@@ -28,7 +28,7 @@ export class InicioUsuarioBasePage implements OnInit {
   longitud: number;
 
 
-  constructor(private menuCtrl: MenuController, private router: Router, public firebaseAuthService: FirebaseAuthService, private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder, public apiServiceProvider: ApiServiceProvider) {
+  constructor(public menuCtrl: MenuController, private router: Router, public firebaseAuthService: FirebaseAuthService, private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder, public apiServiceProvider: ApiServiceProvider) {
     this.infoWindows = [];
   }
 
@@ -54,17 +54,29 @@ export class InicioUsuarioBasePage implements OnInit {
   }
 
   //MÉTODOS MENÚ
-  //Método que 
-  clickItem1Menu() {
-    this.router.navigate(['/registro-usuario']);
+  //Método que redirecciona a eventos
+  verEventosGuardados() {
+    this.router.navigate(['/eventos-usuario']);
   }
+
+  //Método que redirecciona a notificaciones
+  verNotificaciones() {
+    this.router.navigate(['/notificaciones-usuario']);
+  }
+
   //Método que redirecciona hacia el perfil de usuario
   verPerfil() {
     this.router.navigate(['/perfil-usuario']);
   }
 
+  //Método que redirecciona hacia el login de la aplicacion
   irLoginApp() {
     this.router.navigate(['/home']);
+  }
+
+  //Método que redirecciona hacia la configuracion del usuario
+  verConfiguracion(){
+    this.router.navigate(['/configuracion-usuario']);
   }
 
   //Método que detecta si el menú esta abierto (si es así lo cierra) y viceversa
@@ -72,8 +84,6 @@ export class InicioUsuarioBasePage implements OnInit {
     this.menuCtrl.toggle();
   }
   //FIN MÉTODOS MENÚ
-
-
 
   //MÉTODOS LOGOUT
   //Método que cierra la sesión del usuario  
@@ -164,6 +174,7 @@ export class InicioUsuarioBasePage implements OnInit {
       '</ion-row>' +
       '</ion-grid>' +
       '</div>';
+      
     var infoWindow = new google.maps.InfoWindow({
       content: infoWindowContent
     });
