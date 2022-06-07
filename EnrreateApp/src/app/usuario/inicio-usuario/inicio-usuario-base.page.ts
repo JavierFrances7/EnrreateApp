@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
-import { MenuController } from '@ionic/angular';
+import { MenuController, NavController } from '@ionic/angular';
 import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Establecimiento } from 'src/app/modelo/Establecimiento';
@@ -28,7 +28,8 @@ export class InicioUsuarioBasePage implements OnInit {
   longitud: number;
 
 
-  constructor(public menuCtrl: MenuController, private router: Router, public firebaseAuthService: FirebaseAuthService, private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder, public apiServiceProvider: ApiServiceProvider) {
+  constructor(public menuCtrl: MenuController, private router: Router, public firebaseAuthService: FirebaseAuthService, private geolocation: Geolocation, 
+              private nativeGeocoder: NativeGeocoder, public apiServiceProvider: ApiServiceProvider, private navCtrl: NavController) {
     this.infoWindows = [];
   }
 
@@ -48,8 +49,6 @@ export class InicioUsuarioBasePage implements OnInit {
       .catch((error: string) => {
         console.log(error);
       });
-
-
 
   }
 
@@ -71,11 +70,11 @@ export class InicioUsuarioBasePage implements OnInit {
 
   //Método que redirecciona hacia el login de la aplicacion
   irLoginApp() {
-    this.router.navigate(['/home']);
+    this.navCtrl.navigateRoot("/home");
   }
 
   //Método que redirecciona hacia la configuracion del usuario
-  verConfiguracion(){
+  verConfiguracion() {
     this.router.navigate(['/configuracion-usuario']);
   }
 
@@ -125,13 +124,15 @@ export class InicioUsuarioBasePage implements OnInit {
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapaOpciones);
 
-
       //Recorremos los establecimientos recogidos de la base de datos y los posicionamos en el mapa
       for (let inx in this.establecimientos) {
-        this.anadirEstablecimientosMapa(this.establecimientos[inx]);
+
+        //Añadimos al mapa solo los establecimientos que han sido verificados por el admin
+
+        if (this.establecimientos[inx].verificadoAdmin == true) {
+          this.anadirEstablecimientosMapa(this.establecimientos[inx]);
+        }
       }
-
-
     }).catch((error) => {
       console.log('Error obteniendo ubicacion', error);
     });
@@ -174,7 +175,7 @@ export class InicioUsuarioBasePage implements OnInit {
       '</ion-row>' +
       '</ion-grid>' +
       '</div>';
-      
+
     var infoWindow = new google.maps.InfoWindow({
       content: infoWindowContent
     });

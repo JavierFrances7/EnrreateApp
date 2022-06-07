@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { MenuController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -9,7 +9,7 @@ import { MenuController } from '@ionic/angular';
 })
 export class PerfilUsuarioPage implements OnInit {
 
-  constructor(public menuCtrl: MenuController, private router: Router) { }
+  constructor(public menuCtrl: MenuController, private router: Router, private navCtrl: NavController) { }
 
   ngOnInit() {
   }
@@ -33,7 +33,7 @@ export class PerfilUsuarioPage implements OnInit {
 
   //Método que redirecciona hacia el login de la aplicacion
   irLoginApp() {
-    this.router.navigate(['/home']);
+    this.navCtrl.navigateRoot("/home");
   }
 
   //Método que redirecciona hacia la configuracion del usuario

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Usuario } from 'src/app/modelo/usuario';
 import { Establecimiento } from 'src/app/modelo/Establecimiento';
 import { FirebaseAuthService } from '../firebase-auth-service';
+import { Administrador } from 'src/app/modelo/Administrador';
 
 
 @Injectable()
@@ -13,8 +14,50 @@ export class ApiServiceProvider {
     constructor(public http: HttpClient, public fireAuth: FirebaseAuthService) {
     }
     /*------------------ MÉTODOS ADMIN ------------------*/
-    
+
     /*------------------ FIN MÉTODOS ADMIN ------------------*/
+
+    //Método que obtiene los admins de la base de datos
+
+    getAdmins(): Promise<Administrador[]> {
+        let promise = new Promise<Administrador[]>((resolve, reject) => {
+            this.http.get(this.URL + "/administradores")
+                .toPromise()
+                .then((data: any) => {
+                    let administradores = new Array<Administrador>();
+                    data.forEach(administradorJson => {
+                        let administrador = Administrador.createFromJsonObject(administradorJson);
+                        administradores.push(administrador);
+                    });
+                    resolve(administradores);
+                })
+                .catch((error: Error) => {
+                    reject(error.message);
+                });
+        });
+        return promise;
+    }//end_getAdmins
+
+    //Método que obtiene los uids de los admins de la base de datos
+
+    getUidsAdmins(): Promise<Administrador[]> {
+        let promise = new Promise<Administrador[]>((resolve, reject) => {
+            this.http.get(this.URL + "/administradores/uids")
+                .toPromise()
+                .then((data: any) => {
+                    let administradores = new Array<Administrador>();
+                    data.forEach(administradorJson => {
+                        let administrador = Administrador.createFromJsonObject(administradorJson);
+                        administradores.push(administrador);
+                    });
+                    resolve(administradores);
+                })
+                .catch((error: Error) => {
+                    reject(error.message);
+                });
+        });
+        return promise;
+    }//end_getUidsAdmins
 
 
     /*------------------ MÉTODOS USUARIOS ------------------*/

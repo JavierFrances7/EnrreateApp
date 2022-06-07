@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar class="toolbar-pagina">
+    <ion-buttons slot="start">
+      <ion-button (click)="irInicioAdmin()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-card>
+    <h3 style="text-align:center ;">Crear Admins</h3>
+  </ion-card>
+  <form [formGroup]="validation_registro_admin" (ngSubmit)="onSubmit(validation_registro_admin.value)">
+  <ion-card>
+    <ion-item>
+      <ion-icon name="person-outline" class="icon-login"></ion-icon>
+      <ion-input type="name" placeholder=" Nombre" formControlName="nombre"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="mail-outline" class="icon-login"></ion-icon>
+      <ion-input type="email" placeholder=" Correo" formControlName="correo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="lock-open-outline" class="icon-login"></ion-icon>
+      <ion-input type="password" placeholder=" Contraseña" formControlName="contrasena"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="lock-closed-outline" class="icon-login"></ion-icon>
+      <ion-input type="password" placeholder=" Repite Contraseña" formControlName="contrasenaConfirmada"></ion-input>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-button expand="block" style="text-align:center;" class="boton-crear-admin">CREAR ADMIN</ion-button>
+  </ion-card>
+  </form>
+
+</ion-content>

@@ -4,7 +4,7 @@ import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@io
 import { ApiServiceProvider } from 'src/app/providers/api-service/apiservice';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { MenuController, NavController } from '@ionic/angular';
 import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
 
 declare var google;
@@ -25,7 +25,8 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
   private validation_configuracion_establecimiento: FormGroup;
 
 
-  constructor(public formBuilder: FormBuilder, public apiService: ApiServiceProvider, private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder, public router: Router, private menuCtrl: MenuController, public firebaseAuthService: FirebaseAuthService) { }
+  constructor(public formBuilder: FormBuilder, public apiService: ApiServiceProvider, private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder, public router: Router,
+    private menuCtrl: MenuController, public firebaseAuthService: FirebaseAuthService, private navCtrl: NavController) { }
 
   ngOnInit() {
     this.cargarMapa();
@@ -65,7 +66,7 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
 
   //Método que redirecciona hacia el login de la app
   irLoginApp() {
-    this.router.navigate(['/home']);
+    this.navCtrl.navigateRoot("/home");
   }
 
   //FIN MÉTODOS REDIRECCIONES MENÚ
