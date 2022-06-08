@@ -56,7 +56,7 @@ async registroEstablecimiento(email:string, contrasena:string){
   })
   .catch((error) => {
     console.log("Error en el registro: " + error);
-    this.router.navigate(['/registro-usuario']);
+    //this.router.navigate(['/registro-usuario']);
 
   });
 }

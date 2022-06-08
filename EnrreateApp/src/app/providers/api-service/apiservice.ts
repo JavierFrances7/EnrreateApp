@@ -15,8 +15,6 @@ export class ApiServiceProvider {
     }
     /*------------------ MÉTODOS ADMIN ------------------*/
 
-    /*------------------ FIN MÉTODOS ADMIN ------------------*/
-
     //Método que obtiene los admins de la base de datos
 
     getAdmins(): Promise<Administrador[]> {
@@ -59,6 +57,29 @@ export class ApiServiceProvider {
         return promise;
     }//end_getUidsAdmins
 
+    //Método que inserta los usuarios en la base de datos    
+
+    insertarAdmin(nuevoAdmin: Administrador): Promise<Administrador> {
+        let promise = new Promise<Administrador>((resolve, reject) => {
+            var header = { "headers": { "Content-Type": "application/json" } };
+            let datos = JSON.stringify(nuevoAdmin);
+            this.http.post(this.URL + "/administrador/", datos, header)
+                .toPromise().then(
+                    (data: any) => {
+                        let administrador: Administrador;
+                        administrador = Administrador.createFromJsonObject(data);
+                        resolve(administrador);
+                    }
+                )
+                .catch((error: Error) => {
+                    reject(error.message);
+                });
+        });
+        return promise;
+    }//end_insertarAdmin
+
+
+    /*------------------ FIN MÉTODOS ADMIN ------------------*/
 
     /*------------------ MÉTODOS USUARIOS ------------------*/
 
@@ -108,7 +129,7 @@ export class ApiServiceProvider {
 
     //Método que inserta los usuarios en la base de datos    
 
-    async insertarUsuario(nuevoUsuario: Usuario): Promise<Usuario> {
+    insertarUsuario(nuevoUsuario: Usuario): Promise<Usuario> {
         let promise = new Promise<Usuario>((resolve, reject) => {
             var header = { "headers": { "Content-Type": "application/json" } };
             let datos = JSON.stringify(nuevoUsuario);

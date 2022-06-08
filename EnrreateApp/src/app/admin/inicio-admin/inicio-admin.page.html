@@ -11,7 +11,8 @@
 <ion-content>
   <ion-card>
     <h3 style="text-align:center ;">Solicitudes Pendientes</h3></ion-card>
-  <ion-card *ngFor="let establecimiento of establecimientos; let indice=index;">
+    <div *ngFor="let establecimiento of establecimientos; let indice=index;">
+  <ion-card *ngIf="!establecimiento.verificadoAdmin">
 
     <ion-grid>
       <ion-row>
@@ -31,14 +32,15 @@
         </ion-col>
         <ion-col size=4>
             <ion-row>
-              <ion-button>aaa</ion-button>
+              <ion-button color="success" (click)="aprobarEstablecimiento(indice)"><ion-icon slot="icon-only" name="checkmark-outline"></ion-icon></ion-button>
             </ion-row>
             <ion-row>
-              <ion-button >bbbb</ion-button>
+              <ion-button color="danger" (click)="rechazarEstablecimiento(indice)"><ion-icon slot="icon-only" name="close-outline"></ion-icon></ion-button>
             </ion-row>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-card>
+</div>
 </ion-content>
 

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
 import { Establecimiento } from 'src/app/modelo/Establecimiento';
 import { ApiServiceProvider } from 'src/app/providers/api-service/apiservice';
+import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
 
 @Component({
   selector: 'app-inicio-admin',
@@ -13,9 +14,11 @@ export class InicioAdminPage implements OnInit {
   private secreto: string = "0500";
   private intentos: number = 0;
   establecimientos = new Array<Establecimiento>();
+  establecimientoSeleccionado: Establecimiento;
 
 
-  constructor(private router: Router, public alertController: AlertController, private navCtrl: NavController, public apiServiceProvider: ApiServiceProvider) { }
+
+  constructor(private router: Router, public alertController: AlertController, private navCtrl: NavController, public apiServiceProvider: ApiServiceProvider, public firebaseAuthService: FirebaseAuthService) { }
 
   ngOnInit() {
     this.abrirVentanaComprobacion();
@@ -66,6 +69,21 @@ export class InicioAdminPage implements OnInit {
       ]
     });
     await alert.present();
+  }
+
+
+  aprobarEstablecimiento(indice: number) {
+    this.establecimientoSeleccionado = this.establecimientos[indice];
+    this.establecimientoSeleccionado.verificadoAdmin = true;
+    this.apiServiceProvider.modificarEstablecimiento(this.establecimientoSeleccionado);
+  }
+
+
+  rechazarEstablecimiento(indice: number) {
+    this.establecimientoSeleccionado = this.establecimientos[indice];
+    //Lo ponemos a true para ocultarlo y lo borramos de la base de datos ya que se ha rechazado la solicitud
+    this.establecimientoSeleccionado.verificadoAdmin = true;
+    this.apiServiceProvider.eliminarEstablecimiento(this.establecimientoSeleccionado);
   }
 
   cargarEstablecimientos() {
