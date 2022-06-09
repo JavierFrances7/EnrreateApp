@@ -58,6 +58,14 @@ const routes: Routes = [
     path: 'crear-admin',
     loadChildren: () => import('./admin/crear-admin/crear-admin.module').then( m => m.CrearAdminPageModule)
   },
+  {
+    path: 'eventos-guardados-usuario',
+    loadChildren: () => import('./usuario/eventos-guardados-usuario/eventos-guardados-usuario.module').then( m => m.EventosGuardadosUsuarioPageModule)
+  },
+  {
+    path: 'notificaciones-usuario',
+    loadChildren: () => import('./usuario/notificaciones-usuario/notificaciones-usuario.module').then( m => m.NotificacionesUsuarioPageModule)
+  },
 
 
 

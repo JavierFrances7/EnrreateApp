@@ -109,4 +109,15 @@ export class InicioAdminPage implements OnInit {
       });
   }
 
+  async cerrarSesionUsuario() {
+    this.firebaseAuthService.logoutUser()
+      .then((data) => {
+        console.log("Logout Exitoso");
+        this.irLoginApp();
+      })
+      .catch((error) => {
+        console.log("Error en el logout: " + error);
+      });
+  }
+
 }

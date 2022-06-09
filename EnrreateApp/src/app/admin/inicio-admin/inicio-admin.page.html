@@ -1,5 +1,11 @@
 <ion-header>
   <ion-toolbar class="toolbar-pagina">
+    <ion-buttons slot="start">
+      <ion-button (click)="cerrarSesionUsuario()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+      <p> Cerrar sesión</p>
+    </ion-buttons>
     <ion-buttons slot="end" >
       <ion-button (click)="irCrearAdmin()">
         <ion-icon slot="icon-only" name="person-add-outline"></ion-icon>

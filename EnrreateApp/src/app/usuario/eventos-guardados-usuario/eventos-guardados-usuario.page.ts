@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, NavController } from '@ionic/angular';
+import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
 
 @Component({
-  selector: 'app-configuracion-usuario',
-  templateUrl: './configuracion-usuario.page.html',
-  styleUrls: ['./configuracion-usuario.page.scss'],
+  selector: 'app-eventos-guardados-usuario',
+  templateUrl: './eventos-guardados-usuario.page.html',
+  styleUrls: ['./eventos-guardados-usuario.page.scss'],
 })
-export class ConfiguracionUsuarioPage implements OnInit {
+export class EventosGuardadosUsuarioPage implements OnInit {
 
-  constructor(public menuCtrl: MenuController, private router: Router, private navCtrl: NavController) { }
+  constructor(public menuCtrl: MenuController, private router: Router, private navCtrl: NavController, public firebaseAuthService: FirebaseAuthService) { }
 
   ngOnInit() {
   }
@@ -51,9 +52,8 @@ export class ConfiguracionUsuarioPage implements OnInit {
 
   //Método que detecta si el menú esta abierto (si es así lo cierra) y viceversa
   activarMenuUsuario() {
-    this.menuCtrl.toggle("menu-configuracion-usuario");
+    this.menuCtrl.toggle("menu-eventos-usuario");
   }
   //FIN MÉTODOS MENÚ
-
 
 }

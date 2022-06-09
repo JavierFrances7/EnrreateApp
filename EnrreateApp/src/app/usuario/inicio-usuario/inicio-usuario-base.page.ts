@@ -54,8 +54,13 @@ export class InicioUsuarioBasePage implements OnInit {
 
   //MÉTODOS MENÚ
   //Método que redirecciona a eventos
+
+  irInicioUsuario(){
+    this.router.navigate(['/inicio-usuario-base']);
+  }
+
   verEventosGuardados() {
-    this.router.navigate(['/eventos-usuario']);
+    this.router.navigate(['/eventos-guardados-usuario']);
   }
 
   //Método que redirecciona a notificaciones
@@ -80,8 +85,9 @@ export class InicioUsuarioBasePage implements OnInit {
 
   //Método que detecta si el menú esta abierto (si es así lo cierra) y viceversa
   activarMenuUsuario() {
-    this.menuCtrl.toggle();
+    this.menuCtrl.toggle("menu-inicio-usuario");
   }
+
   //FIN MÉTODOS MENÚ
 
   //MÉTODOS LOGOUT
