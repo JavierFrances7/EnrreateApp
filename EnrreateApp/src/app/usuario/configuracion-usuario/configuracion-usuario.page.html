@@ -1,66 +1,12 @@
 <ion-header>
   <ion-toolbar class="toolbar-pagina">
     <ion-buttons>
-      <ion-button slot="start" (click)="activarMenuUsuario()">
-        <ion-icon slot="icon-only" name="menu"></ion-icon>
-      </ion-button>
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+<ion-content>
 
-<!--MENU LATERAL-->
-
-<ion-menu side="start" menuId="menu-configuracion-usuario" contentId="contenidoPrincipal">
-  <ion-header>
-    <ion-toolbar class="toolbar-menu-usuario">
-      <!--***CAMBIAR LA RUTA DE LA IMAGEN Y NOMBRE DE USUARIO***-->
-      <!--El ion chip es como un boton que contiene la foto del usuario y su nombre-->
-      <ion-chip (click)="verPerfil()">
-        <ion-avatar>
-          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-        </ion-avatar>
-        <ion-label>NOMBRE DE USUARIO</ion-label>
-      </ion-chip>
-      <ion-buttons slot="primary">
-        <ion-button (click)="activarMenuUsuario()">
-          <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-content class="content-menu">
-    <ion-list class="list-menu">
-      <!--El ion-menu-toggle hace que al pulsar cualquier cosa dentro de el, el menú se cierre tambien-->
-      <ion-menu-toggle>
-        <ion-item (click)="irInicioUsuario()" class="list-menu">
-          <ion-icon name="map-outline"></ion-icon>
-          <ion-label>&nbsp;Mapa</ion-label>
-        </ion-item>
-        <ion-item (click)="verEventosGuardados()" class="list-menu">
-          <ion-icon name="calendar-number-outline"></ion-icon>
-          <ion-label>&nbsp;Eventos Guardados</ion-label>
-        </ion-item>
-        <ion-item (click)="verNotificaciones()">
-          <ion-icon name="notifications-outline"></ion-icon>
-          <ion-label>&nbsp;Notificaciones</ion-label>
-        </ion-item>
-        <ion-item (click)="verPerfil()">
-          <ion-icon name="person-outline"></ion-icon>
-          <ion-label>&nbsp;Perfil</ion-label>
-        </ion-item>
-        <ion-item (click)="verConfiguracion()">
-          <ion-icon name="settings-outline"></ion-icon>
-          <ion-label>&nbsp;Configuración</ion-label>
-        </ion-item>
-        <ion-item (click)="cerrarSesionUsuario()">
-          <ion-icon name="log-out-outline"></ion-icon>
-          <ion-label>&nbsp;Cerrar Sesión</ion-label>
-        </ion-item>
-      </ion-menu-toggle>
-    </ion-list>
-  </ion-content>
-</ion-menu>
 
 <!--FIN MENU LATERAL-->
 <ion-content id="contenidoPrincipal">

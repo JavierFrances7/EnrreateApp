@@ -66,6 +66,14 @@ const routes: Routes = [
     path: 'notificaciones-usuario',
     loadChildren: () => import('./usuario/notificaciones-usuario/notificaciones-usuario.module').then( m => m.NotificacionesUsuarioPageModule)
   },
+  {
+    path: 'preguntas-establecimiento',
+    loadChildren: () => import('./establecimiento/preguntas-establecimiento/preguntas-establecimiento.module').then( m => m.PreguntasEstablecimientoPageModule)
+  },
+  {
+    path: 'mis-eventos-establecimiento',
+    loadChildren: () => import('./establecimiento/mis-eventos-establecimiento/mis-eventos-establecimiento.module').then( m => m.MisEventosEstablecimientoPageModule)
+  },
 
 
 

@@ -43,52 +43,6 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
 
   }
 
-  //MÉTODOS MENÚ
-
-  clickMenuInicioEstablecimiento() {
-    this.router.navigate(['/inicio-establecimiento']);
-  }
-
-  //Método que redirecciona hacia el perfil del establecimiento
-  clickMenuVerPerfil() {
-    this.router.navigate(['/perfil-establecimiento']);
-  }
-
-  //Método que redirecciona hacia el perfil del establecimiento
-  clickMenuConfiguracion() {
-    this.router.navigate(['/configuracion-establecimiento']);
-  }
-
-  //Método que detecta si el menú esta abierto (si es así lo cierra) y viceversa
-  activarMenuEstablecimiento() {
-    this.menuCtrl.toggle();
-  }
-
-  //Método que redirecciona hacia el login de la app
-  irLoginApp() {
-    this.navCtrl.navigateRoot("/home");
-  }
-
-  //FIN MÉTODOS REDIRECCIONES MENÚ
-
-  //MÉTODOS LOGOUT
-  //Método que cierra la sesión del usuario  
-  async cerrarSesionEstablecimiento() {
-    this.firebaseAuthService.logoutUser()
-      .then((data) => {
-        console.log("Logout Exitoso");
-        this.firebaseAuthService.userDetails()
-          .subscribe(data => {
-            console.log(data);
-          });
-        this.irLoginApp();
-      })
-      .catch((error) => {
-        console.log("Error en el logout: " + error);
-      });
-  }
-  //FIN MÉTODOS LOGOUT
-
   //MÉTODOS MAPA
   //Método que carga el mapa
   cargarMapa() {

@@ -1,3 +1,80 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu side="start" contentId="contenidoPrincipal">
+    <ion-header>
+      <ion-toolbar class="toolbar-menu-usuario">
+        <!--***CAMBIAR LA RUTA DE LA IMAGEN Y NOMBRE DE USUARIO***-->
+        <!--El ion chip es como un boton que contiene la foto del usuario y su nombre-->
+        <ion-chip (click)="verPerfil()">
+          <ion-avatar>
+            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+          </ion-avatar>
+          <ion-label>{{nombrePerfil}}</ion-label>
+        </ion-chip>
+        <ion-buttons slot="primary">
+          <ion-button (click)="activarMenuUsuario()">
+            <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="content-menu">
+      <ion-list class="list-menu">
+        <!--El ion-menu-toggle hace que al pulsar cualquier cosa dentro de el, el menú se cierre tambien-->
+        <ion-menu-toggle>
+          <!--ITEMS MENU USUARIO-->
+          <ion-item (click)="irInicioUsuario()" class="list-menu" *ngIf="esUsuario">
+            <ion-icon name="map-outline"></ion-icon>
+            <ion-label>&nbsp;Mapa</ion-label>
+          </ion-item>
+          <ion-item (click)="verEventosGuardados()" class="list-menu" *ngIf="esUsuario">
+            <ion-icon name="calendar-number-outline"></ion-icon>
+            <ion-label>&nbsp;Eventos Guardados</ion-label>
+          </ion-item>
+          <ion-item (click)="verNotificaciones()" *ngIf="esUsuario">
+            <ion-icon name="notifications-outline"></ion-icon>
+            <ion-label>&nbsp;Notificaciones</ion-label>
+          </ion-item>
+          <ion-item (click)="verPerfil()" *ngIf="esUsuario">
+            <ion-icon name="person-outline"></ion-icon>
+            <ion-label>&nbsp;Perfil</ion-label>
+          </ion-item>
+          <ion-item (click)="verConfiguracion()" *ngIf="esUsuario">
+            <ion-icon name="settings-outline"></ion-icon>
+            <ion-label>&nbsp;Configuración</ion-label>
+          </ion-item>
+
+          <!--FIN ITEMS MENU USUARIO-->
+
+          <!--ITEMS MENU ESTABLECIMIENTO-->
+
+          <ion-item (click)="clickMenuInicioEstablecimiento()" class="list-menu" *ngIf="esEstablecimiento">
+            <ion-icon name="stats-chart-outline"></ion-icon>
+            <ion-label>&nbsp;Estadísticas</ion-label>
+          </ion-item>
+          <ion-item (click)="clickMisEventos()" *ngIf="esEstablecimiento">
+            <ion-icon name="calendar-number-outline"></ion-icon>
+            <ion-label>&nbsp;Mis Eventos</ion-label>
+          </ion-item>
+          <ion-item (click)="clickPreguntas()" *ngIf="esEstablecimiento">
+            <ion-icon name="help-outline"></ion-icon>
+            <ion-label>&nbsp;Preguntas</ion-label>
+          </ion-item>
+          <ion-item (click)="clickMenuVerPerfil()" *ngIf="esEstablecimiento">
+            <ion-icon name="storefront-outline"></ion-icon>
+            <ion-label>&nbsp;Perfil</ion-label>
+          </ion-item>
+          <ion-item (click)="clickMenuConfiguracion()" *ngIf="esEstablecimiento">
+            <ion-icon name="settings-outline"></ion-icon>
+            <ion-label>&nbsp;Configuración</ion-label>
+          </ion-item>
+          <ion-item (click)="cerrarSesionUsuario()" *ngIf="esUsuario || esEstablecimiento">
+            <ion-icon name="log-out-outline"></ion-icon>
+            <ion-label>&nbsp;Cerrar Sesión</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="contenidoPrincipal"></ion-router-outlet>
 </ion-app>

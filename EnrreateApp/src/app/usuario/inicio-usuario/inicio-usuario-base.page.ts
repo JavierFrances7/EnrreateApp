@@ -34,7 +34,8 @@ export class InicioUsuarioBasePage implements OnInit {
   }
 
   ngOnInit() {
-
+    this.menuCtrl.enable(true);
+    
     //Obtenemos los establecimientos de la base de datos
     this.apiServiceProvider.getEstablecimientos()
       .then((establecimientos: Establecimiento[]) => {
@@ -51,63 +52,6 @@ export class InicioUsuarioBasePage implements OnInit {
       });
 
   }
-
-  //MÉTODOS MENÚ
-  //Método que redirecciona a eventos
-
-  irInicioUsuario(){
-    this.router.navigate(['/inicio-usuario-base']);
-  }
-
-  verEventosGuardados() {
-    this.router.navigate(['/eventos-guardados-usuario']);
-  }
-
-  //Método que redirecciona a notificaciones
-  verNotificaciones() {
-    this.router.navigate(['/notificaciones-usuario']);
-  }
-
-  //Método que redirecciona hacia el perfil de usuario
-  verPerfil() {
-    this.router.navigate(['/perfil-usuario']);
-  }
-
-  //Método que redirecciona hacia el login de la aplicacion
-  irLoginApp() {
-    this.navCtrl.navigateRoot("/home");
-  }
-
-  //Método que redirecciona hacia la configuracion del usuario
-  verConfiguracion() {
-    this.router.navigate(['/configuracion-usuario']);
-  }
-
-  //Método que detecta si el menú esta abierto (si es así lo cierra) y viceversa
-  activarMenuUsuario() {
-    this.menuCtrl.toggle("menu-inicio-usuario");
-  }
-
-  //FIN MÉTODOS MENÚ
-
-  //MÉTODOS LOGOUT
-  //Método que cierra la sesión del usuario  
-  async cerrarSesionUsuario() {
-    this.firebaseAuthService.logoutUser()
-      .then((data) => {
-        console.log("Logout Exitoso");
-        this.firebaseAuthService.userDetails()
-          .subscribe(data => {
-            console.log(data);
-          });
-        this.irLoginApp();
-      })
-      .catch((error) => {
-        console.log("Error en el logout: " + error);
-      });
-  }
-  //FIN MÉTODOS LOGOUT
-
 
   //MÉTODOS MAPA
   //Método que carga el mapa

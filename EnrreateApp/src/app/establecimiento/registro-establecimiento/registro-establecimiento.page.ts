@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 import { Establecimiento } from 'src/app/modelo/Establecimiento';
 import { ApiServiceProvider } from 'src/app/providers/api-service/apiservice';
 import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
@@ -16,10 +17,13 @@ export class RegistroEstablecimientoPage implements OnInit {
   establecimiento: Establecimiento=new Establecimiento();
   private validation_registro_establcimiento: FormGroup;
 
-  constructor(public firebaseAuthService: FirebaseAuthService, private router: Router, public formBuilder: FormBuilder,public apiService : ApiServiceProvider) { }
+  constructor(public firebaseAuthService: FirebaseAuthService, private router: Router, public formBuilder: FormBuilder,public apiService : ApiServiceProvider, public menuCtrl:MenuController) { }
 
 
   ngOnInit() {
+
+    this.menuCtrl.enable(false);
+
       //Inicializamos el formulario reactivo que controlará el formato del email y que la contraseña no se deje vacía.
       this.validation_registro_establcimiento = this.formBuilder.group({
         nombreEstablecimiento: new FormControl('', Validators.compose([
@@ -39,6 +43,11 @@ export class RegistroEstablecimientoPage implements OnInit {
         ]))
         });
 }
+
+ionViewWillEnter() {
+  this.menuCtrl.enable(false);
+}
+
 
 async registroEstablecimiento(email:string, contrasena:string){
 

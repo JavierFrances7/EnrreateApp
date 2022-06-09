@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
+import { AppComponent } from '../app.component';
 import { Administrador } from '../modelo/Administrador';
 import { Establecimiento } from '../modelo/Establecimiento';
 import { Usuario } from '../modelo/usuario';
@@ -20,50 +22,12 @@ export class HomePage implements OnInit {
   private administradores = new Array<Administrador>();
 
 
-  constructor(public firebaseAuthService: FirebaseAuthService, private router: Router, public formBuilder: FormBuilder, public apiServiceProvider: ApiServiceProvider) { }
+  constructor(public firebaseAuthService: FirebaseAuthService, private router: Router, public formBuilder: FormBuilder, public apiServiceProvider: ApiServiceProvider, private appComponent: AppComponent, public menuCtrl: MenuController) { }
 
   ngOnInit() {
 
-    //Obtenemos todos los uids (Sin más información) de los usuarios para comprobar luego la redirección al inicio de usuario al hacer login
-
-    this.apiServiceProvider.getUidsUsuarios()
-      .then((usuarios: Usuario[]) => {
-        this.usuarios = usuarios;
-      })
-      .catch((error: string) => {
-        console.log(error);
-      });
-
-    //Obtenemos todos los uids (Sin más información) de los establecimientos para comprobar luego la redirección al inicio de establecimiento al hacer login
-
-    this.apiServiceProvider.getUidsEstablecimientos()
-      .then((establecimientos: Establecimiento[]) => {
-        this.establecimientos = establecimientos;
-      })
-      .catch((error: string) => {
-        console.log(error);
-      });
-
-    //Obtenemos todos los uids (Sin más información) de los administradores para comprobar luego la redirección al inicion de admin al hacer login
-
-    this.apiServiceProvider.getUidsAdmins()
-      .then((administradores: Administrador[]) => {
-        this.administradores = administradores;
-      })
-      .catch((error: string) => {
-        console.log(error);
-      });
-
-    //Obtenemos todos los uids (Sin más información) de los establecimientos para comprobar luego la redirección al inicio de establecimiento al hacer login
-
-    this.apiServiceProvider.getUidsEstablecimientos()
-      .then((establecimientos: Establecimiento[]) => {
-        this.establecimientos = establecimientos;
-      })
-      .catch((error: string) => {
-        console.log(error);
-      });
-
+    this.menuCtrl.enable(false);
+    this.obtenerUids();
     //Inicializamos el formulario reactivo que controlará el formato del email y que la contraseña no se deje vacía.
 
     this.validation_login = this.formBuilder.group({
@@ -74,6 +38,11 @@ export class HomePage implements OnInit {
         Validators.required
       ]))
     });
+  }
+
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+    this.obtenerUids();
   }
 
   onSubmit(values) {
@@ -100,9 +69,14 @@ export class HomePage implements OnInit {
                 //Comprobamos si es un admin
 
                 if (data.uid == this.administradores[inx].uidAdministrador) {
+                  //Variables para mostrar el menu u ocultaros en funcion del tipo de usuario
+                  this.appComponent.setEsAdmin(true);
+                  this.appComponent.setEsUsuario(false);
+                  this.appComponent.setEsEstablecimiento(false);
 
                   this.router.navigate(['/inicio-admin']);
 
+                  return;
                 }
               }
 
@@ -111,8 +85,14 @@ export class HomePage implements OnInit {
                 //Comprobamos si es un establecimiento
 
                 if (data.uid == this.establecimientos[inx].uidEstablecimiento) {
-
+                  //Variables para mostrar el menu u ocultaros en funcion del tipo de usuario
+                  this.appComponent.setEsAdmin(false);
+                  this.appComponent.setEsUsuario(false);
+                  this.appComponent.setEsEstablecimiento(true);
+                  this.appComponent.setNombrePerfil(this.establecimientos[inx].nombreEstablecimiento);
+                  console.log(this.establecimientos[inx].nombreEstablecimiento)
                   this.router.navigate(['/inicio-establecimiento']);
+                  return;
 
                 }
               }
@@ -122,8 +102,14 @@ export class HomePage implements OnInit {
               for (let inx in this.usuarios) {
 
                 if (data.uid == this.usuarios[inx].uidUsuario) {
+                  //Variables para mostrar el menu u ocultaros en funcion del tipo de usuario
 
+                  this.appComponent.setEsAdmin(false);
+                  this.appComponent.setEsUsuario(true);
+                  this.appComponent.setEsEstablecimiento(false);
+                  this.appComponent.setNombrePerfil(this.usuarios[inx].nombreUsuario);
                   this.router.navigate(['/inicio-usuario-base']);
+                  return;
 
                 }
               }
@@ -140,6 +126,41 @@ export class HomePage implements OnInit {
 
   abrirRegistroUsuario() {
     this.router.navigate(['/registro-usuario']);
+  }
+
+  obtenerUids() {
+    //Obtenemos todos los uids (Sin más información) de los usuarios para comprobar luego la redirección al inicio de usuario al hacer login
+
+    this.apiServiceProvider.getUsuarios()
+      .then((usuarios: Usuario[]) => {
+        this.usuarios = usuarios;
+      })
+      .catch((error: string) => {
+        console.log(error);
+      });
+
+    //Obtenemos todos los uids (Sin más información) de los establecimientos para comprobar luego la redirección al inicio de establecimiento al hacer login
+
+    this.apiServiceProvider.getEstablecimientos()
+      .then((establecimientos: Establecimiento[]) => {
+        this.establecimientos = establecimientos;
+      })
+      .catch((error: string) => {
+        console.log(error);
+      });
+
+    //Obtenemos todos los uids (Sin más información) de los administradores para comprobar luego la redirección al inicion de admin al hacer login
+
+    this.apiServiceProvider.getAdmins()
+      .then((administradores: Administrador[]) => {
+        this.administradores = administradores;
+      })
+      .catch((error: string) => {
+        console.log(error);
+      });
+
+    //Obtenemos todos los uids (Sin más información) de los establecimientos para comprobar luego la redirección al inicio de establecimiento al hacer login
+
   }
 
 }
