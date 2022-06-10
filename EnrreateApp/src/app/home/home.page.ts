@@ -48,7 +48,7 @@ export class HomePage implements OnInit {
   onSubmit(values) {
 
     //Al pulsar el boton de sumbit se inicia el metodo login con los valores del formulario.
-
+    this.obtenerUids();
     this.loginUsuario(values['correo'], values['contrasena'])
   }
 

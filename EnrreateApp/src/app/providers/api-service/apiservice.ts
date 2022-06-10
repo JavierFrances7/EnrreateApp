@@ -105,6 +105,20 @@ export class ApiServiceProvider {
         return promise;
     }//end_getUsuarios
 
+    getUsuarioByUid(uidUsuario:string): Promise<Usuario> {
+        let promise = new Promise<Usuario>((resolve, reject) => {
+            this.http.get(this.URL + "/usuario/"+ uidUsuario)
+                .toPromise()
+                .then((data: any) => {
+                    resolve(data);
+                })
+                .catch((error: Error) => {
+                    reject(error.message);
+                });
+        });
+        return promise;
+    }//end_getUsuarios
+
     //Método que obtiene los uids de los usuarios de la base de datos
 
     getUidsUsuarios(): Promise<Usuario[]> {
@@ -232,6 +246,20 @@ export class ApiServiceProvider {
         });
         return promise;
     }//end_getUidsEstablecimientos
+
+    getEstablecimientoByUid(uidEstablecimiento:string): Promise<Establecimiento> {
+        let promise = new Promise<Establecimiento>((resolve, reject) => {
+            this.http.get(this.URL + "/establecimiento/"+ uidEstablecimiento)
+                .toPromise()
+                .then((data: any) => {
+                    resolve(data);
+                })
+                .catch((error: Error) => {
+                    reject(error.message);
+                });
+        });
+        return promise;
+    }//end_getUsuarios
 
 
     //Método que inserta los establecimiento en la base de datos    

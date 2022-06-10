@@ -10,34 +10,35 @@ import { FirebaseAuthService } from './providers/firebase-auth-service';
 })
 
 export class AppComponent {
-  constructor(public menuCtrl: MenuController, private router: Router, private navCtrl: NavController, public firebaseAuthService: FirebaseAuthService) {}
-  nombrePerfil:string;
-  esAdmin:boolean;
-  esUsuario:boolean;
-  esEstablecimiento:boolean;
+  constructor(public menuCtrl: MenuController, private router: Router, private navCtrl: NavController, public firebaseAuthService: FirebaseAuthService) { }
+  
+  nombrePerfil: string;
+  esAdmin: boolean;
+  esUsuario: boolean;
+  esEstablecimiento: boolean;
 
-  setEsAdmin(esAdmin: boolean){
-    this.esAdmin=esAdmin;
+  setEsAdmin(esAdmin: boolean) {
+    this.esAdmin = esAdmin;
   }
 
-  setEsUsuario(esUsuario: boolean){
-    this.esUsuario=esUsuario;
+  setEsUsuario(esUsuario: boolean) {
+    this.esUsuario = esUsuario;
     console.log(this.esUsuario);
   }
 
-  setEsEstablecimiento(esEstablecimiento: boolean){
-    this.esEstablecimiento=esEstablecimiento;
+  setEsEstablecimiento(esEstablecimiento: boolean) {
+    this.esEstablecimiento = esEstablecimiento;
   }
 
-  
-  setNombrePerfil(nombrePerfil: string){
-    this.nombrePerfil=nombrePerfil;
+
+  setNombrePerfil(nombrePerfil: string) {
+    this.nombrePerfil = nombrePerfil;
   }
 
   //MÉTODOS MENÚ USUARIO
   //Método que redirecciona a eventos
 
-  irInicioUsuario(){
+  irInicioUsuario() {
     this.router.navigate(['/inicio-usuario-base']);
   }
 
@@ -53,7 +54,7 @@ export class AppComponent {
   //Método que redirecciona hacia el perfil de usuario
   verPerfil() {
     this.router.navigate(['/perfil-usuario']);
-
+    this.menuCtrl.close();
   }
 
   //Método que redirecciona hacia el login de la aplicacion
@@ -62,7 +63,7 @@ export class AppComponent {
   }
 
   //Método que redirecciona hacia la configuracion del usuario
-  verConfiguracion(){
+  verConfiguracion() {
     this.router.navigate(['/configuracion-usuario']);
   }
 
@@ -73,9 +74,9 @@ export class AppComponent {
 
   //FIN METODOS MENUS USUARIOS
 
-   //MÉTODOS MENÚ ESTABLECIMIENTO
+  //MÉTODOS MENÚ ESTABLECIMIENTO
 
-   clickMenuInicioEstablecimiento() {
+  clickMenuInicioEstablecimiento() {
     this.router.navigate(['/inicio-establecimiento']);
   }
 
@@ -102,19 +103,19 @@ export class AppComponent {
     this.menuCtrl.toggle();
   }
 
-    //FIN METODOS MENUS ESTABLECIMIENTO
+  //FIN METODOS MENUS ESTABLECIMIENTO
 
 
   //Método que redirecciona hacia el login de la app
 
 
- //MÉTODOS LOGOUT
+  //MÉTODOS LOGOUT
   //Método que cierra la sesión del usuario  
   async cerrarSesion() {
     this.firebaseAuthService.logoutUser()
       .then((data) => {
         console.log("Logout Exitoso");
-      
+
         this.irLoginApp();
       })
       .catch((error) => {

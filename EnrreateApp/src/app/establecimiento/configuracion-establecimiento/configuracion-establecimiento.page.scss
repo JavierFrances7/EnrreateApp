@@ -28,6 +28,8 @@
   --ion-background-color: rgb(210, 167, 127);
 }
 
+
+
 // FIN ESTILOS MENU LATERAL
 //ESTILOS MAPA
 
@@ -71,3 +73,12 @@
   .contenedor-superior{
     --ion-background-color: rgb(254, 219, 188);
   }
+
+  .card-titulo{
+    --ion-background-color: rgba(194, 112, 36, 0.507);
+  }
+
+  .aviso{
+font-size: 12px;
+color: gray;  
+text-align: center;}

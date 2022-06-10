@@ -6,6 +6,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Router } from '@angular/router';
 import { MenuController, NavController } from '@ionic/angular';
 import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
+import { Establecimiento } from 'src/app/modelo/Establecimiento';
 
 declare var google;
 
@@ -23,6 +24,8 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
   latitud: number;
   longitud: number;
   private validation_configuracion_establecimiento: FormGroup;
+  private establecimiento = new Establecimiento();
+
 
 
   constructor(public formBuilder: FormBuilder, public apiService: ApiServiceProvider, private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder, public router: Router,
@@ -39,6 +42,17 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
         Validators.required,
         Validators.minLength(6)
       ]))
+    });
+
+    this.firebaseAuthService.userDetails()
+    .subscribe(data => {
+        this.apiService.getEstablecimientoByUid(data.uid)
+          .then((establecimiento: any) => {
+            this.establecimiento = establecimiento;
+          })
+          .catch((error: string) => {
+            console.log(error);
+          });
     });
 
   }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, NavController } from '@ionic/angular';
+import { Usuario } from 'src/app/modelo/usuario';
+import { ApiServiceProvider } from 'src/app/providers/api-service/apiservice';
 import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
 
 @Component({
@@ -10,34 +12,25 @@ import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
 })
 export class PerfilUsuarioPage implements OnInit {
 
-  constructor(public menuCtrl: MenuController, private router: Router, private navCtrl: NavController, public firebaseAuthService: FirebaseAuthService) { }
+  private usuario = new Usuario();
+
+  constructor(public menuCtrl: MenuController, private router: Router, private navCtrl: NavController, public firebaseAuthService: FirebaseAuthService, public apiService: ApiServiceProvider) { }
 
   ngOnInit() {
-  }
+    this.firebaseAuthService.userDetails()
+      .subscribe(data => {
+        console.log(data.uid);
 
-
-  //Método que redirecciona hacia el login de la aplicacion
-  irLoginApp() {
-    this.navCtrl.navigateRoot("/home");
-  }
-
-
-    //MÉTODOS LOGOUT
-  //Método que cierra la sesión del usuario  
-  async cerrarSesionUsuario() {
-    this.firebaseAuthService.logoutUser()
-      .then((data) => {
-        console.log("Logout Exitoso");
-        this.firebaseAuthService.userDetails()
-          .subscribe(data => {
-            console.log(data);
-          });
-        this.irLoginApp();
-      })
-      .catch((error) => {
-        console.log("Error en el logout: " + error);
+          this.apiService.getUsuarioByUid(data.uid)
+            .then((usuario: any) => {
+              this.usuario = usuario;
+            })
+            .catch((error: string) => {
+              console.log(error);
+            });
+        
       });
   }
-  //FIN MÉTODOS LOGOUT
+
 
 }

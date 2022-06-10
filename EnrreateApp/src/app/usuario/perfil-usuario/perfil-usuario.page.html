@@ -6,11 +6,9 @@
   </ion-toolbar>
 </ion-header>
 
-
-
 <ion-content>
-  <ion-card>
-    <h3 style="text-align:center ;">Tu perfil</h3>
+  <ion-card class="card-titulo">
+    <h3 style="text-align:center;">Tu perfil</h3>
   </ion-card>
   <ion-grid>
     <ion-row>
@@ -22,12 +20,13 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <p><b>NOMBRE DEL USUARIO</b></p>
+        <p><b>{{usuario.nombre}} {{usuario.apellidos}}</b></p>
       </ion-col>
     </ion-row>
   <ion-row>
     <ion-col>
-      <p>prueba@prueba.com</p>
+      <p>Correo: <i>{{usuario.correo}}</i></p>
+      <p>Fecha Nacimiento: <i>{{usuario.fechaNacimiento}}</i></p>
     </ion-col>
   </ion-row>
   </ion-grid>

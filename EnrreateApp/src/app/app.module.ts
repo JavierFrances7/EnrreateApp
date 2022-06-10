@@ -12,7 +12,6 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { FireServiceProvider } from './providers/api-service/fire-service';
 import { ApiServiceProvider } from './providers/api-service/apiservice';
 import { FirebaseAuthService } from './providers/firebase-auth-service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
@@ -24,7 +23,7 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule, AngularFireModule.initializeApp(environment.firebaseConfig), AngularFireAuthModule, AngularFirestoreModule,AngularFireStorageModule],
-  providers: [FireServiceProvider,ApiServiceProvider,FirebaseAuthService, Geolocation, NativeGeocoder,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [ApiServiceProvider,FirebaseAuthService, Geolocation, NativeGeocoder,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
