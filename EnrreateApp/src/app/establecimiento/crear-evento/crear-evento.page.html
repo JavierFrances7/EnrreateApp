@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar class="toolbar-pagina">
+    <ion-buttons slot="start">
+      <ion-button (click)="irInicioEventos()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+  <ion-content>
+    <ion-card>
+      <h3 style="text-align:center ;">Crear Evento</h3>
+    </ion-card>
+    <form [formGroup]="validation_crear_evento" (ngSubmit)="onSubmit(validation_crear_evento.value)">
+    <ion-card>
+      <ion-item>
+        <ion-icon name="sparkles-outline" class="icon-login"></ion-icon>
+        <ion-input type="name" placeholder=" Nombre Evento" formControlName="nombre"></ion-input>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-icon name="people-outline" class="icon-login"></ion-icon>
+        <ion-input type="number" placeholder=" Aforo Maximo" formControlName="aforoMaximo"></ion-input>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-icon name="hand-left-outline" class="icon-login"></ion-icon>
+        <ion-input type="number" placeholder=" Edad Mínima" formControlName="edadMinima"></ion-input>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-icon name="musical-notes-outline" class="icon-login"></ion-icon>
+        <ion-input type="text" placeholder="Tipo Música" formControlName="tipoMusica"></ion-input>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-icon name="calendar-outline" class="icon-login"></ion-icon>
+        <ion-input type="date" placeholder="Fecha Inicio" formControlName="fechaInicio"></ion-input>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-icon name="calendar-outline" class="icon-login"></ion-icon>
+        <ion-input type="date" placeholder="Tipo Fin" formControlName="fechaFin"></ion-input>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-button expand="block" style="text-align:center;" class="boton-crear-evento" type="submit">CREAR EVENTO</ion-button>
+    </ion-card>
+    </form>
+
+  </ion-content>

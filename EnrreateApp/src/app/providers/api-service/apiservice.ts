@@ -4,6 +4,7 @@ import { Usuario } from 'src/app/modelo/usuario';
 import { Establecimiento } from 'src/app/modelo/Establecimiento';
 import { FirebaseAuthService } from '../firebase-auth-service';
 import { Administrador } from 'src/app/modelo/Administrador';
+import { Evento } from 'src/app/modelo/Evento';
 
 
 @Injectable()
@@ -105,9 +106,9 @@ export class ApiServiceProvider {
         return promise;
     }//end_getUsuarios
 
-    getUsuarioByUid(uidUsuario:string): Promise<Usuario> {
+    getUsuarioByUid(uidUsuario: string): Promise<Usuario> {
         let promise = new Promise<Usuario>((resolve, reject) => {
-            this.http.get(this.URL + "/usuario/"+ uidUsuario)
+            this.http.get(this.URL + "/usuario/" + uidUsuario)
                 .toPromise()
                 .then((data: any) => {
                     resolve(data);
@@ -247,9 +248,9 @@ export class ApiServiceProvider {
         return promise;
     }//end_getUidsEstablecimientos
 
-    getEstablecimientoByUid(uidEstablecimiento:string): Promise<Establecimiento> {
+    getEstablecimientoByUid(uidEstablecimiento: string): Promise<Establecimiento> {
         let promise = new Promise<Establecimiento>((resolve, reject) => {
-            this.http.get(this.URL + "/establecimiento/"+ uidEstablecimiento)
+            this.http.get(this.URL + "/establecimiento/" + uidEstablecimiento)
                 .toPromise()
                 .then((data: any) => {
                     resolve(data);
@@ -321,5 +322,51 @@ export class ApiServiceProvider {
     }//eliminarEstablecimiento
 
     /* ------------------FIN MÉTODOS ESTABLECIMIENTOS ------------------*/
+
+    /* ------------------ MÉTODOS EVENTOS ------------------*/
+
+    //Método que obtiene los eventos de la base de datos    
+
+    getEventos(): Promise<Evento[]> {
+        let promise = new Promise<Evento[]>((resolve, reject) => {
+            this.http.get(this.URL + "/eventos").toPromise()
+                .then((data: any) => {
+                    let eventos = new Array<Evento>();
+                    data.forEach(eventoJson => {
+                        let evento = Evento.createFromJsonObject(eventoJson);
+                        eventos.push(evento);
+                    });
+                    resolve(eventos);
+                })
+                .catch((error: Error) => {
+                    reject(error.message);
+                });
+        });
+        return promise;
+    }//end_getEventos
+
+    //Método que inserta los eventos en la base de datos    
+
+    insertarEvento(nuevoEvento: Evento): Promise<Evento> {
+        let promise = new Promise<Evento>((resolve, reject) => {
+            var header = { "headers": { "Content-Type": "application/json" } };
+            let datos = JSON.stringify(nuevoEvento);
+            this.http.post(this.URL + "/evento/", datos, header).toPromise().then(
+                (data: any) => { // Success
+                    let evento: Evento;
+                    evento = Evento.createFromJsonObject(data);
+                    resolve(evento);
+                }
+            )
+                .catch((error: Error) => {
+                    reject(error.message);
+                });
+        });
+        return promise;
+    }//end_insertarEvento
+
+    
+    /* ------------------ FIN MÉTODOS EVENTOS ------------------*/
+
 
 }//end_class

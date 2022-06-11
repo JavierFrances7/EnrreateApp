@@ -74,6 +74,10 @@ const routes: Routes = [
     path: 'mis-eventos-establecimiento',
     loadChildren: () => import('./establecimiento/mis-eventos-establecimiento/mis-eventos-establecimiento.module').then( m => m.MisEventosEstablecimientoPageModule)
   },
+  {
+    path: 'crear-evento',
+    loadChildren: () => import('./establecimiento/crear-evento/crear-evento.module').then( m => m.CrearEventoPageModule)
+  },
 
 
 

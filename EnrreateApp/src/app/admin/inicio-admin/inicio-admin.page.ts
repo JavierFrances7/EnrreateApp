@@ -91,7 +91,7 @@ export class InicioAdminPage implements OnInit {
       .then((establecimientos: Establecimiento[]) => {
 
         //Cargamos el mapa una vez obtenidos los establecimientos
-        if (this.establecimientos != null) {
+        if (establecimientos != null) {
 
           for (let inx in establecimientos) {
 
