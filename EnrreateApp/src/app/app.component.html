@@ -4,9 +4,15 @@
       <ion-toolbar class="toolbar-menu-usuario">
         <!--***CAMBIAR LA RUTA DE LA IMAGEN Y NOMBRE DE USUARIO***-->
         <!--El ion chip es como un boton que contiene la foto del usuario y su nombre-->
-        <ion-chip (click)="verPerfil()">
+        <ion-chip (click)="clickMenuVerPerfil()" *ngIf="esEstablecimiento">
           <ion-avatar>
-            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            <ion-img [src]="urlImagen"></ion-img>
+          </ion-avatar>
+          <ion-label>{{nombrePerfil}}</ion-label>
+        </ion-chip>
+        <ion-chip (click)="verPerfil()" *ngIf="esUsuario">
+          <ion-avatar>
+            <ion-img [src]="urlImagen"></ion-img>
           </ion-avatar>
           <ion-label>{{nombrePerfil}}</ion-label>
         </ion-chip>

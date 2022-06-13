@@ -8,8 +8,8 @@
   </ion-toolbar>
 </ion-header>
 
-  <ion-content>
-    <ion-card>
+  <ion-content class="contenedor">
+    <ion-card class="card-titulo">
       <h3 style="text-align:center ;">Crear Evento</h3>
     </ion-card>
     <form [formGroup]="validation_crear_evento" (ngSubmit)="onSubmit(validation_crear_evento.value)">

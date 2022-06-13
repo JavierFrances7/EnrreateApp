@@ -9,10 +9,11 @@ import { FirebaseAuthService } from './providers/firebase-auth-service';
   styleUrls: ['app.component.scss'],
 })
 
-export class AppComponent {
+export class AppComponent{
   constructor(public menuCtrl: MenuController, private router: Router, private navCtrl: NavController, public firebaseAuthService: FirebaseAuthService) { }
   
   nombrePerfil: string;
+  urlImagen: string;
   esAdmin: boolean;
   esUsuario: boolean;
   esEstablecimiento: boolean;
@@ -33,6 +34,10 @@ export class AppComponent {
 
   setNombrePerfil(nombrePerfil: string) {
     this.nombrePerfil = nombrePerfil;
+  }
+
+  setUrlImagen(urlImagen: string) {
+    this.urlImagen = urlImagen;
   }
 
   //MÉTODOS MENÚ USUARIO
@@ -83,6 +88,7 @@ export class AppComponent {
   //Método que redirecciona hacia el perfil del establecimiento
   clickMenuVerPerfil() {
     this.router.navigate(['/perfil-establecimiento']);
+    this.menuCtrl.close();
   }
 
   clickMisEventos() {
@@ -112,11 +118,10 @@ export class AppComponent {
   //MÉTODOS LOGOUT
   //Método que cierra la sesión del usuario  
   async cerrarSesion() {
+    this.irLoginApp();
     this.firebaseAuthService.logoutUser()
       .then((data) => {
         console.log("Logout Exitoso");
-
-        this.irLoginApp();
       })
       .catch((error) => {
         console.log("Error en el logout: " + error);

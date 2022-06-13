@@ -90,7 +90,7 @@ export class HomePage implements OnInit {
                   this.appComponent.setEsUsuario(false);
                   this.appComponent.setEsEstablecimiento(true);
                   this.appComponent.setNombrePerfil(this.establecimientos[inx].nombreEstablecimiento);
-                  console.log(this.establecimientos[inx].nombreEstablecimiento)
+                  this.appComponent.setUrlImagen(this.establecimientos[inx].imagenPerfil);
                   this.router.navigate(['/inicio-establecimiento']);
                   return;
 
@@ -108,6 +108,8 @@ export class HomePage implements OnInit {
                   this.appComponent.setEsUsuario(true);
                   this.appComponent.setEsEstablecimiento(false);
                   this.appComponent.setNombrePerfil(this.usuarios[inx].nombreUsuario);
+                  this.appComponent.setUrlImagen(this.usuarios[inx].imagenPerfil);
+
                   this.router.navigate(['/inicio-usuario-base']);
                   return;
 

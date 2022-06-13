@@ -7,7 +7,7 @@
 </ion-header>
 <ion-content>
 
-  <ion-content>
+  <ion-content class="contenedor">
     <ion-card class="card-titulo">
       <h3 style="text-align:center;">Tu perfil</h3>
     </ion-card>
@@ -15,7 +15,7 @@
       <ion-row>
         <ion-col>
           <ion-avatar>
-            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            <ion-img [src]="establecimiento.imagenPerfil"></ion-img>
           </ion-avatar>
         </ion-col>
       </ion-row>
@@ -27,7 +27,7 @@
     <ion-row>
       <ion-col>
         <p>Gestor: <i>{{establecimiento.nombreGestor}}</i></p>
-
+        <p>Dirección: <i>{{establecimiento.direccion}}</i></p>
         <p>Correo: <i>{{establecimiento.correo}}</i></p>
         <p *ngIf="establecimiento.verificadoAdmin" style="color:green">Verificado por el Admin <ion-icon name="shield-checkmark"></ion-icon></p>
         <p *ngIf="!establecimiento.verificadoAdmin" style="color:red">No verificado por el Admin <ion-icon name="close-circle"></ion-icon></p>

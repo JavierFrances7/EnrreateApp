@@ -12,6 +12,7 @@ export class Establecimiento {
     aforoMaximo:number;
 	valoracionMedia:number;
     aforoActual:number;
+    imagenPerfil:string;
 
 
     constructor() {
@@ -32,6 +33,7 @@ export class Establecimiento {
         establecimiento.aforoMaximo = jsonObject['aforoMaximo'];
         establecimiento.valoracionMedia = jsonObject['valoracionMedia'];
         establecimiento.aforoActual = jsonObject['aforoActual'];
+        establecimiento.imagenPerfil = jsonObject['imagenPerfil'];
         return establecimiento;
 }
 }

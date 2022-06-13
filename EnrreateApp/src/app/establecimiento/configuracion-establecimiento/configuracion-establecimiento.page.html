@@ -6,8 +6,6 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-
-
   <ion-content class="contenedor-superior">
     <ion-card class="card-titulo">
       <h3 style="text-align:center;">Configuración</h3>
@@ -34,18 +32,25 @@
         <ion-card>
           <ion-item>
             <ion-icon name="locate-outline"></ion-icon>
-            <ion-input type="name" placeholder="Dirección" formControlName="nombreGestor"
+            <ion-input type="name" placeholder="Calle, Municipio, Ciudad" formControlName="direccion"
               value="{{establecimiento.direccion}}"></ion-input>
           </ion-item>
         </ion-card>
         <ion-card>
           <ion-item>
             <ion-icon name="people-outline" class="icon-login"></ion-icon>
-            <ion-input type="name" placeholder="Aforo Máximo" formControlName="nombreGestor"
+            <ion-input type="name" placeholder="Aforo Máximo" formControlName="aforoMaximo"
               value="{{establecimiento.aforoMaximo}}"></ion-input>
           </ion-item>
         </ion-card>
+        <ion-card>
+
+          <ion-item>
+            <ion-input type="file" (change)="uploadImage($event.target.files)" ></ion-input>
+          </ion-item>
+        </ion-card>
       </ion-list>
+
       <ion-button type="submit" fill="solid" expand="block" style="--background: rgb(161, 12, 211)">
         Actualizar Establecimiento
       </ion-button>

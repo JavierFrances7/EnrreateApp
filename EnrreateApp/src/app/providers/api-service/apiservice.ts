@@ -5,6 +5,7 @@ import { Establecimiento } from 'src/app/modelo/Establecimiento';
 import { FirebaseAuthService } from '../firebase-auth-service';
 import { Administrador } from 'src/app/modelo/Administrador';
 import { Evento } from 'src/app/modelo/Evento';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 
 @Injectable()
@@ -12,7 +13,7 @@ export class ApiServiceProvider {
 
     private URL = "http://127.0.0.1:8099/api";
 
-    constructor(public http: HttpClient, public fireAuth: FirebaseAuthService) {
+    constructor(public http: HttpClient, public fireAuth: FirebaseAuthService, private afStorage : AngularFireStorage) {
     }
     /*------------------ MÉTODOS ADMIN ------------------*/
 
@@ -368,5 +369,60 @@ export class ApiServiceProvider {
     
     /* ------------------ FIN MÉTODOS EVENTOS ------------------*/
 
+    uploadImage(file: File, uid:string):Promise<string> {
+
+        var promise:Promise<string> = new Promise<string>( (resolve, reject)=>{
+      
+          //Se comprueba que el tipo del fichero pertenece a un tipo imagen
+      
+          if (file.type.split('/')[0] !== 'image') { 
+      
+            console.log('File type is not supported!')
+      
+            reject("El fichero no es de tipo imagen");
+      
+          }
+      
+          //se calcula el path dentro del storage de firebase
+      
+          //se guarda dentro de una carpeta avatar
+      
+          //el nombre del fichero es igual al id del alumno precedido de la hora dada por getTime 
+      
+          const fileStoragePath = 'imagenes/' +uid;
+      
+      
+      
+          // Image reference
+      
+          const imageRef = this.afStorage.ref(fileStoragePath);
+      
+      
+      
+          // File upload task
+      
+          this.afStorage.upload(fileStoragePath, file)
+      
+          .then((data)=>{
+      
+            imageRef.getDownloadURL().subscribe(resp=>{
+      
+                resolve(resp);
+      
+            });
+      
+          })
+      
+          .catch((error)=>{
+      
+                reject(error);
+      
+          });
+      
+        });
+      
+        return(promise);
+      
+      }//end_uploadImage
 
 }//end_class

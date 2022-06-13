@@ -6,6 +6,8 @@ export class Usuario {
     correo:string=null;
     fechaNacimiento:Date=null;
     displayName:string=null;
+    imagenPerfil:string=null;
+
 
     public static createFromJsonObject(jsonObject: any): Usuario {
         let usuario: Usuario = new Usuario();
@@ -16,6 +18,7 @@ export class Usuario {
         usuario.correo = jsonObject['correo'];              
         usuario.fechaNacimiento = jsonObject['fechaNacimiento'];
         usuario.displayName = jsonObject['displayName'];
+        usuario.imagenPerfil = jsonObject['imagenPerfil'];
         return usuario;
 }
 }

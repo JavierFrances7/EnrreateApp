@@ -1,10 +1,11 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
+
 import { ApiServiceProvider } from 'src/app/providers/api-service/apiservice';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Router } from '@angular/router';
-import { MenuController, NavController } from '@ionic/angular';
+import { MenuController, NavController, Platform } from '@ionic/angular';
 import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
 import { Establecimiento } from 'src/app/modelo/Establecimiento';
 
@@ -19,7 +20,6 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
 
   @ViewChild('map', { static: false }) mapElement: ElementRef;
   map: any;
-  direccion: string;
 
   latitud: number;
   longitud: number;
@@ -27,12 +27,10 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
   private establecimiento = new Establecimiento();
 
 
-
   constructor(public formBuilder: FormBuilder, public apiService: ApiServiceProvider, private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder, public router: Router,
-    private menuCtrl: MenuController, public firebaseAuthService: FirebaseAuthService, private navCtrl: NavController) { }
+    private menuCtrl: MenuController, public firebaseAuthService: FirebaseAuthService, private navCtrl: NavController, private platform: Platform, public zone: NgZone) { }
 
   ngOnInit() {
-    this.cargarMapa();
     this.validation_configuracion_establecimiento = this.formBuilder.group({
       nombreEstablecimiento: new FormControl('', Validators.compose([
         Validators.required,
@@ -41,11 +39,20 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
       nombreGestor: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(6)
-      ]))
+      ])),
+      direccion: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(6)
+      ])),
+      aforoMaximo: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(6)
+      ])),
+
     });
 
     this.firebaseAuthService.userDetails()
-    .subscribe(data => {
+      .subscribe(data => {
         this.apiService.getEstablecimientoByUid(data.uid)
           .then((establecimiento: any) => {
             this.establecimiento = establecimiento;
@@ -53,72 +60,80 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
           .catch((error: string) => {
             console.log(error);
           });
-    });
-
+      });
   }
 
-  //MÉTODOS MAPA
-  //Método que carga el mapa
-  cargarMapa() {
-    var options = {
-      timeout: 20000
+  obtenerCoordenadasDesdeDireccion(address) {
+    //Proyecto cordova
+    if (this.platform.is('cordova')) {
+      let options: NativeGeocoderOptions = {
+        useLocale: true,
+        maxResults: 5
+      };
+      this.nativeGeocoder.forwardGeocode(address, options)
+        .then((result: NativeGeocoderResult[]) => {
+          this.zone.run(() => {
+            this.establecimiento.latitud = Number.parseFloat(result[0].latitude);
+            this.establecimiento.longitud = Number.parseFloat(result[0].longitude);
+            console.log("COORDS de " + address + this.establecimiento.latitud + " " + this.establecimiento.longitud)
+            this.apiService.modificarEstablecimiento(this.establecimiento);
+          })
+        })
+        .catch((error: any) => console.log(error));
+    } else {
+      //Proyecto capacitor
+      let geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ 'address': address }, (results, status) => {
+        if (status == google.maps.GeocoderStatus.OK) {
+          this.zone.run(() => {
+            this.establecimiento.latitud = results[0].geometry.location.lat();
+            this.establecimiento.longitud = results[0].geometry.location.lng();
+            console.log("COORDS de " + address + this.establecimiento.latitud + " " + this.establecimiento.longitud)
+            this.apiService.modificarEstablecimiento(this.establecimiento);
+
+          })
+        } else {
+          alert('Error - ' + results + ' & Status - ' + status)
+        }
+      });
     }
-    this.geolocation.getCurrentPosition().then((resp) => {
-
-      this.latitud = resp.coords.latitude;
-      this.longitud = resp.coords.longitude;
-
-      let latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
-      let mapaOpciones = {
-        center: latLng,
-        zoom: 12,
-        mapTypeControl: false,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      }
-
-      this.getDireccionDesdeCoordenadas(resp.coords.latitude, resp.coords.longitude);
-
-      this.map = new google.maps.Map(this.mapElement.nativeElement, mapaOpciones);
-
-      this.map.addListener('dragend', () => {
-
-        this.latitud = this.map.center.lat();
-        this.longitud = this.map.center.lng();
-
-        this.getDireccionDesdeCoordenadas(this.map.center.lat(), this.map.center.lng())
-      });
-
-    }).catch((error) => {
-      console.log('Error obteniendo ubicacion', error);
-    });
   }
 
-  getDireccionDesdeCoordenadas(latitud, longitud) {
-    console.log("LATITUD: " + latitud + "LONGITUD: " + longitud);
-    let options: NativeGeocoderOptions = {
-      useLocale: true,
-      maxResults: 5
-    };
 
-    this.nativeGeocoder.reverseGeocode(latitud, longitud, options)
-      .then((result: NativeGeocoderResult[]) => {
-        this.direccion = "";
-        let responseAddress = [];
-        for (let [key, value] of Object.entries(result[0])) {
-          if (value.length > 0)
-            responseAddress.push(value);
+  uploadImage(event: FileList) {
 
-        }
-        responseAddress.reverse();
-        for (let value of responseAddress) {
-          this.direccion += value + ", ";
-        }
-        this.direccion = this.direccion.slice(0, -2);
+    var file: File = event.item(0);
+    //doy al nombre del fichero un número aleatorio 
+
+    //le pongo al nombre también la extensión del fichero
+
+    this.apiService.uploadImage(file, this.establecimiento.uidEstablecimiento)
+
+      .then((downloadUrl) => {
+
+        //Aqui cojo la downloadUrl y la guardo en la bbdd
+        this.establecimiento.imagenPerfil = downloadUrl;
+
       })
-      .catch((error: any) => {
-        this.direccion = "Direccion no Disponible";
+
+      .catch((error) => {
+
+        console.log(error);
+
       });
 
+  }
+
+
+  onSubmit(values) {
+    this.establecimiento.nombreEstablecimiento = values['nombreEstablecimiento'];
+    this.establecimiento.nombreGestor = values['nombreGestor'];
+    this.establecimiento.direccion = values['direccion'];
+    this.establecimiento.aforoMaximo = values['aforoMaximo'];
+    this.establecimiento.verificadoAdmin = false;
+    this.obtenerCoordenadasDesdeDireccion(values['direccion']);
+
+    //Al pulsar el boton de sumbit se inicia el metodo login con los valores del formulario.
   }
 
 }
