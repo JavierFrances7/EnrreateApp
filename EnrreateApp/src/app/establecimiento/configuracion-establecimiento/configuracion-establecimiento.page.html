@@ -44,25 +44,14 @@
           </ion-item>
         </ion-card>
         <ion-card>
-
           <ion-item>
-            <ion-input type="file" (change)="uploadImage($event.target.files)" ></ion-input>
+            <ion-icon name="person-circle-outline"></ion-icon>
+            <ion-input accept="image/png, image/jpg, image/jpeg" type="file" (change)="subirImagen($event.target.files)"></ion-input>
           </ion-item>
         </ion-card>
       </ion-list>
-
       <ion-button type="submit" fill="solid" expand="block" style="--background: rgb(161, 12, 211)">
         Actualizar Establecimiento
       </ion-button>
     </form>
-    <!--
-  <ion-content id="contenidoPrincipal">
-    <div class="map-wrapper">
-      <div id="map_center">
-        <img class="marker-centro" src="assets/icon/marker-mapa.png" />
-      </div>
-      <div #map id="map"></div>
-    </div>
-
-  </ion-content>-->
   </ion-content>

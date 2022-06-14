@@ -1,12 +1,12 @@
 export class Usuario {
-    uidUsuario: string=null;
-    nombre:string=null;
-    apellidos:string=null;
-    nombreUsuario:string=null;
-    correo:string=null;
-    fechaNacimiento:Date=null;
-    displayName:string=null;
-    imagenPerfil:string=null;
+    uidUsuario: string;
+    nombre:string;
+    apellidos:string;
+    nombreUsuario:string;
+    correo:string;
+    fechaNacimiento:Date;
+    displayName:string;
+    imagenPerfil:string;
 
 
     public static createFromJsonObject(jsonObject: any): Usuario {

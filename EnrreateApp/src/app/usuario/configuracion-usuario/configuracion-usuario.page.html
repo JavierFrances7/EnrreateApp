@@ -8,7 +8,44 @@
 <ion-content>
 
 
-<!--FIN MENU LATERAL-->
-<ion-content id="contenidoPrincipal">
-
-</ion-content>
+  <ion-content>
+    <ion-content class="contenedor-superior">
+      <ion-card class="card-titulo">
+        <h3 style="text-align:center;">Configuración</h3>
+      </ion-card>
+      <form [formGroup]="validation_configuracion_usuario"
+        (ngSubmit)="onSubmit(validation_configuracion_usuario.value)">
+        <ion-list>
+          <ion-card>
+            <ion-item>
+              <ion-icon name="person-outline" class="icon-login"></ion-icon>
+              <ion-input type="name" placeholder="Nombre" formControlName="nombre" value="{{usuario.nombre}}">
+              </ion-input>
+            </ion-item>
+          </ion-card>
+          <ion-card>
+            <ion-item>
+              <ion-icon name="person-outline" class="icon-login"></ion-icon>
+              <ion-input type="name" placeholder="Apellidos" formControlName="apellidos" value="{{usuario.apellidos}}">
+              </ion-input>
+            </ion-item>
+          </ion-card>
+          <ion-card>
+            <ion-item>
+              <ion-icon name="body-outline"></ion-icon>
+              <ion-input type="name" placeholder="Nombre Usuario" formControlName="nombreUsuario"
+                value="{{usuario.nombreUsuario}}"></ion-input>
+            </ion-item>
+          </ion-card>
+          <ion-card>
+            <ion-item>
+              <ion-icon name="person-circle-outline"></ion-icon>
+              <ion-input accept="image/png, image/jpg, image/jpeg" type="file" (change)="subirImagen($event.target.files)"></ion-input>
+            </ion-item>
+          </ion-card>
+        </ion-list>
+        <ion-button type="submit" fill="solid" expand="block" style="--background: rgb(161, 12, 211)">
+          Actualizar Perfil
+        </ion-button>
+      </form>
+    </ion-content>

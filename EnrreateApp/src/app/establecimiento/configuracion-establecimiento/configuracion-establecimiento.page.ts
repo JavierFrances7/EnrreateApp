@@ -100,18 +100,16 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
   }
 
 
-  uploadImage(event: FileList) {
+  subirImagen(event: FileList) {
 
     var file: File = event.item(0);
-    //doy al nombre del fichero un número aleatorio 
 
-    //le pongo al nombre también la extensión del fichero
 
     this.apiService.uploadImage(file, this.establecimiento.uidEstablecimiento)
 
       .then((downloadUrl) => {
 
-        //Aqui cojo la downloadUrl y la guardo en la bbdd
+        //Aqui cojo la url de la imagen y la asigno al objeto a actualizar
         this.establecimiento.imagenPerfil = downloadUrl;
 
       })
