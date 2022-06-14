@@ -1,18 +1,18 @@
 export class Establecimiento {
-    uidEstablecimiento: string;
-    nombreEstablecimiento:string;
-    nombreGestor:string;
-    correo:string;
-    displayName:string;
-    verificadoAdmin: boolean;
-    latitud:number;
-    longitud:number;
-    ciudad:string;
-    direccion:string;
-    aforoMaximo:number;
-	valoracionMedia:number;
-    aforoActual:number;
-    imagenPerfil:string;
+    uidEstablecimiento: string=null;
+    nombreEstablecimiento:string=null;
+    nombreGestor:string=null;
+    correo:string=null;
+    displayName:string=null;
+    verificadoAdmin: boolean=null;
+    latitud:number=null;
+    longitud:number=null;
+    ciudad:string=null;
+    direccion:string=null;
+    aforoMaximo:number=null;
+	valoracionMedia:number=null;
+    aforoActual:number=null;
+    imagenPerfil:string=null;
 
 
     constructor() {

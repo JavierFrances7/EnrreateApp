@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar class="toolbar-pagina">
+    <ion-buttons>
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-content class="contenedor">
+    <ion-card class="card-titulo">
+      <h3 style="text-align:center ;">Establecimientos</h3></ion-card>
+      <div *ngFor="let establecimiento of establecimientos; let indice=index;">
+    <ion-card class="cards">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-row>
+              <ion-avatar>
+                <ion-img [src]="establecimiento.imagenPerfil"></ion-img>
+              </ion-avatar>
+            </ion-row>
+            <ion-row>
+              <p>Nombre: {{establecimiento.nombreEstablecimiento}}</p>
+            </ion-row>
+            <ion-row>
+              <p>Direccion: {{establecimiento.direccion}} , {{establecimiento.ciudad}}</p>
+            </ion-row>
+            <ion-row>
+              <p><ion-icon name="star"></ion-icon> {{establecimiento.valoracionMedia}}</p>
+            </ion-row>
+            <ion-row>
+              <ion-button color="success" (click)="irPerfilEstablecimiento(indice)">VER PERFIL</ion-button>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </div>
+  </ion-content>
+  
+  

@@ -52,8 +52,8 @@ export class AppComponent{
   }
 
   //Método que redirecciona a notificaciones
-  verNotificaciones() {
-    this.router.navigate(['/notificaciones-usuario']);
+  verListaEstablecimientos() {
+    this.router.navigate(['/lista-establecimientos']);
   }
 
   //Método que redirecciona hacia el perfil de usuario

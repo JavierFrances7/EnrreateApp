@@ -6,6 +6,7 @@ import { FirebaseAuthService } from '../firebase-auth-service';
 import { Administrador } from 'src/app/modelo/Administrador';
 import { Evento } from 'src/app/modelo/Evento';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { ComentarioEstablecimiento } from 'src/app/modelo/ComentarioEstablecimiento';
 
 
 @Injectable()
@@ -13,7 +14,7 @@ export class ApiServiceProvider {
 
     private URL = "http://127.0.0.1:8099/api";
 
-    constructor(public http: HttpClient, public fireAuth: FirebaseAuthService, private afStorage : AngularFireStorage) {
+    constructor(public http: HttpClient, public fireAuth: FirebaseAuthService, private afStorage: AngularFireStorage) {
     }
     /*------------------ MÉTODOS ADMIN ------------------*/
 
@@ -366,63 +367,84 @@ export class ApiServiceProvider {
         return promise;
     }//end_insertarEvento
 
-    
+
     /* ------------------ FIN MÉTODOS EVENTOS ------------------*/
 
-    uploadImage(file: File, uid:string):Promise<string> {
+    /* ------------------ MÉTODOS SUBIDA IMÁGENES ------------------*/
 
-        var promise:Promise<string> = new Promise<string>( (resolve, reject)=>{
-      
-          //Se comprueba que el tipo del fichero pertenece a un tipo imagen
-      
-          if (file.type.split('/')[0] !== 'image') { 
-      
-            console.log('File type is not supported!')
-      
-            reject("El fichero no es de tipo imagen");
-      
-          }
-      
-          //se calcula el path dentro del storage de firebase
-      
-          //se guarda dentro de una carpeta avatar
-      
-          //el nombre del fichero es igual al id del alumno precedido de la hora dada por getTime 
-      
-          const fileStoragePath = 'imagenes/' +uid;
-      
-      
-      
-          // Image reference
-      
-          const imageRef = this.afStorage.ref(fileStoragePath);
-      
-      
-      
-          // File upload task
-      
-          this.afStorage.upload(fileStoragePath, file)
-      
-          .then((data)=>{
-      
-            imageRef.getDownloadURL().subscribe(resp=>{
-      
-                resolve(resp);
-      
-            });
-      
-          })
-      
-          .catch((error)=>{
-      
-                reject(error);
-      
-          });
-      
+
+    uploadImage(file: File, uid: string): Promise<string> {
+        var promise: Promise<string> = new Promise<string>((resolve, reject) => {
+            //Se comprueba que el tipo del fichero pertenece a un tipo imagen
+            if (file.type.split('/')[0] !== 'image') {
+                reject("El fichero no es de tipo imagen");
+            }
+            //Se crea el path dentro del storage de firebase
+            //el nombre del fichero es igual al uid del usuario u establecimiento
+            const fileStoragePath = 'imagenes/' + uid;
+            const imageRef = this.afStorage.ref(fileStoragePath);
+            this.afStorage.upload(fileStoragePath, file)
+                .then((data) => {
+                    imageRef.getDownloadURL().subscribe(resp => {
+                        resolve(resp);
+                    });
+                })
+                .catch((error) => {
+
+                    reject(error);
+                });
         });
-      
-        return(promise);
-      
-      }//end_uploadImage
+
+        return (promise);
+
+    }//end_uploadImage
+
+    /* ------------------FIN MÉTODOS SUBIDA IMÁGENES ------------------*/
+
+
+    /* ------------------ MÉTODOS COMENTARIOS ESTABLECIMIENTOS ------------------*/
+
+    //Método que obtiene los eventos de la base de datos    
+
+    getComentariosEstablecimientos(): Promise<ComentarioEstablecimiento[]> {
+        let promise = new Promise<ComentarioEstablecimiento[]>((resolve, reject) => {
+            this.http.get(this.URL + "/comentarios/establecimientos").toPromise()
+                .then((data: any) => {
+                    let comentarios = new Array<ComentarioEstablecimiento>();
+                    data.forEach(comentarioEstablecimientoJson => {
+                        let comentario = ComentarioEstablecimiento.createFromJsonObject(comentarioEstablecimientoJson);
+                        comentarios.push(comentario);
+                    });
+                    resolve(comentarios);
+                })
+                .catch((error: Error) => {
+                    reject(error.message);
+                });
+        });
+        return promise;
+    }//end_getEventos
+
+    //Método que inserta los eventos en la base de datos    
+
+    insertarComentarioEstablecimiento(nuevoComentarioEstablecimiento: ComentarioEstablecimiento): Promise<ComentarioEstablecimiento> {
+        let promise = new Promise<ComentarioEstablecimiento>((resolve, reject) => {
+            var header = { "headers": { "Content-Type": "application/json" } };
+            let datos = JSON.stringify(nuevoComentarioEstablecimiento);
+            this.http.post(this.URL + "/comentarios/establecimiento/", datos, header).toPromise().then(
+                (data: any) => { // Success
+                    let comentarioEstablecimiento: ComentarioEstablecimiento;
+                    comentarioEstablecimiento = ComentarioEstablecimiento.createFromJsonObject(data);
+                    resolve(comentarioEstablecimiento);
+                }
+            )
+                .catch((error: Error) => {
+                    reject(error.message);
+                });
+        });
+        return promise;
+    }//end_insertarEvento
+
+
+    /* ------------------ FIN MÉTODOS COMENTARIOS ESTABLECIMIENTOS ------------------*/
 
 }//end_class

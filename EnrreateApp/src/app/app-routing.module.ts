@@ -26,7 +26,8 @@ const routes: Routes = [
   {
     path: 'registro-establecimiento',
     loadChildren: () => import('./establecimiento/registro-establecimiento/registro-establecimiento.module').then( m => m.RegistroEstablecimientoPageModule)
-  },  {
+  },
+  {
     path: 'inicio-establecimiento',
     loadChildren: () => import('./establecimiento/inicio-establecimiento/inicio-establecimiento/inicio-establecimiento.module').then( m => m.InicioEstablecimientoPageModule)
   },
@@ -63,10 +64,6 @@ const routes: Routes = [
     loadChildren: () => import('./usuario/eventos-guardados-usuario/eventos-guardados-usuario.module').then( m => m.EventosGuardadosUsuarioPageModule)
   },
   {
-    path: 'notificaciones-usuario',
-    loadChildren: () => import('./usuario/notificaciones-usuario/notificaciones-usuario.module').then( m => m.NotificacionesUsuarioPageModule)
-  },
-  {
     path: 'preguntas-establecimiento',
     loadChildren: () => import('./establecimiento/preguntas-establecimiento/preguntas-establecimiento.module').then( m => m.PreguntasEstablecimientoPageModule)
   },
@@ -77,6 +74,10 @@ const routes: Routes = [
   {
     path: 'crear-evento',
     loadChildren: () => import('./establecimiento/crear-evento/crear-evento.module').then( m => m.CrearEventoPageModule)
+  },
+  {
+    path: 'lista-establecimientos',
+    loadChildren: () => import('./usuario/lista-establecimientos/lista-establecimientos.module').then( m => m.ListaEstablecimientosPageModule)
   },
 
 

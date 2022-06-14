@@ -22,7 +22,6 @@ export class Evento {
         evento.edadMinima = jsonObject['edadMinima'];
         evento.tipoMusica = jsonObject['tipoMusica'];
         evento.establecimiento= Establecimiento.createFromJsonObject(jsonObject['uidEstablecimiento']);
-        console.log("CREATE ESTABLECIMIENTO: "+ establecimiento.uidEstablecimiento);
         return evento;
 }
 }

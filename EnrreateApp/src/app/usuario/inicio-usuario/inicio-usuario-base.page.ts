@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 import { MenuController, NavController } from '@ionic/angular';
 import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
@@ -26,9 +26,11 @@ export class InicioUsuarioBasePage implements OnInit {
   direccion: string;
   latitud: number;
   longitud: number;
+  uidEstablecimientoSend: string
 
 
-  constructor(public menuCtrl: MenuController, private router: Router, public firebaseAuthService: FirebaseAuthService, private geolocation: Geolocation, 
+
+  constructor(public menuCtrl: MenuController, public router: Router, public firebaseAuthService: FirebaseAuthService, private geolocation: Geolocation, 
               private nativeGeocoder: NativeGeocoder, public apiServiceProvider: ApiServiceProvider, private navCtrl: NavController) {
     this.infoWindows = [];
   }
@@ -52,6 +54,7 @@ export class InicioUsuarioBasePage implements OnInit {
       });
 
   }
+
 
   //MÉTODOS MAPA
   //Método que carga el mapa
@@ -107,7 +110,7 @@ export class InicioUsuarioBasePage implements OnInit {
       '<ion-grid>' +
       //Primera fila del grid
       '<ion-row><ion-col size="3"></ion-col><ion-col size="6">' +
-      '<ion-avatar id="botonVerPerfilEstablecimiento"><img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"></ion-avatar>' +
+      '<ion-avatar id="botonVerPerfilEstablecimiento"><ion-img src="'+establecimiento.imagenPerfil+'"></ion-img></ion-avatar>' +
       '</ion-col><ion-col size="3"></ion-col></ion-row>' +
       //Segunda fila del grid
       '<ion-row><ion-col size="2"></ion-col><ion-col size="8">' +
@@ -140,15 +143,14 @@ export class InicioUsuarioBasePage implements OnInit {
       //Listener que se activa al pulsar sobre el avatar del infowindow
       google.maps.event.addDomListener(document.getElementById("botonVerPerfilEstablecimiento"), 'click', function (e) {
 
-        //TODO: AQUI HAY QUE IMPLEMENTAR CODIGO QUE REDIRECCIONE A UNA PAGINA DONDE SE VE EL PERFIL DEL 
-        console.log(establecimiento.nombreEstablecimiento);
+        this.uidEstablecimientoSend=establecimiento.uidEstablecimiento;
       })
 
       //Listener que se activa al pulsar sobre el boton de ir al establecimiento 
       google.maps.event.addDomListener(document.getElementById("botonIrAEstablecimiento"), 'click', function (e) {
 
-        //TODO: AQUI HAY QUE IMPLEMENTAR CODIGO QUE REDIRECCIONE A UNA PAGINA DONDE SE VE EL PERFIL DEL 
-        console.log(establecimiento.nombreEstablecimiento);
+        this.uidEstablecimientoSend=establecimiento.uidEstablecimiento;
+
       })
     });
     this.infoWindows.push(infoWindow);
@@ -162,4 +164,5 @@ export class InicioUsuarioBasePage implements OnInit {
     }
     //FIN METODOS MAPA
   }
+  
 }
