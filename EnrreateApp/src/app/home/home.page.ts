@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 import { AppComponent } from '../app.component';
 import { Administrador } from '../modelo/Administrador';
 import { Establecimiento } from '../modelo/Establecimiento';
@@ -22,7 +22,7 @@ export class HomePage implements OnInit {
   private administradores = new Array<Administrador>();
 
 
-  constructor(public firebaseAuthService: FirebaseAuthService, private router: Router, public formBuilder: FormBuilder, public apiServiceProvider: ApiServiceProvider, private appComponent: AppComponent, public menuCtrl: MenuController) { }
+  constructor(public firebaseAuthService: FirebaseAuthService, private router: Router, public formBuilder: FormBuilder, public apiServiceProvider: ApiServiceProvider, private appComponent: AppComponent, public menuCtrl: MenuController, public alertController : AlertController) { }
 
   ngOnInit() {
 
@@ -120,7 +120,7 @@ export class HomePage implements OnInit {
       })
       .catch((error) => {
         console.log("Error en el login: " + error);
-        this.router.navigate(['/home']);
+        this.abrirVentanaLoginErroneo();
       });
   }
 
@@ -165,4 +165,18 @@ export class HomePage implements OnInit {
 
   }
 
+  async abrirVentanaLoginErroneo() {
+    const alert = await this.alertController.create({
+      header: 'Correo o contraseña incorrectos',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: (data) => {
+            this.router.navigate(['/home']);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
 }
