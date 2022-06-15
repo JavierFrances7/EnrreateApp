@@ -76,6 +76,7 @@ onSubmit(values) {
   this.establecimiento.correo=values['correo'];
   //Lo seteamos a false para que cuando el admin verifique el establecimiento se ponga a true
   this.establecimiento.verificadoAdmin=false;
+  this.establecimiento.imagenPerfil="https://firebasestorage.googleapis.com/v0/b/proyecto-fin-grado-1.appspot.com/o/sinfoto.jpeg?alt=media&token=97bb7a51-3dd9-478c-a795-3b6e734259e5";
   this.registroEstablecimiento(values['correo'], values['contrasena']);
   }
   

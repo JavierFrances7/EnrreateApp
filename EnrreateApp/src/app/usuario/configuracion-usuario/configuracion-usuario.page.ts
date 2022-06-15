@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MenuController, NavController } from '@ionic/angular';
+import { AlertController, MenuController, NavController } from '@ionic/angular';
 import { Usuario } from 'src/app/modelo/usuario';
 import { ApiServiceProvider } from 'src/app/providers/api-service/apiservice';
 import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
@@ -17,7 +17,7 @@ export class ConfiguracionUsuarioPage implements OnInit {
 
   private usuario = new Usuario();
 
-  constructor(public menuCtrl: MenuController, private router: Router, private navCtrl: NavController, public apiService: ApiServiceProvider, public formBuilder: FormBuilder, public firebaseAuthService: FirebaseAuthService) { }
+  constructor(public menuCtrl: MenuController, private router: Router, private navCtrl: NavController, public apiService: ApiServiceProvider, public formBuilder: FormBuilder, public firebaseAuthService: FirebaseAuthService, public alertController: AlertController) { }
 
   ngOnInit() {
 
@@ -75,8 +75,28 @@ export class ConfiguracionUsuarioPage implements OnInit {
     this.usuario.nombre = values['nombre'];
     this.usuario.apellidos = values['apellidos'];
     this.usuario.nombreUsuario = values['nombreUsuario'];
-    this.apiService.modificarUsuario(this.usuario);
+    this.apiService.modificarUsuario(this.usuario).then((any) => {
+      this.abrirVentanaActualizacionCorrecta();
+    })
+    .catch((error) => {
+      console.log(error);
+    });;
     //Al pulsar el boton de sumbit se inicia el metodo login con los valores del formulario.
   }
 
+
+  async abrirVentanaActualizacionCorrecta() {
+    const alert = await this.alertController.create({
+      header: 'Perfil actualizado con éxito',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: (data) => {
+            this.router.navigate(['/perfil-usuario']);          
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
 }

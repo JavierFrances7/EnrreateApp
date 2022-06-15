@@ -59,7 +59,6 @@ export class AppComponent{
   //Método que redirecciona hacia el perfil de usuario
   verPerfil() {
     this.router.navigate(['/perfil-usuario']);
-    this.menuCtrl.close();
   }
 
   //Método que redirecciona hacia el login de la aplicacion
@@ -88,7 +87,6 @@ export class AppComponent{
   //Método que redirecciona hacia el perfil del establecimiento
   clickMenuVerPerfil() {
     this.router.navigate(['/perfil-establecimiento']);
-    this.menuCtrl.close();
   }
 
   clickMisEventos() {

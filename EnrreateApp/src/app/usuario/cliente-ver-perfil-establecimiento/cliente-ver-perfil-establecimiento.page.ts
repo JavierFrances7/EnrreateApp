@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { ComentarioEstablecimiento } from 'src/app/modelo/ComentarioEstablecimiento';
 import { Establecimiento } from 'src/app/modelo/Establecimiento';
 import { Usuario } from 'src/app/modelo/usuario';
@@ -20,12 +21,11 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
   private comentarioEstablecimiento = new ComentarioEstablecimiento();
   comentarios = new Array<ComentarioEstablecimiento>();
   inputComentario: string;
-  today: number;
+  encontrado: boolean = false;
 
 
 
-
-  constructor(private route: ActivatedRoute, public apiService: ApiServiceProvider, public firebaseAuthService: FirebaseAuthService) { }
+  constructor(private route: ActivatedRoute, public apiService: ApiServiceProvider, public firebaseAuthService: FirebaseAuthService, public alertCtrl: AlertController) { }
 
   ngOnInit() {
     this.uidEstablecimiento = this.route.snapshot.params['data'];
@@ -51,6 +51,7 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
             console.log(error);
           });
       });
+
   }
 
   ionViewWillEnter() {
@@ -58,20 +59,31 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
   }
 
   comentar() {
-    console.log(this.establecimiento.uidEstablecimiento)
-    console.log(this.usuario.uidUsuario)
     this.comentarioEstablecimiento.comentario = this.inputComentario;
     this.comentarioEstablecimiento.establecimiento = this.establecimiento;
     this.comentarioEstablecimiento.usuario = this.usuario;
     this.comentarioEstablecimiento.fecha = Date.now();
-    this.apiService.insertarComentarioEstablecimiento(this.comentarioEstablecimiento)
-    .then((any: any) => {
-      this.cargarComentarios();
-    })
-      .catch((error: string) => {
-        console.log(error);
-      });
-    this.inputComentario = "";
+
+    for (let inx in this.comentarios) {
+      //Si el usuario no ha comentado nunca este establecimiento se le solicita una nota, sino se guarda su comentario sin nota.
+      if ((this.comentarios[inx].usuario.uidUsuario != this.usuario.uidUsuario) && (this.comentarios[inx].establecimiento.uidEstablecimiento == this.uidEstablecimiento)) {
+        this.encontrado = false;
+      } else if ((this.comentarios[inx].usuario.uidUsuario == this.usuario.uidUsuario) && (this.comentarios[inx].establecimiento.uidEstablecimiento == this.uidEstablecimiento)) {
+        this.encontrado = true;
+      } else {
+        this.encontrado = false;
+      }
+    }
+
+    if (this.comentarios.length == 0) {
+      this.crearAlertNota();
+    }
+
+    if (this.encontrado == true) {
+      this.insertarComentario();
+    } else {
+      this.crearAlertNota();
+    }
   }
 
   cargarComentarios() {
@@ -83,6 +95,49 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
         console.log(error);
       });
 
+  }
+
+  async crearAlertNota() {
+    console.log("ENTRA EN ALERT")
+    const alert = await this.alertCtrl.create({
+      cssClass: 'alert',
+      header: 'Evalúa este establecimiento',
+      inputs: [
+        {
+          name: 'nota',
+          type: 'number',
+          placeholder: 'Nota',
+        }
+      ],
+      buttons: [
+        {
+          text: 'Ok',
+          handler: (data) => {
+            if (data.nota >= 1 && data.nota <= 10) {
+              console.log(data.nota);
+              this.comentarioEstablecimiento.nota = data.nota;
+              this.insertarComentario();
+              this.comentarioEstablecimiento.nota = 0;
+            } else {
+              console.log("Menor, no insertamos el comentario")
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  insertarComentario() {
+    this.apiService.insertarComentarioEstablecimiento(this.comentarioEstablecimiento)
+      .then((any: any) => {
+        this.cargarComentarios();
+      })
+      .catch((error: string) => {
+        console.log(error);
+      });
+    this.inputComentario = "";
   }
 }
 

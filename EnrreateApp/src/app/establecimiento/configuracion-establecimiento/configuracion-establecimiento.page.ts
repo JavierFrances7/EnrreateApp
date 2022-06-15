@@ -5,7 +5,7 @@ import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@io
 import { ApiServiceProvider } from 'src/app/providers/api-service/apiservice';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Router } from '@angular/router';
-import { MenuController, NavController, Platform } from '@ionic/angular';
+import { AlertController, MenuController, NavController, Platform } from '@ionic/angular';
 import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
 import { Establecimiento } from 'src/app/modelo/Establecimiento';
 
@@ -27,8 +27,8 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
   private establecimiento = new Establecimiento();
 
 
-  constructor(public formBuilder: FormBuilder, public apiService: ApiServiceProvider, private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder, public router: Router,
-    private menuCtrl: MenuController, public firebaseAuthService: FirebaseAuthService, private navCtrl: NavController, private platform: Platform, public zone: NgZone) { }
+  constructor(public formBuilder: FormBuilder, public apiService: ApiServiceProvider, private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder, public router: Router, 
+    public firebaseAuthService: FirebaseAuthService, private navCtrl: NavController, private platform: Platform, public zone: NgZone, public alertController: AlertController) { }
 
   ngOnInit() {
     this.validation_configuracion_establecimiento = this.formBuilder.group({
@@ -130,8 +130,24 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
     this.establecimiento.aforoMaximo = values['aforoMaximo'];
     this.establecimiento.verificadoAdmin = false;
     this.obtenerCoordenadasDesdeDireccion(values['direccion']);
+    this.abrirVentanaActualizacionCorrecta();
 
     //Al pulsar el boton de sumbit se inicia el metodo login con los valores del formulario.
+  }
+
+  async abrirVentanaActualizacionCorrecta() {
+    const alert = await this.alertController.create({
+      header: 'Perfil actualizado con éxito',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: (data) => {
+            this.router.navigate(['/perfil-establecimiento']);
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
 }

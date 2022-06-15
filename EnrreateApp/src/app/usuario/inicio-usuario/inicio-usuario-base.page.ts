@@ -122,10 +122,6 @@ export class InicioUsuarioBasePage implements OnInit {
       '<ion-row><p id="aforoMaximoInfowindow"  style="text-align: left; ">Aforo Máximo: ' + establecimiento.aforoMaximo + '</p></ion-row>' +
       //Quinta fila del grid
       '<ion-row><p id="valoracionMediaInfowindow"  style="text-align: left; "><ion-icon name="star"></ion-icon>&nbsp' + establecimiento.valoracionMedia + '</p></ion-row>' +
-      //Ultima fila del grid
-      '<ion-row>' +
-      '<ion-col><ion-button id="botonIrAEstablecimiento" expand="block" style="--background: rgb(161, 12, 211);"> IR a ' + establecimiento.nombreEstablecimiento + '</ion-button></ion-col>' +
-      '</ion-row>' +
       '</ion-grid>' +
       '</div>';
 
@@ -138,7 +134,7 @@ export class InicioUsuarioBasePage implements OnInit {
     });
 
     //Una vez el DOM este listo le añadimos un listener al boton dentro de la infowindow
-    google.maps.event.addListener(infoWindow, 'domready', function () {
+    /*google.maps.event.addListener(infoWindow, 'domready', function () {
 
       //Listener que se activa al pulsar sobre el avatar del infowindow
       google.maps.event.addDomListener(document.getElementById("botonVerPerfilEstablecimiento"), 'click', function (e) {
@@ -152,7 +148,7 @@ export class InicioUsuarioBasePage implements OnInit {
         this.uidEstablecimientoSend=establecimiento.uidEstablecimiento;
 
       })
-    });
+    });*/
     this.infoWindows.push(infoWindow);
 
   }
