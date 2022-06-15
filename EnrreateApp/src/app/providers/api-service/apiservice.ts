@@ -7,6 +7,7 @@ import { Administrador } from 'src/app/modelo/Administrador';
 import { Evento } from 'src/app/modelo/Evento';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { ComentarioEstablecimiento } from 'src/app/modelo/ComentarioEstablecimiento';
+import { PreguntaEstablecimiento } from 'src/app/modelo/PreguntaEstablecimiento';
 
 
 @Injectable()
@@ -404,7 +405,7 @@ export class ApiServiceProvider {
 
     /* ------------------ MÉTODOS COMENTARIOS ESTABLECIMIENTOS ------------------*/
 
-    //Método que obtiene los eventos de la base de datos    
+    //Método que obtiene los comentarios de la base de datos    
 
     getComentariosEstablecimientos(): Promise<ComentarioEstablecimiento[]> {
         let promise = new Promise<ComentarioEstablecimiento[]>((resolve, reject) => {
@@ -422,9 +423,9 @@ export class ApiServiceProvider {
                 });
         });
         return promise;
-    }//end_getEventos
+    }//end_getComentarios
 
-    //Método que inserta los eventos en la base de datos    
+    //Método que inserta los comentarios en la base de datos    
 
     insertarComentarioEstablecimiento(nuevoComentarioEstablecimiento: ComentarioEstablecimiento): Promise<ComentarioEstablecimiento> {
         let promise = new Promise<ComentarioEstablecimiento>((resolve, reject) => {
@@ -442,9 +443,88 @@ export class ApiServiceProvider {
                 });
         });
         return promise;
-    }//end_insertarEvento
+    }//end_insertarComentario
 
 
     /* ------------------ FIN MÉTODOS COMENTARIOS ESTABLECIMIENTOS ------------------*/
+
+    /* ------------------ MÉTODOS PREGUNTAS ESTABLECIMIENTOS ------------------*/
+
+    //Método que obtiene las preguntas de la base de datos    
+
+    getPreguntasEstablecimientos(): Promise<PreguntaEstablecimiento[]> {
+        let promise = new Promise<PreguntaEstablecimiento[]>((resolve, reject) => {
+            this.http.get(this.URL + "/preguntas/establecimientos").toPromise()
+                .then((data: any) => {
+                    let preguntas = new Array<PreguntaEstablecimiento>();
+                    data.forEach(preguntaEstablecimientoJson => {
+                        let comentario = PreguntaEstablecimiento.createFromJsonObject(preguntaEstablecimientoJson);
+                        preguntas.push(comentario);
+                    });
+                    resolve(preguntas);
+                })
+                .catch((error: Error) => {
+                    reject(error.message);
+                });
+        });
+        return promise;
+    }//end_getPreguntas
+
+    //Método que inserta las preguntas en la base de datos    
+
+    insertarPreguntaEstablecimiento(nuevoPreguntaEstablecimiento: PreguntaEstablecimiento): Promise<PreguntaEstablecimiento> {
+        let promise = new Promise<PreguntaEstablecimiento>((resolve, reject) => {
+            var header = { "headers": { "Content-Type": "application/json" } };
+            let datos = JSON.stringify(nuevoPreguntaEstablecimiento);
+            this.http.post(this.URL + "/preguntas/establecimiento/", datos, header).toPromise().then(
+                (data: any) => { // Success
+                    let preguntaEstablecimiento: PreguntaEstablecimiento;
+                    preguntaEstablecimiento = PreguntaEstablecimiento.createFromJsonObject(data);
+                    resolve(preguntaEstablecimiento);
+                }
+            )
+                .catch((error: Error) => {
+                    reject(error.message);
+                });
+        });
+        return promise;
+    }//end_insertarPreguntas
+
+    modificarPregunta(nuevosDatosPregunta: PreguntaEstablecimiento): Promise<PreguntaEstablecimiento> {
+        let promise = new Promise<PreguntaEstablecimiento>((resolve, reject) => {
+            var header = { "headers": { "Content-Type": "application/json" } };
+            let datos = JSON.stringify(nuevosDatosPregunta);
+            this.http.put(this.URL + "/preguntas/establecimiento/" + nuevosDatosPregunta.idPregunta, datos, header)
+                .toPromise().then(
+                    (data: any) => { // Success
+                        let pregunta: PreguntaEstablecimiento;
+                        pregunta = PreguntaEstablecimiento.createFromJsonObject(data);
+                        resolve(pregunta);
+                    }
+                )
+                .catch((error: Error) => {
+                    reject(error.message);
+                });
+        });
+        return promise;
+    }//end_modificarEstablecimiento
+
+    eliminarPregunta(pregunta: PreguntaEstablecimiento): Promise<Boolean> {
+        let promise = new Promise<Boolean>((resolve, reject) => {
+            this.http.delete(this.URL + "/preguntas/establecimiento/" + pregunta.idPregunta).toPromise().then(
+                (data: any) => {
+                    resolve(true);
+                }
+            )
+                .catch((error: Error) => {
+                    console.log(error.message);
+                    reject(error.message);
+                });
+        });
+        return promise;
+    }//eliminarPregunta
+
+
+    /* ------------------ FIN MÉTODOS PREGUNTAS ESTABLECIMIENTOS ------------------*/
 
 }//end_class

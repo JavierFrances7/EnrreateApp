@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ComentarioEstablecimiento } from 'src/app/modelo/ComentarioEstablecimiento';
 import { Establecimiento } from 'src/app/modelo/Establecimiento';
+import { PreguntaEstablecimiento } from 'src/app/modelo/PreguntaEstablecimiento';
 import { Usuario } from 'src/app/modelo/usuario';
 import { ApiServiceProvider } from 'src/app/providers/api-service/apiservice';
 import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
@@ -19,6 +20,8 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
   private usuario = new Usuario();
 
   private comentarioEstablecimiento = new ComentarioEstablecimiento();
+  private preguntaEstablecimiento = new PreguntaEstablecimiento();
+
   comentarios = new Array<ComentarioEstablecimiento>();
   inputComentario: string;
   encontrado: boolean = false;
@@ -48,7 +51,7 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
             this.usuario = usuario;
           })
           .catch((error: string) => {
-            console.log(error);
+            console.log("Sesion cerrada");
           });
       });
 
@@ -94,7 +97,6 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
       .catch((error: string) => {
         console.log(error);
       });
-
   }
 
   async crearAlertNota() {
@@ -129,6 +131,37 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
     await alert.present();
   }
 
+  async crearAlertPregunta() {
+    console.log("ENTRA EN ALERT")
+    const alert = await this.alertCtrl.create({
+      cssClass: 'alert',
+      header: '¿Tienes una duda? Pregúntanos',
+      inputs: [
+        {
+          name: 'pregunta',
+          type: 'text',
+          placeholder: 'Pregunta',
+        }
+      ],
+      buttons: [
+        {
+          text: 'Ok',
+          handler: (data) => {
+            this.preguntaEstablecimiento.pregunta=data.pregunta;
+            this.preguntaEstablecimiento.establecimiento = this.establecimiento;
+            this.preguntaEstablecimiento.usuario = this.usuario;
+            this.preguntaEstablecimiento.fecha = Date.now();
+            this.insertarPregunta();
+            data.pregunta="";
+
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
   insertarComentario() {
     this.apiService.insertarComentarioEstablecimiento(this.comentarioEstablecimiento)
       .then((any: any) => {
@@ -138,6 +171,30 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
         console.log(error);
       });
     this.inputComentario = "";
+  }
+
+  insertarPregunta() {
+    this.apiService.insertarPreguntaEstablecimiento(this.preguntaEstablecimiento)
+      .then((any: any) => {
+        this.abrirVentanaPreguntaRealizada();
+      })
+      .catch((error: string) => {
+        console.log(error);
+      });
+  }
+
+  async abrirVentanaPreguntaRealizada() {
+    const alert = await this.alertCtrl.create({
+      header: 'Pregunta enviada correctamente',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: (data) => {
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 }
 

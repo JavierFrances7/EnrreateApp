@@ -47,8 +47,8 @@ export class AppComponent{
     this.router.navigate(['/inicio-usuario-base']);
   }
 
-  verEventosGuardados() {
-    this.router.navigate(['/eventos-guardados-usuario']);
+  verPreguntasUsuario() {
+    this.router.navigate(['/preguntas-usuario']);
   }
 
   //Método que redirecciona a notificaciones

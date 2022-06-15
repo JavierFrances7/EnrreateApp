@@ -2,7 +2,6 @@
   <ion-menu side="start" contentId="contenidoPrincipal">
     <ion-header>
       <ion-toolbar class="toolbar-menu-usuario">
-        <!--***CAMBIAR LA RUTA DE LA IMAGEN Y NOMBRE DE USUARIO***-->
         <!--El ion chip es como un boton que contiene la foto del usuario y su nombre-->
         <ion-chip (click)="clickMenuVerPerfil()" *ngIf="esEstablecimiento">
           <ion-avatar>
@@ -33,9 +32,9 @@
             <ion-icon name="map-outline"></ion-icon>
             <ion-label>&nbsp;Mapa</ion-label>
           </ion-item>
-          <ion-item (click)="verEventosGuardados()" class="list-menu" *ngIf="esUsuario">
-            <ion-icon name="calendar-number-outline"></ion-icon>
-            <ion-label>&nbsp;Eventos Guardados</ion-label>
+          <ion-item (click)="verPreguntasUsuario()" class="list-menu" *ngIf="esUsuario">
+            <ion-icon name="help-outline"></ion-icon>
+            <ion-label>&nbsp;Mis preguntas</ion-label>
           </ion-item>
           <ion-item (click)="verListaEstablecimientos()" *ngIf="esUsuario">
             <ion-icon name="storefront-outline"></ion-icon>

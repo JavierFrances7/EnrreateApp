@@ -5,14 +5,14 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+
 
 <ion-content class="contenedor">
   <ion-card class="card-titulo">
-    <h3 style="text-align:center ;">Sin responder</h3>
+    <h3 style="text-align:center ;">Mis preguntas</h3>
   </ion-card>
   <div *ngFor="let pregunta of preguntas; let indice=index;">
-    <ion-card *ngIf="pregunta.establecimiento.uidEstablecimiento == uidEstablecimientoActual && (pregunta.respuesta == null || pregunta.respuesta == undefined)" (click)="responderPregunta(pregunta)">
+    <ion-card *ngIf="pregunta.usuario.uidUsuario == uidUsuarioActual">
       <ion-grid>
         <ion-row>
           <ion-col>
@@ -30,5 +30,4 @@
       </ion-grid>
     </ion-card>
   </div>
-
 </ion-content>

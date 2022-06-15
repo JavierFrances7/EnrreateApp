@@ -60,10 +60,6 @@ const routes: Routes = [
     loadChildren: () => import('./admin/crear-admin/crear-admin.module').then( m => m.CrearAdminPageModule)
   },
   {
-    path: 'eventos-guardados-usuario',
-    loadChildren: () => import('./usuario/eventos-guardados-usuario/eventos-guardados-usuario.module').then( m => m.EventosGuardadosUsuarioPageModule)
-  },
-  {
     path: 'preguntas-establecimiento',
     loadChildren: () => import('./establecimiento/preguntas-establecimiento/preguntas-establecimiento.module').then( m => m.PreguntasEstablecimientoPageModule)
   },
@@ -78,6 +74,10 @@ const routes: Routes = [
   {
     path: 'lista-establecimientos',
     loadChildren: () => import('./usuario/lista-establecimientos/lista-establecimientos.module').then( m => m.ListaEstablecimientosPageModule)
+  },
+  {
+    path: 'preguntas-usuario',
+    loadChildren: () => import('./usuario/preguntas-usuario/preguntas-usuario.module').then( m => m.PreguntasUsuarioPageModule)
   },
 
 

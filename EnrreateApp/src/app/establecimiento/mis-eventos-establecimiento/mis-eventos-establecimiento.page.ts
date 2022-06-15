@@ -21,7 +21,6 @@ export class MisEventosEstablecimientoPage implements OnInit {
 
   
   ionViewWillEnter() {
-    this.eventos = new Array<Evento>();
     this.cargarEventos();
   }
 
@@ -34,10 +33,12 @@ export class MisEventosEstablecimientoPage implements OnInit {
       .then((eventos: Evento[]) => {
         this.firebaseAuthService.userDetails()
           .subscribe(data => {
+            this.eventos = new Array<Evento>();
             for (let inx in eventos) {
               //Si los eventos pertenecen al establecimiento logueado los mostramos en el array
               if (data.uid == eventos[inx].establecimiento.uidEstablecimiento) {
                 this.eventos.push(eventos[inx]);
+                console.log(inx)
               }
             }
           });

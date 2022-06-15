@@ -29,7 +29,7 @@
           <p>
             <ion-icon name="star"></ion-icon> <i>{{establecimiento.valoracionMedia}}</i>
           </p>
-          <ion-button expand="block" class="btn-pregunta"> Pregunta a {{establecimiento.nombreEstablecimiento}}
+          <ion-button expand="block" class="btn-pregunta" (click)="crearAlertPregunta()"> Pregunta a {{establecimiento.nombreEstablecimiento}}
           </ion-button>
         </ion-col>
       </ion-row>

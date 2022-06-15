@@ -55,6 +55,7 @@ export class CrearEventoPage implements OnInit {
 
   }
 
+
   onSubmit(values) {
     this.evento.nombre=values['nombre'];
     this.evento.aforoMaximo=values['aforoMaximo'];
@@ -62,7 +63,12 @@ export class CrearEventoPage implements OnInit {
     this.evento.tipoMusica=values['tipoMusica'];
     this.evento.fechaInicio=values['fechaInicio'];
     this.evento.fechaFin=values['fechaFin'];
-    this.apiService.insertarEvento(this.evento);
+    this.apiService.insertarEvento(this.evento).then((any: any) => {
+      this.irInicioEventos();
+    })
+    .catch((error: string) => {
+      console.log(error);
+    });
 
     }
 
