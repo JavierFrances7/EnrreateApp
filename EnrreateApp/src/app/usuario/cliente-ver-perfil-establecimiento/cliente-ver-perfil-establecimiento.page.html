@@ -19,16 +19,16 @@
       <ion-row>
         <ion-col>
           <p><b>{{establecimiento.nombreEstablecimiento}}</b></p>
+          <p>
+            <ion-icon name="star"></ion-icon> <i>{{establecimiento.valoracionMedia}}</i>
+          </p>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          <p>Gestor: <i>{{establecimiento.nombreGestor}}</i></p>
-          <p>Dirección: <i>{{establecimiento.direccion}}</i></p>
-          <p>Correo: <i>{{establecimiento.correo}}</i></p>
-          <p>
-            <ion-icon name="star"></ion-icon> <i>{{establecimiento.valoracionMedia}}</i>
-          </p>
+          <p><b>Gestor: </b><i>{{establecimiento.nombreGestor}}</i></p>
+          <p><b>Dirección: </b><i>{{establecimiento.direccion}}</i></p>
+          <p><b>Correo: </b><i>{{establecimiento.correo}}</i></p>
           <ion-button expand="block" class="btn-pregunta" (click)="crearAlertPregunta()"> Pregunta a
             {{establecimiento.nombreEstablecimiento}}
           </ion-button>

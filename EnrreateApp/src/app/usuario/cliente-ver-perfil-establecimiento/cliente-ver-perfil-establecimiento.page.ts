@@ -28,9 +28,6 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
   contadorNotas: number = 0;
   sumaNotas: number = 0;
 
-
-
-
   constructor(private route: ActivatedRoute, public apiService: ApiServiceProvider, public firebaseAuthService: FirebaseAuthService, public alertCtrl: AlertController) { }
 
   ngOnInit() {
@@ -81,6 +78,9 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
     if (this.comentarios.length == 0) {
       this.crearAlertNota();
     }
+
+    //Vemos si el usuario es la primera vez que comenta, si es la primera a parte del comentario le solicitamos una nota. 
+    //Si ya tiene comentarios no le pedimos la nota de nuevo
 
     if (this.encontrado == true) {
       this.insertarComentario();
@@ -198,20 +198,17 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
 
   actualizarNota() {
     for (let inx in this.comentarios) {
-      if (this.comentarios[inx].nota >= 1 && this.comentarios[inx].nota <= 10) {
+      //Comprobamos si la nota está entre 1 y 10 para calcular la media, ya que los comentarios que no tienen nota la seteamos a 0
+      if ((this.comentarios[inx].nota >= 1 && this.comentarios[inx].nota <= 10) && (this.comentarios[inx].nota != null && this.comentarios[inx].nota != 0) && (this.comentarios[inx].establecimiento.uidEstablecimiento == this.uidEstablecimiento)) {
+        this.sumaNotas = this.sumaNotas + this.comentarios[inx].nota;
         this.contadorNotas = this.contadorNotas + 1;
       }
     }
 
-    //COMPROBAR SI ESTO VA ESTOOOOOOO
+    this.establecimiento.valoracionMedia = (this.sumaNotas / this.contadorNotas);
 
-
-    this.establecimiento.valoracionMedia = (this.sumaNotas / this.contadorNotas + 1);
-
-    console.log("NOTA MEDIA : " + this.establecimiento.valoracionMedia);
     this.apiService.modificarEstablecimiento(this.establecimiento);
 
-    console.log(this.contadorNotas);
   }
 
 }

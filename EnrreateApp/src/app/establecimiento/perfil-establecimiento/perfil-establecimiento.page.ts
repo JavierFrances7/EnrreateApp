@@ -27,7 +27,19 @@ export class PerfilEstablecimientoPage implements OnInit {
             console.log(error);
           });
       });
+  }
 
+  ionViewWillEnter(){
+    this.firebaseAuthService.userDetails()
+    .subscribe(data => {
+      this.apiService.getEstablecimientoByUid(data.uid)
+        .then((establecimiento: any) => {
+          this.establecimiento = establecimiento;
+        })
+        .catch((error: string) => {
+          console.log(error);
+        });
+    });
   }
 
 }

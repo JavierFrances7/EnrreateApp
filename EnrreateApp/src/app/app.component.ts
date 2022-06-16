@@ -65,7 +65,7 @@ export class AppComponent{
 
   //Método que redirecciona hacia el login de la aplicacion
   irLoginApp() {
-    this.router.navigate(['/home']);
+    this.navCtrl.navigateRoot('/home');
   }
 
   //Método que redirecciona hacia la configuracion del usuario
