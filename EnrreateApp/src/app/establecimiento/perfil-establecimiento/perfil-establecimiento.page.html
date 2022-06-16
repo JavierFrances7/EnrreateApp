@@ -26,9 +26,13 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          <p>Gestor: <i>{{establecimiento.nombreGestor}}</i></p>
-          <p>Dirección: <i>{{establecimiento.direccion}}</i></p>
-          <p>Correo: <i>{{establecimiento.correo}}</i></p>
+          <p><b>Gestor: </b><i>{{establecimiento.nombreGestor}}</i></p>
+          <p><b>Dirección: </b><i>{{establecimiento.direccion}}</i></p>
+          <p><b>Correo: </b><i>{{establecimiento.correo}}</i></p>
+          <p><b>Aforo Máximo: </b><i>{{establecimiento.aforoMaximo}}</i></p>
+          <p>
+            <ion-icon name="star-half-outline"></ion-icon>&nbsp;<b>{{establecimiento.valoracionMedia}}</b>
+          </p>
           <p *ngIf="establecimiento.verificadoAdmin" style="color:green">Verificado por el Admin <ion-icon name="shield-checkmark"></ion-icon></p>
           <p *ngIf="!establecimiento.verificadoAdmin" style="color:red">No verificado por el Admin <ion-icon name="close-circle"></ion-icon></p>
         </ion-col>

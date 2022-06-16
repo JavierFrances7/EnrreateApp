@@ -30,8 +30,12 @@ export class CrearAdminPage implements OnInit {
         Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]
       )),
       contrasena: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(6)
       ])),
       contrasenaConfirmada: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(6)
       ]))
     });
 
@@ -81,7 +85,28 @@ export class CrearAdminPage implements OnInit {
   onSubmit(values) {
     this.admin.nombre = values['nombre'];
     this.admin.correo = values['correo'];
-    this.registroAdmin(values['correo'], values['contrasena']);
+
+    if (values['contrasena'] != values['contrasenaConfirmada']) {
+      this.abrirVentanaContrasenaNoIgual();
+    } else if (values['contrasena'] == values['contrasenaConfirmada']) {
+      this.registroAdmin(values['correo'], values['contrasena']);
+      values=null;
+    }
   }
 
+
+  async abrirVentanaContrasenaNoIgual() {
+    const alert = await this.alertController.create({
+      header: 'Las contraseñas no coinciden',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: (data) => {
+            this.alertController.dismiss();
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
 }

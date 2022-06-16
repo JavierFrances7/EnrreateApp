@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 import { Establecimiento } from 'src/app/modelo/Establecimiento';
 import { ApiServiceProvider } from 'src/app/providers/api-service/apiservice';
 import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
@@ -17,7 +17,7 @@ export class RegistroEstablecimientoPage implements OnInit {
   establecimiento: Establecimiento = new Establecimiento();
   private validation_registro_establcimiento: FormGroup;
 
-  constructor(public firebaseAuthService: FirebaseAuthService, private router: Router, public formBuilder: FormBuilder, public apiService: ApiServiceProvider, public menuCtrl: MenuController) { }
+  constructor(public firebaseAuthService: FirebaseAuthService, private router: Router, public formBuilder: FormBuilder, public apiService: ApiServiceProvider, public menuCtrl: MenuController, public alertController: AlertController) { }
 
 
   ngOnInit() {
@@ -28,21 +28,26 @@ export class RegistroEstablecimientoPage implements OnInit {
     this.validation_registro_establcimiento = this.formBuilder.group({
       nombreEstablecimiento: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.minLength(4)
+        Validators.minLength(3)
       ])),
       nombreGestor: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(6)
       ])),
       correo: new FormControl('', Validators.compose([
-        Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]
+        Validators.required, Validators.pattern(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/)]
       )),
       contrasena: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(6)
       ])),
       contrasenaConfirmada: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(6)
       ]))
     });
   }
+  
 
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
@@ -65,7 +70,7 @@ export class RegistroEstablecimientoPage implements OnInit {
       })
       .catch((error) => {
         console.log("Error en el registro: " + error);
-        //this.router.navigate(['/registro-usuario']);
+        this.abrirVentanaCorreoDuplicado();
 
       });
   }
@@ -77,11 +82,47 @@ export class RegistroEstablecimientoPage implements OnInit {
     //Lo seteamos a false para que cuando el admin verifique el establecimiento se ponga a true
     this.establecimiento.verificadoAdmin = false;
     this.establecimiento.imagenPerfil = "https://firebasestorage.googleapis.com/v0/b/proyecto-fin-grado-1.appspot.com/o/sinfoto.jpeg?alt=media&token=97bb7a51-3dd9-478c-a795-3b6e734259e5";
-    this.registroEstablecimiento(values['correo'], values['contrasena']);
+    
+    if(values['contrasena']!=values['contrasenaConfirmada']){
+      this.abrirVentanaContrasenaNoIgual();
+    } else if(values['contrasena']==values['contrasenaConfirmada']){
+      this.registroEstablecimiento(values['correo'], values['contrasena']);
+    }
   }
 
   irRegistroUsuario() {
     this.router.navigate(['/registro-usuario']);
+  }
+
+
+  async abrirVentanaCorreoDuplicado() {
+    const alert = await this.alertController.create({
+      header: 'Ya existe una cuenta asociada a este correo',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: (data) => {
+            this.alertController.dismiss();
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async abrirVentanaContrasenaNoIgual() {
+    const alert = await this.alertController.create({
+      header: 'Las contraseñas no coinciden',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: (data) => {
+            this.alertController.dismiss();
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
 }

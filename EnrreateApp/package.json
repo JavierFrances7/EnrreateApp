@@ -20,6 +20,7 @@
     "@angular/platform-browser": "~13.2.2",
     "@angular/platform-browser-dynamic": "~13.2.2",
     "@angular/router": "~13.2.2",
+    "@capacitor/android": "3.4.3",
     "@capacitor/app": "1.1.1",
     "@capacitor/core": "3.4.3",
     "@capacitor/haptics": "1.1.4",
@@ -31,6 +32,7 @@
     "@types/googlemaps": "^3.43.3",
     "cordova-plugin-geolocation": "^4.1.0",
     "firebase": "9.7.0",
+    "moment": "^2.29.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"

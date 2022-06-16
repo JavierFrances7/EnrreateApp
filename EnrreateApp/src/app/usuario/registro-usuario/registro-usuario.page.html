@@ -67,7 +67,7 @@
           <ion-row>
             <ion-col>
               <!--POSIBILIDAD DE CAMBIAR EL COLOR A tertiary-->
-              <ion-button type="submit" fill="solid" expand="full" shape="round" color="dark">
+              <ion-button type="submit" fill="solid" expand="full" shape="round" color="dark" [disabled]="!validation_registro_usuario.valid">
                 Crear Cuenta
               </ion-button>
             </ion-col>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { Establecimiento } from 'src/app/modelo/Establecimiento';
 import { Evento } from 'src/app/modelo/Evento';
 import { ApiServiceProvider } from 'src/app/providers/api-service/apiservice';
@@ -19,7 +20,7 @@ export class CrearEventoPage implements OnInit {
 
 
 
-  constructor(public router: Router, public formBuilder: FormBuilder, public firebaseAuthService: FirebaseAuthService, public apiService: ApiServiceProvider) { }
+  constructor(public router: Router, public formBuilder: FormBuilder, public firebaseAuthService: FirebaseAuthService, public apiService: ApiServiceProvider, public alertController: AlertController) { }
 
   ngOnInit() {
 
@@ -43,12 +44,16 @@ export class CrearEventoPage implements OnInit {
         Validators.required]
       )),
       edadMinima: new FormControl('', Validators.compose([
+        Validators.required
       ])),
       tipoMusica: new FormControl('', Validators.compose([
+        Validators.required,
       ])),
       fechaInicio: new FormControl('', Validators.compose([
+        Validators.required,
       ])),
       fechaFin: new FormControl('', Validators.compose([
+        Validators.required,
       ]))
     });
 
@@ -63,17 +68,40 @@ export class CrearEventoPage implements OnInit {
     this.evento.tipoMusica = values['tipoMusica'];
     this.evento.fechaInicio = values['fechaInicio'];
     this.evento.fechaFin = values['fechaFin'];
-    this.apiService.insertarEvento(this.evento).then((any: any) => {
-      this.irInicioEventos();
-    })
-      .catch((error: string) => {
-        console.log(error);
-      });
+
+    if(this.evento.fechaFin <this.evento.fechaInicio){
+        this.abrirVentanaFechaIncorrecta();
+    } else {
+      this.apiService.insertarEvento(this.evento).then((any: any) => {
+        values=null;
+        this.irInicioEventos();
+      })
+        .catch((error: string) => {
+          console.log(error);
+        });
+    }
+
+    
 
   }
 
   irInicioEventos() {
     this.router.navigate(['/mis-eventos-establecimiento']);
+  }
+
+  async abrirVentanaFechaIncorrecta() {
+    const alert = await this.alertController.create({
+      header: 'La fecha de fin es anterior a la de inicio',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: (data) => {
+            this.alertController.dismiss();
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
 }

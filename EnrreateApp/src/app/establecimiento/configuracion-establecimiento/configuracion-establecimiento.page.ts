@@ -78,8 +78,12 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
           this.zone.run(() => {
             this.establecimiento.latitud = Number.parseFloat(result[0].latitude);
             this.establecimiento.longitud = Number.parseFloat(result[0].longitude);
-            console.log("COORDS de " + address + this.establecimiento.latitud + " " + this.establecimiento.longitud)
-            this.apiService.modificarEstablecimiento(this.establecimiento);
+            this.apiService.modificarEstablecimiento(this.establecimiento).then(() => {
+              this.abrirVentanaActualizacionCorrecta();
+            })
+              .catch((error) => {
+                console.log(error);
+              });
           })
         })
         .catch((error: any) => console.log(error));
@@ -91,9 +95,12 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
           this.zone.run(() => {
             this.establecimiento.latitud = results[0].geometry.location.lat();
             this.establecimiento.longitud = results[0].geometry.location.lng();
-            console.log("COORDS de " + address + this.establecimiento.latitud + " " + this.establecimiento.longitud)
-            this.apiService.modificarEstablecimiento(this.establecimiento);
-
+            this.apiService.modificarEstablecimiento(this.establecimiento).then(() => {
+              this.abrirVentanaActualizacionCorrecta();
+            })
+              .catch((error) => {
+                console.log(error);
+              });
           })
         } else {
           alert('Error - ' + results + ' & Status - ' + status)
@@ -133,9 +140,7 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
     this.establecimiento.aforoMaximo = values['aforoMaximo'];
     this.establecimiento.verificadoAdmin = false;
     this.establecimiento.ciudad = values['ciudad'];
-    console.log(values['direccion'] + " " + values['ciudad']);
     this.obtenerCoordenadasDesdeDireccion(values['direccion'] + " " + values['ciudad']);
-    this.abrirVentanaActualizacionCorrecta();
 
     //Al pulsar el boton de sumbit se inicia el metodo login con los valores del formulario.
   }

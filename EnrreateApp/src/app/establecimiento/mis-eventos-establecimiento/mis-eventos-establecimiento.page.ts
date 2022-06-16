@@ -38,7 +38,6 @@ export class MisEventosEstablecimientoPage implements OnInit {
               //Si los eventos pertenecen al establecimiento logueado los mostramos en el array
               if (data.uid == eventos[inx].establecimiento.uidEstablecimiento) {
                 this.eventos.push(eventos[inx]);
-                console.log(inx)
               }
             }
           });
