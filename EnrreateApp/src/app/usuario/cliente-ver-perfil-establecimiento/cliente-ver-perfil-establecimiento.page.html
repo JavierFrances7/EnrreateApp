@@ -36,6 +36,37 @@
       </ion-row>
     </ion-grid>
     <ion-card class="card-titulo">
+      <h4 style="text-align:center;">Eventos</h4>
+    </ion-card>
+    <div *ngFor="let evento of eventos; let indice=index;">
+      <ion-card class="cards" *ngIf="evento.establecimiento.uidEstablecimiento == uidEstablecimiento">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-row>
+                <p>Nombre Evento: {{evento.nombre}}</p>
+              </ion-row>
+              <ion-row>
+                <p>Aforo Máximo: {{evento.aforoMaximo}}</p>
+              </ion-row>
+              <ion-row>
+                <p>Edad Mínima: {{evento.edadMinima}}</p>
+              </ion-row>
+              <ion-row>
+                <p>Tipo Música: {{evento.tipoMusica}}</p>
+              </ion-row>
+              <ion-row>
+                <p>Fecha Inicio: {{evento.fechaInicio}}</p>
+              </ion-row>
+              <ion-row>
+                <p>Fecha Fin: {{evento.fechaFin}}</p>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </div>
+    <ion-card class="card-titulo">
       <h4 style="text-align:center ;">Comentarios</h4>
     </ion-card>
     <ion-item>
@@ -44,7 +75,7 @@
       </ion-button>
     </ion-item>
     <div *ngFor="let comentario of comentarios; let indice=index;">
-      <ion-card class="card-eventos" *ngIf="comentario.establecimiento.uidEstablecimiento == uidEstablecimiento">
+      <ion-card class="cards" *ngIf="comentario.establecimiento.uidEstablecimiento == uidEstablecimiento">
         <ion-grid>
           <ion-row>
             <ion-col>

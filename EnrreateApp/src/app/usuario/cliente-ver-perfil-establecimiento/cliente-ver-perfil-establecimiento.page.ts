@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ComentarioEstablecimiento } from 'src/app/modelo/ComentarioEstablecimiento';
 import { Establecimiento } from 'src/app/modelo/Establecimiento';
+import { Evento } from 'src/app/modelo/Evento';
 import { PreguntaEstablecimiento } from 'src/app/modelo/PreguntaEstablecimiento';
 import { Usuario } from 'src/app/modelo/usuario';
 import { ApiServiceProvider } from 'src/app/providers/api-service/apiservice';
@@ -21,6 +22,8 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
 
   private comentarioEstablecimiento = new ComentarioEstablecimiento();
   private preguntaEstablecimiento = new PreguntaEstablecimiento();
+  eventos = new Array<Evento>();
+
 
   comentarios = new Array<ComentarioEstablecimiento>();
   inputComentario: string;
@@ -51,7 +54,7 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
             console.log("Sesion cerrada");
           });
       });
-
+      this.cargarEventos();
   }
 
   ionViewWillEnter() {
@@ -209,6 +212,16 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
 
     this.apiService.modificarEstablecimiento(this.establecimiento);
 
+  }
+
+  cargarEventos() {
+    this.apiService.getEventos()
+      .then((eventos: any) => {
+        this.eventos = eventos;
+      })
+      .catch((error: string) => {
+        console.log(error);
+      });
   }
 
 }
