@@ -1,11 +1,23 @@
 //ESTILOS TOOLBAR
 
 .toolbar-pagina {
-    --background: var(--ion-background-color, linear-gradient(to left, rgb(161, 12, 211), rgb(194, 112, 36))) !important;
-    color: white;
+  --background: var(--ion-background-color, linear-gradient(to left, rgb(161, 12, 211), rgb(194, 112, 36))) !important;
+  color: white;
 
 }
 
 .boton-crear-admin {
-    --background: rgb(161, 12, 211);
+  --background: rgb(161, 12, 211);
+}
+
+.card-titulo {
+  --ion-background-color: rgba(194, 112, 36, 0.507);
+}
+
+.cards {
+  --ion-background-color: rgba(161, 12, 211, 0.198);
+}
+
+.contenedor {
+  --ion-background-color: rgb(254, 219, 188);
 }

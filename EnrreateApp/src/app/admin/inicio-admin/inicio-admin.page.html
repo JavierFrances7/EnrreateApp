@@ -6,7 +6,7 @@
       </ion-button>
       <p> Cerrar sesión</p>
     </ion-buttons>
-    <ion-buttons slot="end" >
+    <ion-buttons slot="end">
       <ion-button (click)="irCrearAdmin()">
         <ion-icon slot="icon-only" name="person-add-outline"></ion-icon>
       </ion-button>
@@ -14,39 +14,42 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card>
-    <h3 style="text-align:center ;">Solicitudes Pendientes</h3></ion-card>
-    <div *ngFor="let establecimiento of establecimientos; let indice=index;">
-  <ion-card *ngIf="!establecimiento.verificadoAdmin">
-
-    <ion-grid>
-      <ion-row>
-        <ion-col size=8>
-          <ion-row>
-            <p>Nombre: {{establecimiento.nombreEstablecimiento}}</p>
-          </ion-row>
-          <ion-row>
-            <p>Gestor: {{establecimiento.nombreGestor}}</p>
-          </ion-row>
-          <ion-row>
-            <p>Direccion: {{establecimiento.direccion}} , {{establecimiento.ciudad}}</p>
-          </ion-row>
-          <ion-row>
-            <p>Correo: {{establecimiento.correo}}</p>
-          </ion-row>
-        </ion-col>
-        <ion-col size=4>
-            <ion-row>
-              <ion-button color="success" (click)="aprobarEstablecimiento(indice)"><ion-icon slot="icon-only" name="checkmark-outline"></ion-icon></ion-button>
-            </ion-row>
-            <ion-row>
-              <ion-button color="danger" (click)="rechazarEstablecimiento(indice)"><ion-icon slot="icon-only" name="close-outline"></ion-icon></ion-button>
-            </ion-row>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+<ion-content class="contenedor">
+  <ion-card class="card-titulo">
+    <h3 style="text-align:center ;">Solicitudes Pendientes</h3>
   </ion-card>
-</div>
+  <div *ngFor="let establecimiento of establecimientos; let indice=index;">
+    <ion-card *ngIf="!establecimiento.verificadoAdmin" class="cards">
+      <ion-grid>
+        <ion-row>
+          <ion-col size=8>
+            <ion-row>
+              <p><b>Nombre: </b>{{establecimiento.nombreEstablecimiento}}</p>
+            </ion-row>
+            <ion-row>
+              <p><b>Gestor: </b>{{establecimiento.nombreGestor}}</p>
+            </ion-row>
+            <ion-row>
+              <p><b>Direccion: </b>{{establecimiento.direccion}} , {{establecimiento.ciudad}}</p>
+            </ion-row>
+            <ion-row>
+              <p><b>Correo: </b>{{establecimiento.correo}}</p>
+            </ion-row>
+          </ion-col>
+          <ion-col size=4>
+            <ion-row>
+              <ion-button color="success" (click)="aprobarEstablecimiento(indice)">
+                <ion-icon slot="icon-only" name="checkmark-outline"></ion-icon>
+              </ion-button>
+            </ion-row>
+            <ion-row>
+              <ion-button color="danger" (click)="rechazarEstablecimiento(indice)">
+                <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+              </ion-button>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </div>
 </ion-content>
-

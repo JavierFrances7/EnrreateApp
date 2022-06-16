@@ -13,7 +13,7 @@ import { PreguntaEstablecimiento } from 'src/app/modelo/PreguntaEstablecimiento'
 @Injectable()
 export class ApiServiceProvider {
 
-    private URL = "http://127.0.0.1:8099/api";
+    private URL = "http://iesjulioverne.es:4004/api";
 
     constructor(public http: HttpClient, public fireAuth: FirebaseAuthService, private afStorage: AngularFireStorage) {
     }

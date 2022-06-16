@@ -19,13 +19,13 @@ export class PerfilEstablecimientoPage implements OnInit {
   ngOnInit() {
     this.firebaseAuthService.userDetails()
       .subscribe(data => {
-          this.apiService.getEstablecimientoByUid(data.uid)
-            .then((establecimiento: any) => {
-              this.establecimiento = establecimiento;
-            })
-            .catch((error: string) => {
-              console.log(error);
-            });
+        this.apiService.getEstablecimientoByUid(data.uid)
+          .then((establecimiento: any) => {
+            this.establecimiento = establecimiento;
+          })
+          .catch((error: string) => {
+            console.log(error);
+          });
       });
 
   }

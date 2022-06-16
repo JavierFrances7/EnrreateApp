@@ -19,7 +19,7 @@ export class MisEventosEstablecimientoPage implements OnInit {
     this.cargarEventos();
   }
 
-  
+
   ionViewWillEnter() {
     this.cargarEventos();
   }

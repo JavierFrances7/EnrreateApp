@@ -7,12 +7,11 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
-  <ion-content class="contenedor">
-    <ion-card class="card-titulo">
-      <h3 style="text-align:center ;">Crear Evento</h3>
-    </ion-card>
-    <form [formGroup]="validation_crear_evento" (ngSubmit)="onSubmit(validation_crear_evento.value)">
+<ion-content class="contenedor">
+  <ion-card class="card-titulo">
+    <h3 style="text-align:center ;">Crear Evento</h3>
+  </ion-card>
+  <form [formGroup]="validation_crear_evento" (ngSubmit)="onSubmit(validation_crear_evento.value)">
     <ion-card>
       <ion-item>
         <ion-icon name="sparkles-outline" class="icon-login"></ion-icon>
@@ -50,8 +49,8 @@
       </ion-item>
     </ion-card>
     <ion-card>
-      <ion-button expand="block" style="text-align:center;" class="boton-crear-evento" type="submit">CREAR EVENTO</ion-button>
+      <ion-button expand="block" style="text-align:center;" class="boton-crear-evento" type="submit">CREAR EVENTO
+      </ion-button>
     </ion-card>
-    </form>
-
-  </ion-content>
+  </form>
+</ion-content>

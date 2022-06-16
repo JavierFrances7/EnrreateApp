@@ -31,8 +31,13 @@
         </ion-card>
         <ion-card>
           <ion-item>
+            <ion-icon name="flag-outline"></ion-icon>
+            <ion-input type="name" placeholder="Ciudad" formControlName="ciudad" value="{{establecimiento.ciudad}}">
+            </ion-input>
+          </ion-item>
+          <ion-item>
             <ion-icon name="locate-outline"></ion-icon>
-            <ion-input type="name" placeholder="Calle, Municipio, Ciudad" formControlName="direccion"
+            <ion-input type="name" placeholder="Calle, Municipio" formControlName="direccion"
               value="{{establecimiento.direccion}}"></ion-input>
           </ion-item>
         </ion-card>
@@ -46,7 +51,8 @@
         <ion-card>
           <ion-item>
             <ion-icon name="person-circle-outline"></ion-icon>
-            <ion-input accept="image/png, image/jpg, image/jpeg" type="file" (change)="subirImagen($event.target.files)"></ion-input>
+            <ion-input accept="image/png, image/jpg, image/jpeg" type="file"
+              (change)="subirImagen($event.target.files)"></ion-input>
           </ion-item>
         </ion-card>
       </ion-list>

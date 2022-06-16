@@ -25,6 +25,9 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
   comentarios = new Array<ComentarioEstablecimiento>();
   inputComentario: string;
   encontrado: boolean = false;
+  contadorNotas: number = 0;
+  sumaNotas: number = 0;
+
 
 
 
@@ -32,9 +35,6 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
 
   ngOnInit() {
     this.uidEstablecimiento = this.route.snapshot.params['data'];
-    console.log("UID RECIBIDO: " + this.uidEstablecimiento);
-
-
     this.apiService.getEstablecimientoByUid(this.uidEstablecimiento)
       .then((establecimiento: any) => {
         this.establecimiento = establecimiento;
@@ -100,7 +100,6 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
   }
 
   async crearAlertNota() {
-    console.log("ENTRA EN ALERT")
     const alert = await this.alertCtrl.create({
       cssClass: 'alert',
       header: 'Evalúa este establecimiento',
@@ -116,7 +115,6 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
           text: 'Ok',
           handler: (data) => {
             if (data.nota >= 1 && data.nota <= 10) {
-              console.log(data.nota);
               this.comentarioEstablecimiento.nota = data.nota;
               this.insertarComentario();
               this.comentarioEstablecimiento.nota = 0;
@@ -147,12 +145,12 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
         {
           text: 'Ok',
           handler: (data) => {
-            this.preguntaEstablecimiento.pregunta=data.pregunta;
+            this.preguntaEstablecimiento.pregunta = data.pregunta;
             this.preguntaEstablecimiento.establecimiento = this.establecimiento;
             this.preguntaEstablecimiento.usuario = this.usuario;
             this.preguntaEstablecimiento.fecha = Date.now();
             this.insertarPregunta();
-            data.pregunta="";
+            data.pregunta = "";
 
           }
         }
@@ -165,6 +163,7 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
   insertarComentario() {
     this.apiService.insertarComentarioEstablecimiento(this.comentarioEstablecimiento)
       .then((any: any) => {
+        this.actualizarNota();
         this.cargarComentarios();
       })
       .catch((error: string) => {
@@ -196,5 +195,24 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
     });
     await alert.present();
   }
+
+  actualizarNota() {
+    for (let inx in this.comentarios) {
+      if (this.comentarios[inx].nota >= 1 && this.comentarios[inx].nota <= 10) {
+        this.contadorNotas = this.contadorNotas + 1;
+      }
+    }
+
+    //COMPROBAR SI ESTO VA ESTOOOOOOO
+
+
+    this.establecimiento.valoracionMedia = (this.sumaNotas / this.contadorNotas + 1);
+
+    console.log("NOTA MEDIA : " + this.establecimiento.valoracionMedia);
+    this.apiService.modificarEstablecimiento(this.establecimiento);
+
+    console.log(this.contadorNotas);
+  }
+
 }
 

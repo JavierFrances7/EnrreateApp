@@ -27,7 +27,7 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
   private establecimiento = new Establecimiento();
 
 
-  constructor(public formBuilder: FormBuilder, public apiService: ApiServiceProvider, private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder, public router: Router, 
+  constructor(public formBuilder: FormBuilder, public apiService: ApiServiceProvider, private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder, public router: Router,
     public firebaseAuthService: FirebaseAuthService, private navCtrl: NavController, private platform: Platform, public zone: NgZone, public alertController: AlertController) { }
 
   ngOnInit() {
@@ -40,6 +40,10 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
         Validators.required,
         Validators.minLength(6)
       ])),
+      ciudad: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(6)
+      ])),
       direccion: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(6)
@@ -47,8 +51,7 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
       aforoMaximo: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(6)
-      ])),
-
+      ]))
     });
 
     this.firebaseAuthService.userDetails()
@@ -129,7 +132,9 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
     this.establecimiento.direccion = values['direccion'];
     this.establecimiento.aforoMaximo = values['aforoMaximo'];
     this.establecimiento.verificadoAdmin = false;
-    this.obtenerCoordenadasDesdeDireccion(values['direccion']);
+    this.establecimiento.ciudad = values['ciudad'];
+    console.log(values['direccion'] + " " + values['ciudad']);
+    this.obtenerCoordenadasDesdeDireccion(values['direccion'] + " " + values['ciudad']);
     this.abrirVentanaActualizacionCorrecta();
 
     //Al pulsar el boton de sumbit se inicia el metodo login con los valores del formulario.

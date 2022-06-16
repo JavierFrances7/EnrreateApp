@@ -3,7 +3,8 @@
 
     <ion-row class="fila1">
       <ion-col class="img-container">
-        <img class="img-login" src="https://firebasestorage.googleapis.com/v0/b/proyecto-fin-grado-1.appspot.com/o/1_letrasYmarker.png?alt=media&token=a803aa5b-f916-407e-b29e-c3112f482b7c">
+        <img class="img-login"
+          src="https://firebasestorage.googleapis.com/v0/b/proyecto-fin-grado-1.appspot.com/o/1_letrasYmarker.png?alt=media&token=a803aa5b-f916-407e-b29e-c3112f482b7c">
       </ion-col>
     </ion-row>
 
@@ -11,15 +12,21 @@
       <ion-col>
       </ion-col>
     </ion-row>
-
   </ion-grid>
-  <form [formGroup]="validation_registro_establcimiento" (ngSubmit)="onSubmit(validation_registro_establcimiento.value)">
+  <form [formGroup]="validation_registro_establcimiento"
+    (ngSubmit)="onSubmit(validation_registro_establcimiento.value)">
     <ion-slide>
       <div class="div-login">
         <ion-grid>
           <ion-row>
             <ion-col>
-              <h3>Regístra tu establecimiento</h3>
+              <h3>
+                <ion-buttons slot="start">
+                  <ion-button (click)="irRegistroUsuario()">
+                    <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+                  </ion-button>
+                </ion-buttons>Regístra tu establecimiento
+              </h3>
             </ion-col>
           </ion-row>
           <ion-row>
@@ -27,7 +34,8 @@
               <ion-list>
                 <ion-item>
                   <ion-icon name="storefront-outline" class="icon-login"></ion-icon>
-                  <ion-input type="name" placeholder="Nombre Comercial" formControlName="nombreEstablecimiento"></ion-input>
+                  <ion-input type="name" placeholder="Nombre Comercial" formControlName="nombreEstablecimiento">
+                  </ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-icon name="person-outline" class="icon-login"></ion-icon>
@@ -43,7 +51,8 @@
                 </ion-item>
                 <ion-item>
                   <ion-icon name="lock-closed-outline" class="icon-login"></ion-icon>
-                  <ion-input type="password" placeholder="Repite Contraseña" formControlName="contrasenaConfirmada"></ion-input>
+                  <ion-input type="password" placeholder="Repite Contraseña" formControlName="contrasenaConfirmada">
+                  </ion-input>
                 </ion-item>
               </ion-list>
             </ion-col>

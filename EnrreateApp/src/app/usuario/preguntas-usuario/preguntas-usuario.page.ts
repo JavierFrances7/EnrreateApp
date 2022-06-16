@@ -11,24 +11,24 @@ import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
 export class PreguntasUsuarioPage implements OnInit {
 
   preguntas = new Array<PreguntaEstablecimiento>();
-  uidUsuarioActual:string;
+  uidUsuarioActual: string;
 
-  constructor(public apiService : ApiServiceProvider, public firebaseAuthService : FirebaseAuthService) { }
+  constructor(public apiService: ApiServiceProvider, public firebaseAuthService: FirebaseAuthService) { }
 
   ngOnInit() {
     this.firebaseAuthService.userDetails()
       .subscribe(data => {
-        this.uidUsuarioActual=data.uid;
+        this.uidUsuarioActual = data.uid;
         this.cargarPreguntas();
       });
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.firebaseAuthService.userDetails()
-    .subscribe(data => {
-      this.uidUsuarioActual=data.uid;
-      this.cargarPreguntas();
-    });
+      .subscribe(data => {
+        this.uidUsuarioActual = data.uid;
+        this.cargarPreguntas();
+      });
   }
 
 

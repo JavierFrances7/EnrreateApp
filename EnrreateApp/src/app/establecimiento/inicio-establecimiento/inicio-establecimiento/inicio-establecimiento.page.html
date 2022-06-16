@@ -6,15 +6,39 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
- 
 
-<ion-content id="contenidoPrincipal" class="contenedor">
-  <ion-card class="card-titulo" class="card-titulo">
-    <h3 style="text-align:center;">Bienvenido de nuevo</h3>
-  </ion-card>
-  <p>Aqui se incorporará estadisticas mensuales tales como:<br><br>
-    -Visitas al perfil<br><br>
-    -Valoración en estrellas medias.<br><br>
-    -Ultimos comentarios sobre el establecimiento(Ultima semana ordenado por más recientes)<br><br>
-  </p>
-</ion-content>
+  <ion-content id="contenidoPrincipal" class="contenedor">
+    <ion-card class="card-titulo">
+      <h3 style="text-align:center;">Bienvenido de nuevo {{establecimiento.nombreEstablecimiento}}</h3>
+    </ion-card>
+
+    <ion-card class="cards">
+      <h5 style="text-align:center;">
+        <ion-icon name="star-half-outline"></ion-icon>&nbsp;{{establecimiento.valoracionMedia}}
+      </h5>
+    </ion-card>
+
+    <ion-card class="card-titulo">
+      <h4 style="text-align:center;">Últimos comentarios</h4>
+    </ion-card>
+
+    <div *ngFor="let comentario of comentarios; let indice=index;">
+      <ion-card class="card-eventos"
+        *ngIf="comentario.establecimiento.uidEstablecimiento == establecimiento.uidEstablecimiento">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-row>
+                <p><b>{{comentario.usuario.nombreUsuario}} </b></p>
+                <p class="fecha">&nbsp;{{comentario.fecha}}</p>
+
+              </ion-row>
+              <ion-row>
+                <p>{{comentario.comentario}}</p>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </div>
+  </ion-content>

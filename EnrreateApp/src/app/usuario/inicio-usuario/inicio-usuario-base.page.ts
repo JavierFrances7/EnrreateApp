@@ -30,14 +30,14 @@ export class InicioUsuarioBasePage implements OnInit {
 
 
 
-  constructor(public menuCtrl: MenuController, public router: Router, public firebaseAuthService: FirebaseAuthService, private geolocation: Geolocation, 
-              private nativeGeocoder: NativeGeocoder, public apiServiceProvider: ApiServiceProvider, private navCtrl: NavController) {
+  constructor(public menuCtrl: MenuController, public router: Router, public firebaseAuthService: FirebaseAuthService, private geolocation: Geolocation,
+    private nativeGeocoder: NativeGeocoder, public apiServiceProvider: ApiServiceProvider, private navCtrl: NavController) {
     this.infoWindows = [];
   }
 
   ngOnInit() {
     this.menuCtrl.enable(true);
-    
+
     //Obtenemos los establecimientos de la base de datos
     this.apiServiceProvider.getEstablecimientos()
       .then((establecimientos: Establecimiento[]) => {
@@ -110,7 +110,7 @@ export class InicioUsuarioBasePage implements OnInit {
       '<ion-grid>' +
       //Primera fila del grid
       '<ion-row><ion-col size="3"></ion-col><ion-col size="6">' +
-      '<ion-avatar id="botonVerPerfilEstablecimiento"><ion-img src="'+establecimiento.imagenPerfil+'"></ion-img></ion-avatar>' +
+      '<ion-avatar id="botonVerPerfilEstablecimiento"><ion-img src="' + establecimiento.imagenPerfil + '"></ion-img></ion-avatar>' +
       '</ion-col><ion-col size="3"></ion-col></ion-row>' +
       //Segunda fila del grid
       '<ion-row><ion-col size="2"></ion-col><ion-col size="8">' +
@@ -160,5 +160,5 @@ export class InicioUsuarioBasePage implements OnInit {
     }
     //FIN METODOS MAPA
   }
-  
+
 }

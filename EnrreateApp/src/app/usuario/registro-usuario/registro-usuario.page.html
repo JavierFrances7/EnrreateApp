@@ -13,13 +13,19 @@
     </ion-row>
 
   </ion-grid>
-    <ion-slide>
-      <div class="div-login">
-        <form [formGroup]="validation_registro_usuario" (ngSubmit)="onSubmit(validation_registro_usuario.value)">
+  <ion-slide>
+    <div class="div-login">
+      <form [formGroup]="validation_registro_usuario" (ngSubmit)="onSubmit(validation_registro_usuario.value)">
         <ion-grid>
           <ion-row>
             <ion-col>
-              <h3>Regístrate</h3>
+              <h3>
+                <ion-buttons slot="start">
+                  <ion-button (click)="irLoginApp()">
+                    <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+                  </ion-button>
+                </ion-buttons>Regístrate
+              </h3>
             </ion-col>
           </ion-row>
           <ion-row>
@@ -51,7 +57,8 @@
                 </ion-item>
                 <ion-item>
                   <ion-icon name="lock-closed-outline" class="icon-login"></ion-icon>
-                  <ion-input type="password" placeholder="Repite Contraseña" formControlName="contrasenaConfirmada"></ion-input>
+                  <ion-input type="password" placeholder="Repite Contraseña" formControlName="contrasenaConfirmada">
+                  </ion-input>
                 </ion-item>
 
               </ion-list>
@@ -68,12 +75,13 @@
           <ion-row>
             <ion-col>
               <ion-label>
-                <p>¿Eres un establecimiento? <a (click)="abrirRegistroEstablecimiento()" class="enlace">Sitúate en el mapa.</a></p>
+                <p>¿Eres un establecimiento? <a (click)="abrirRegistroEstablecimiento()" class="enlace">Sitúate en el
+                    mapa.</a></p>
               </ion-label>
             </ion-col>
           </ion-row>
         </ion-grid>
       </form>
-      </div>
-    </ion-slide>
+    </div>
+  </ion-slide>
 </ion-content>

@@ -7,28 +7,31 @@
 </ion-header>
 <ion-content>
 
-<ion-content class="contenedor">
-  <ion-card class="card-titulo">
-    <h3 style="text-align:center ;">Sin responder</h3>
-  </ion-card>
-  <div *ngFor="let pregunta of preguntas; let indice=index;">
-    <ion-card *ngIf="pregunta.establecimiento.uidEstablecimiento == uidEstablecimientoActual && (pregunta.respuesta == null || pregunta.respuesta == undefined)" (click)="responderPregunta(pregunta)">
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-row>
-              <p>Establecimiento: {{pregunta.establecimiento.nombreEstablecimiento}}</p>
-            </ion-row>
-            <ion-row>
-              <p>Pregunta: {{pregunta.pregunta}}</p>
-            </ion-row>
-            <ion-row>
-              <p>Respuesta: {{pregunta.respuesta}}</p>
-            </ion-row>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+  <ion-content class="contenedor">
+    <ion-card class="card-titulo">
+      <h3 style="text-align:center ;">Sin responder</h3>
     </ion-card>
-  </div>
 
-</ion-content>
+    <div *ngFor="let pregunta of preguntas; let indice=index;">
+      <ion-card
+        *ngIf="pregunta.establecimiento.uidEstablecimiento == uidEstablecimientoActual && (pregunta.respuesta == null || pregunta.respuesta == undefined)"
+        (click)="responderPregunta(pregunta)">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-row>
+                <p>Establecimiento: {{pregunta.establecimiento.nombreEstablecimiento}}</p>
+              </ion-row>
+              <ion-row>
+                <p>Pregunta: {{pregunta.pregunta}}</p>
+              </ion-row>
+              <ion-row>
+                <p>Respuesta: {{pregunta.respuesta}}</p>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </div>
+
+  </ion-content>

@@ -12,7 +12,7 @@ import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
   styleUrls: ['./configuracion-usuario.page.scss'],
 })
 export class ConfiguracionUsuarioPage implements OnInit {
-  
+
   private validation_configuracion_usuario: FormGroup;
 
   private usuario = new Usuario();
@@ -42,15 +42,15 @@ export class ConfiguracionUsuarioPage implements OnInit {
     });
 
     this.firebaseAuthService.userDetails()
-    .subscribe(data => {
-      this.apiService.getUsuarioByUid(data.uid)
-        .then((usuario: any) => {
-          this.usuario = usuario;
-        })
-        .catch((error: string) => {
-          console.log(error);
-        });
-    });
+      .subscribe(data => {
+        this.apiService.getUsuarioByUid(data.uid)
+          .then((usuario: any) => {
+            this.usuario = usuario;
+          })
+          .catch((error: string) => {
+            console.log(error);
+          });
+      });
   }
 
   subirImagen(event: FileList) {
@@ -78,9 +78,9 @@ export class ConfiguracionUsuarioPage implements OnInit {
     this.apiService.modificarUsuario(this.usuario).then((any) => {
       this.abrirVentanaActualizacionCorrecta();
     })
-    .catch((error) => {
-      console.log(error);
-    });;
+      .catch((error) => {
+        console.log(error);
+      });;
     //Al pulsar el boton de sumbit se inicia el metodo login con los valores del formulario.
   }
 
@@ -92,7 +92,7 @@ export class ConfiguracionUsuarioPage implements OnInit {
         {
           text: 'Ok',
           handler: (data) => {
-            this.router.navigate(['/perfil-usuario']);          
+            this.router.navigate(['/perfil-usuario']);
           }
         }
       ]

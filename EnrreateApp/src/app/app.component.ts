@@ -59,11 +59,13 @@ export class AppComponent{
   //Método que redirecciona hacia el perfil de usuario
   verPerfil() {
     this.router.navigate(['/perfil-usuario']);
+    this.menuCtrl.close();
+
   }
 
   //Método que redirecciona hacia el login de la aplicacion
   irLoginApp() {
-    this.navCtrl.navigateRoot("/home");
+    this.router.navigate(['/home']);
   }
 
   //Método que redirecciona hacia la configuracion del usuario
@@ -87,6 +89,7 @@ export class AppComponent{
   //Método que redirecciona hacia el perfil del establecimiento
   clickMenuVerPerfil() {
     this.router.navigate(['/perfil-establecimiento']);
+    this.menuCtrl.close();
   }
 
   clickMisEventos() {
@@ -116,10 +119,11 @@ export class AppComponent{
   //MÉTODOS LOGOUT
   //Método que cierra la sesión del usuario  
   async cerrarSesion() {
-    this.irLoginApp();
     this.firebaseAuthService.logoutUser()
       .then((data) => {
         console.log("Logout Exitoso");
+        this.irLoginApp();
+
       })
       .catch((error) => {
         console.log("Error en el logout: " + error);

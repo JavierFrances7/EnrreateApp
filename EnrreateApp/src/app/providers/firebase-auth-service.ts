@@ -40,7 +40,7 @@ export class FirebaseAuthService {
 
 
     //Método que devuelve el uid del usuario logueado en firebase
-    async getUid(){
+    async getUid() {
         const usuario = await this.angularFireAuth.currentUser;
         return usuario.uid;
     }

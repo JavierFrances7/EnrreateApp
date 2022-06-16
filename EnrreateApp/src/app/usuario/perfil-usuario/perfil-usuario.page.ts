@@ -21,14 +21,14 @@ export class PerfilUsuarioPage implements OnInit {
       .subscribe(data => {
         console.log(data.uid);
 
-          this.apiService.getUsuarioByUid(data.uid)
-            .then((usuario: any) => {
-              this.usuario = usuario;
-            })
-            .catch((error: string) => {
-              console.log(error);
-            });
-        
+        this.apiService.getUsuarioByUid(data.uid)
+          .then((usuario: any) => {
+            this.usuario = usuario;
+          })
+          .catch((error: string) => {
+            console.log(error);
+          });
+
       });
   }
 

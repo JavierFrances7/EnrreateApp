@@ -14,24 +14,24 @@ import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
 export class CrearEventoPage implements OnInit {
 
   private validation_crear_evento: FormGroup;
-  evento:Evento = new Evento();
-  establecimiento:Establecimiento = new Establecimiento();
+  evento: Evento = new Evento();
+  establecimiento: Establecimiento = new Establecimiento();
 
 
 
-  constructor(public router : Router, public formBuilder: FormBuilder,  public firebaseAuthService: FirebaseAuthService, public apiService: ApiServiceProvider) { }
+  constructor(public router: Router, public formBuilder: FormBuilder, public firebaseAuthService: FirebaseAuthService, public apiService: ApiServiceProvider) { }
 
   ngOnInit() {
 
     this.firebaseAuthService.userDetails()
       .subscribe(data => {
-          this.apiService.getEstablecimientoByUid(data.uid)
-            .then((establecimiento: any) => {
-              this.evento.establecimiento= establecimiento;
-            })
-            .catch((error: string) => {
-              console.log(error);
-            });
+        this.apiService.getEstablecimientoByUid(data.uid)
+          .then((establecimiento: any) => {
+            this.evento.establecimiento = establecimiento;
+          })
+          .catch((error: string) => {
+            console.log(error);
+          });
       });
 
     this.validation_crear_evento = this.formBuilder.group({
@@ -40,8 +40,8 @@ export class CrearEventoPage implements OnInit {
         Validators.minLength(4)
       ])),
       aforoMaximo: new FormControl('', Validators.compose([
-        Validators.required]    
-        )),
+        Validators.required]
+      )),
       edadMinima: new FormControl('', Validators.compose([
       ])),
       tipoMusica: new FormControl('', Validators.compose([
@@ -50,29 +50,29 @@ export class CrearEventoPage implements OnInit {
       ])),
       fechaFin: new FormControl('', Validators.compose([
       ]))
-      });
+    });
 
 
   }
 
 
   onSubmit(values) {
-    this.evento.nombre=values['nombre'];
-    this.evento.aforoMaximo=values['aforoMaximo'];
-    this.evento.edadMinima=values['edadMinima'];
-    this.evento.tipoMusica=values['tipoMusica'];
-    this.evento.fechaInicio=values['fechaInicio'];
-    this.evento.fechaFin=values['fechaFin'];
+    this.evento.nombre = values['nombre'];
+    this.evento.aforoMaximo = values['aforoMaximo'];
+    this.evento.edadMinima = values['edadMinima'];
+    this.evento.tipoMusica = values['tipoMusica'];
+    this.evento.fechaInicio = values['fechaInicio'];
+    this.evento.fechaFin = values['fechaFin'];
     this.apiService.insertarEvento(this.evento).then((any: any) => {
       this.irInicioEventos();
     })
-    .catch((error: string) => {
-      console.log(error);
-    });
+      .catch((error: string) => {
+        console.log(error);
+      });
 
-    }
+  }
 
-  irInicioEventos(){
+  irInicioEventos() {
     this.router.navigate(['/mis-eventos-establecimiento']);
   }
 

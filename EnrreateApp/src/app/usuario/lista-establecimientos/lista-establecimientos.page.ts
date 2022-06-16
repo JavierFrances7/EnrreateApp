@@ -25,7 +25,7 @@ export class ListaEstablecimientosPage implements OnInit {
     this.apiServiceProvider.getEstablecimientos()
       .then((establecimientos: Establecimiento[]) => {
         for (let inx in establecimientos) {
-          if(establecimientos[inx].verificadoAdmin==true){
+          if (establecimientos[inx].verificadoAdmin == true) {
             this.establecimientos.push(establecimientos[inx]);
           }
         }
@@ -37,7 +37,7 @@ export class ListaEstablecimientosPage implements OnInit {
 
   irPerfilEstablecimiento(inx) {
     this.establecimientos[inx].uidEstablecimiento;
-    this.navCtrl.navigateForward(['cliente-ver-perfil-establecimiento',{
+    this.navCtrl.navigateForward(['cliente-ver-perfil-establecimiento', {
       data: this.establecimientos[inx].uidEstablecimiento
     }]);
   }

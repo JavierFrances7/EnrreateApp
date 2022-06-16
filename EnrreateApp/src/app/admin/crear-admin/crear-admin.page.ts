@@ -14,10 +14,10 @@ import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
 export class CrearAdminPage implements OnInit {
 
   private validation_registro_admin: FormGroup;
-  admin: Administrador=new Administrador();
+  admin: Administrador = new Administrador();
 
 
-  constructor(private router: Router, private navCtrl: NavController, public formBuilder: FormBuilder, public firebaseAuthService: FirebaseAuthService, public apiService : ApiServiceProvider, public alertController: AlertController) { }
+  constructor(private router: Router, private navCtrl: NavController, public formBuilder: FormBuilder, public firebaseAuthService: FirebaseAuthService, public apiService: ApiServiceProvider, public alertController: AlertController) { }
 
   ngOnInit() {
 
@@ -27,13 +27,13 @@ export class CrearAdminPage implements OnInit {
         Validators.minLength(4)
       ])),
       correo: new FormControl('', Validators.compose([
-        Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]     
-        )),
+        Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]
+      )),
       contrasena: new FormControl('', Validators.compose([
       ])),
       contrasenaConfirmada: new FormControl('', Validators.compose([
       ]))
-      });
+    });
 
   }
 
@@ -42,24 +42,24 @@ export class CrearAdminPage implements OnInit {
     this.router.navigate(['/inicio-admin']);
   }
 
-  async registroAdmin(email:string, contrasena:string){
+  async registroAdmin(email: string, contrasena: string) {
 
     //TODO: Este método tambien guardará los objetos admins en la base de datos, para posteriormente con su uid de firebase comprobar el role que tiene y asi dar acceso a un sitio u otro.
-  
-    this.firebaseAuthService.registerUser(email,contrasena)
-    .then((data) => {
-      console.log("Registro Admin Exitoso");
-      this.firebaseAuthService.userDetails()
-        .subscribe(data => {
-          this.admin.uidAdministrador=data.uid;
-          this.apiService.insertarAdmin(this.admin);
-          this.abrirVentanaAdminCreado();
-        });
-    })
-    .catch((error) => {
-      console.log("Error en el registro: " + error);
-  
-    });
+
+    this.firebaseAuthService.registerUser(email, contrasena)
+      .then((data) => {
+        console.log("Registro Admin Exitoso");
+        this.firebaseAuthService.userDetails()
+          .subscribe(data => {
+            this.admin.uidAdministrador = data.uid;
+            this.apiService.insertarAdmin(this.admin);
+            this.abrirVentanaAdminCreado();
+          });
+      })
+      .catch((error) => {
+        console.log("Error en el registro: " + error);
+
+      });
   }
 
   async abrirVentanaAdminCreado() {
@@ -79,9 +79,9 @@ export class CrearAdminPage implements OnInit {
 
 
   onSubmit(values) {
-    this.admin.nombre=values['nombre'];
-    this.admin.correo=values['correo'];
+    this.admin.nombre = values['nombre'];
+    this.admin.correo = values['correo'];
     this.registroAdmin(values['correo'], values['contrasena']);
-    }
+  }
 
 }

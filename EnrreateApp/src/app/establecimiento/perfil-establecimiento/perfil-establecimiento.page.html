@@ -24,14 +24,14 @@
           <p><b>{{establecimiento.nombreEstablecimiento}}</b></p>
         </ion-col>
       </ion-row>
-    <ion-row>
-      <ion-col>
-        <p>Gestor: <i>{{establecimiento.nombreGestor}}</i></p>
-        <p>Dirección: <i>{{establecimiento.direccion}}</i></p>
-        <p>Correo: <i>{{establecimiento.correo}}</i></p>
-        <p *ngIf="establecimiento.verificadoAdmin" style="color:green">Verificado por el Admin <ion-icon name="shield-checkmark"></ion-icon></p>
-        <p *ngIf="!establecimiento.verificadoAdmin" style="color:red">No verificado por el Admin <ion-icon name="close-circle"></ion-icon></p>
-      </ion-col>
-    </ion-row>
+      <ion-row>
+        <ion-col>
+          <p>Gestor: <i>{{establecimiento.nombreGestor}}</i></p>
+          <p>Dirección: <i>{{establecimiento.direccion}}</i></p>
+          <p>Correo: <i>{{establecimiento.correo}}</i></p>
+          <p *ngIf="establecimiento.verificadoAdmin" style="color:green">Verificado por el Admin <ion-icon name="shield-checkmark"></ion-icon></p>
+          <p *ngIf="!establecimiento.verificadoAdmin" style="color:red">No verificado por el Admin <ion-icon name="close-circle"></ion-icon></p>
+        </ion-col>
+      </ion-row>
     </ion-grid>
   </ion-content>

@@ -22,7 +22,7 @@ export class HomePage implements OnInit {
   private administradores = new Array<Administrador>();
 
 
-  constructor(public firebaseAuthService: FirebaseAuthService, private router: Router, public formBuilder: FormBuilder, public apiServiceProvider: ApiServiceProvider, private appComponent: AppComponent, public menuCtrl: MenuController, public alertController : AlertController) { }
+  constructor(public firebaseAuthService: FirebaseAuthService, private router: Router, public formBuilder: FormBuilder, public apiServiceProvider: ApiServiceProvider, private appComponent: AppComponent, public menuCtrl: MenuController, public alertController: AlertController) { }
 
   ngOnInit() {
 
@@ -44,6 +44,7 @@ export class HomePage implements OnInit {
     this.menuCtrl.enable(false);
     this.obtenerUids();
   }
+
 
   onSubmit(values) {
 

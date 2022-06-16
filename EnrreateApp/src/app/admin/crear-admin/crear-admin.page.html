@@ -7,39 +7,38 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-
-  <ion-card>
+<ion-content class="contenedor">
+  <ion-card class="card-titulo">
     <h3 style="text-align:center ;">Crear Admins</h3>
   </ion-card>
   <form [formGroup]="validation_registro_admin" (ngSubmit)="onSubmit(validation_registro_admin.value)">
-  <ion-card>
-    <ion-item>
-      <ion-icon name="person-outline" class="icon-login"></ion-icon>
-      <ion-input type="name" placeholder=" Nombre" formControlName="nombre"></ion-input>
-    </ion-item>
-  </ion-card>
     <ion-card>
-    <ion-item>
-      <ion-icon name="mail-outline" class="icon-login"></ion-icon>
-      <ion-input type="email" placeholder=" Correo" formControlName="correo"></ion-input>
-    </ion-item>
-  </ion-card>
+      <ion-item>
+        <ion-icon name="person-outline" class="icon-login"></ion-icon>
+        <ion-input type="name" placeholder=" Nombre" formControlName="nombre"></ion-input>
+      </ion-item>
+    </ion-card>
     <ion-card>
-    <ion-item>
-      <ion-icon name="lock-open-outline" class="icon-login"></ion-icon>
-      <ion-input type="password" placeholder=" Contraseña" formControlName="contrasena"></ion-input>
-    </ion-item>
-  </ion-card>
+      <ion-item>
+        <ion-icon name="mail-outline" class="icon-login"></ion-icon>
+        <ion-input type="email" placeholder=" Correo" formControlName="correo"></ion-input>
+      </ion-item>
+    </ion-card>
     <ion-card>
-    <ion-item>
-      <ion-icon name="lock-closed-outline" class="icon-login"></ion-icon>
-      <ion-input type="password" placeholder=" Repite Contraseña" formControlName="contrasenaConfirmada"></ion-input>
-    </ion-item>
-  </ion-card>
-  <ion-card>
-    <ion-button expand="block" style="text-align:center;" class="boton-crear-admin" type="submit">CREAR ADMIN</ion-button>
-  </ion-card>
+      <ion-item>
+        <ion-icon name="lock-open-outline" class="icon-login"></ion-icon>
+        <ion-input type="password" placeholder=" Contraseña" formControlName="contrasena"></ion-input>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-icon name="lock-closed-outline" class="icon-login"></ion-icon>
+        <ion-input type="password" placeholder=" Repite Contraseña" formControlName="contrasenaConfirmada"></ion-input>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-button expand="block" style="text-align:center;" class="boton-crear-admin" type="submit">CREAR ADMIN
+      </ion-button>
+    </ion-card>
   </form>
-
 </ion-content>

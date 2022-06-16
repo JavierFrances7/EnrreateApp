@@ -11,9 +11,9 @@ import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
   styleUrls: ['./preguntas-establecimiento.page.scss'],
 })
 export class PreguntasEstablecimientoPage implements OnInit {
-  
+
   preguntas = new Array<PreguntaEstablecimiento>();
-  uidEstablecimientoActual:string;
+  uidEstablecimientoActual: string;
   private preguntaEstablecimiento = new PreguntaEstablecimiento();
   private preguntaEstablecimientoAux = new PreguntaEstablecimiento();
 
@@ -21,22 +21,22 @@ export class PreguntasEstablecimientoPage implements OnInit {
 
 
 
-  constructor(public apiService : ApiServiceProvider, public firebaseAuthService : FirebaseAuthService, public alertCtrl : AlertController) { }
+  constructor(public apiService: ApiServiceProvider, public firebaseAuthService: FirebaseAuthService, public alertCtrl: AlertController) { }
 
   ngOnInit() {
     this.firebaseAuthService.userDetails()
       .subscribe(data => {
-        this.uidEstablecimientoActual=data.uid;
+        this.uidEstablecimientoActual = data.uid;
         this.cargarPreguntas();
       });
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.firebaseAuthService.userDetails()
-    .subscribe(data => {
-      this.uidEstablecimientoActual=data.uid;
-      this.cargarPreguntas();
-    });
+      .subscribe(data => {
+        this.uidEstablecimientoActual = data.uid;
+        this.cargarPreguntas();
+      });
   }
 
 
@@ -68,10 +68,10 @@ export class PreguntasEstablecimientoPage implements OnInit {
             this.preguntaEstablecimientoAux.respuesta = data.respuesta;
             //this.apiService.eliminarPregunta(this.preguntaEstablecimiento);
             console.log(this.preguntaEstablecimiento);
-              this.apiService.modificarPregunta(this.preguntaEstablecimiento);
+            this.apiService.modificarPregunta(this.preguntaEstablecimiento);
 
             //this.apiService.insertarPreguntaEstablecimiento(this.preguntaEstablecimientoAux);
-            data.respuesta="";
+            data.respuesta = "";
 
           }
         }
@@ -81,9 +81,9 @@ export class PreguntasEstablecimientoPage implements OnInit {
     await alert.present();
   }
 
-  responderPregunta(pregunta : PreguntaEstablecimiento){
-    this.preguntaEstablecimientoAux= pregunta;
-    this.preguntaEstablecimiento=pregunta;
+  responderPregunta(pregunta: PreguntaEstablecimiento) {
+    this.preguntaEstablecimientoAux = pregunta;
+    this.preguntaEstablecimiento = pregunta;
     this.crearAlertRespuesta();
   }
 
