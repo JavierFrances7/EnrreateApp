@@ -31,6 +31,17 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
     public firebaseAuthService: FirebaseAuthService, private navCtrl: NavController, private platform: Platform, public zone: NgZone, public alertController: AlertController) { }
 
   ngOnInit() {
+    this.firebaseAuthService.userDetails()
+    .subscribe(data => {
+      this.apiService.getEstablecimientoByUid(data.uid)
+        .then((establecimiento: any) => {
+          this.establecimiento = establecimiento;
+        })
+        .catch((error: string) => {
+          console.log(error);
+        });
+    });
+    
     this.validation_configuracion_establecimiento = this.formBuilder.group({
       nombreEstablecimiento: new FormControl('', Validators.compose([
         Validators.required,
@@ -54,22 +65,25 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
       ]))
     });
 
-    this.firebaseAuthService.userDetails()
-      .subscribe(data => {
-        this.apiService.getEstablecimientoByUid(data.uid)
-          .then((establecimiento: any) => {
-            this.establecimiento = establecimiento;
-          })
-          .catch((error: string) => {
-            console.log(error);
-          });
-      });
+
   }
+
+  ionViewWillEnter(){    
+    this.firebaseAuthService.userDetails()
+    .subscribe(data => {
+      this.apiService.getEstablecimientoByUid(data.uid)
+        .then((establecimiento: any) => {
+          this.establecimiento = establecimiento;
+        })
+        .catch((error: string) => {
+          console.log(error);
+        });
+    });}
 
   obtenerCoordenadasDesdeDireccion(address) {
     //Proyecto cordova
-    if (this.platform.is('cordova')) {
-      let options: NativeGeocoderOptions = {
+    //if (this.platform.is('cordova')) {
+      /*let options: NativeGeocoderOptions = {
         useLocale: true,
         maxResults: 5
       };
@@ -78,17 +92,17 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
           this.zone.run(() => {
             this.establecimiento.latitud = Number.parseFloat(result[0].latitude);
             this.establecimiento.longitud = Number.parseFloat(result[0].longitude);
-            
+            this.apiService.modificarEstablecimiento(this.establecimiento).then(() => {
+              this.abrirVentanaActualizacionCorrecta();
+            })
+              .catch((error) => {
+                console.log(error);
+              });    
           })
-          this.apiService.modificarEstablecimiento(this.establecimiento).then(() => {
-            this.abrirVentanaActualizacionCorrecta();
-          })
-            .catch((error) => {
-              console.log(error);
-            });
+          
         })
         .catch((error: any) => console.log(error));
-    } else {
+    //} else {*/
       //Proyecto capacitor
       let geocoder = new google.maps.Geocoder();
       geocoder.geocode({ 'address': address }, (results, status) => {
@@ -96,39 +110,37 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
           this.zone.run(() => {
             this.establecimiento.latitud = results[0].geometry.location.lat();
             this.establecimiento.longitud = results[0].geometry.location.lng();
+            console.log("ENTRA RUN");
+            this.apiService.modificarEstablecimiento(this.establecimiento).then(() => {
+              console.log("Actualizacion establecimiento hecha");
+              this.abrirVentanaActualizacionCorrecta();
+            })
+              .catch((error) => {
+                console.log(error);
+              });
+              console.log("FUERA");
           })
-          this.apiService.modificarEstablecimiento(this.establecimiento).then(() => {
-            this.abrirVentanaActualizacionCorrecta();
-          })
-            .catch((error) => {
-              console.log(error);
-            });
+          
         } else {
           alert('Error - ' + results + ' & Status - ' + status)
         }
       });
-    }
+    //}
   }
 
 
   subirImagen(event: FileList) {
-
     var file: File = event.item(0);
-
-
     this.apiService.uploadImage(file, this.establecimiento.uidEstablecimiento)
 
       .then((downloadUrl) => {
-
         //Aqui cojo la url de la imagen y la asigno al objeto a actualizar
         this.establecimiento.imagenPerfil = downloadUrl;
 
       })
 
       .catch((error) => {
-
         console.log(error);
-
       });
 
   }
@@ -142,7 +154,6 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
     this.establecimiento.verificadoAdmin = false;
     this.establecimiento.ciudad = values['ciudad'];
     this.obtenerCoordenadasDesdeDireccion(values['direccion'] + " " + values['ciudad']);
-
     //Al pulsar el boton de sumbit se inicia el metodo login con los valores del formulario.
   }
 

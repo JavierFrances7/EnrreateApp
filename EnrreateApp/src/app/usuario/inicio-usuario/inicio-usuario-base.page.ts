@@ -113,7 +113,7 @@ export class InicioUsuarioBasePage implements OnInit {
       '<ion-avatar id="botonVerPerfilEstablecimiento"><ion-img src="' + establecimiento.imagenPerfil + '"></ion-img></ion-avatar>' +
       '</ion-col></ion-row>' +
       //Segunda fila del grid
-      '<ion-row><ion-col size="6" offset="3">' +
+      '<ion-row><ion-col>' +
       '<p id="tituloInfowindow" style="text-transform: uppercase; text-align: center; font-weight: bold; font-size:15px;">' + establecimiento.nombreEstablecimiento + '</p>' +
       '</ion-col></ion-row>' +
       //Tercera fila del grid

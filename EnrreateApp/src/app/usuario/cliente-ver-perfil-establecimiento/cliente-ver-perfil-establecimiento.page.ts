@@ -62,6 +62,26 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
 
   ionViewWillEnter() {
     this.uidEstablecimiento = this.route.snapshot.params['data'];
+    this.apiService.getEstablecimientoByUid(this.uidEstablecimiento)
+    .then((establecimiento: any) => {
+      this.establecimiento = establecimiento;
+    })
+    .catch((error: string) => {
+      console.log(error);
+    });
+
+  this.cargarComentarios();
+  this.firebaseAuthService.userDetails()
+    .subscribe(data => {
+      this.apiService.getUsuarioByUid(data.uid)
+        .then((usuario: any) => {
+          this.usuario = usuario;
+        })
+        .catch((error: string) => {
+          console.log("Sesion cerrada");
+        });
+    });
+    this.cargarEventos();
   }
 
   comentar() {
@@ -74,15 +94,9 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
       //Si el usuario no ha comentado nunca este establecimiento se le solicita una nota, sino se guarda su comentario sin nota.
       if ((this.comentarios[inx].usuario.uidUsuario != this.usuario.uidUsuario) && (this.comentarios[inx].establecimiento.uidEstablecimiento == this.uidEstablecimiento)) {
         this.encontrado = false;
-      } else if ((this.comentarios[inx].usuario.uidUsuario == this.usuario.uidUsuario) && (this.comentarios[inx].establecimiento.uidEstablecimiento == this.uidEstablecimiento)) {
+      } else if ((this.comentarios[inx].usuario.uidUsuario === this.usuario.uidUsuario) && (this.comentarios[inx].establecimiento.uidEstablecimiento == this.uidEstablecimiento)) {
         this.encontrado = true;
-      } else {
-        this.encontrado = false;
       }
-    }
-
-    if (this.comentarios.length == 0) {
-      this.crearAlertNota();
     }
 
     //Vemos si el usuario es la primera vez que comenta, si es la primera a parte del comentario le solicitamos una nota. 
@@ -99,7 +113,6 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
     this.apiService.getComentariosEstablecimientos()
       .then((comentariosEstablecimiento: ComentarioEstablecimiento[]) => {
         this.comentarios = comentariosEstablecimiento;
-        this.comentarios.reverse();
       })
       .catch((error: string) => {
         console.log(error);
@@ -222,7 +235,6 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
     this.apiService.getEventos()
       .then((eventos: any) => {
         this.eventos = eventos;
-        this.eventos.reverse();
       })
       .catch((error: string) => {
         console.log(error);
