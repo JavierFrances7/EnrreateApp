@@ -5,7 +5,7 @@ import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@io
 import { ApiServiceProvider } from 'src/app/providers/api-service/apiservice';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Router } from '@angular/router';
-import { AlertController, MenuController, NavController, Platform } from '@ionic/angular';
+import { AlertController, NavController, Platform } from '@ionic/angular';
 import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
 import { Establecimiento } from 'src/app/modelo/Establecimiento';
 
@@ -50,7 +50,7 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
       ])),
       aforoMaximo: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.minLength(6)
+        Validators.minLength(2)
       ]))
     });
 
@@ -78,13 +78,14 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
           this.zone.run(() => {
             this.establecimiento.latitud = Number.parseFloat(result[0].latitude);
             this.establecimiento.longitud = Number.parseFloat(result[0].longitude);
-            this.apiService.modificarEstablecimiento(this.establecimiento).then(() => {
-              this.abrirVentanaActualizacionCorrecta();
-            })
-              .catch((error) => {
-                console.log(error);
-              });
+            
           })
+          this.apiService.modificarEstablecimiento(this.establecimiento).then(() => {
+            this.abrirVentanaActualizacionCorrecta();
+          })
+            .catch((error) => {
+              console.log(error);
+            });
         })
         .catch((error: any) => console.log(error));
     } else {
@@ -95,13 +96,13 @@ export class ConfiguracionEstablecimientoPage implements OnInit {
           this.zone.run(() => {
             this.establecimiento.latitud = results[0].geometry.location.lat();
             this.establecimiento.longitud = results[0].geometry.location.lng();
-            this.apiService.modificarEstablecimiento(this.establecimiento).then(() => {
-              this.abrirVentanaActualizacionCorrecta();
-            })
-              .catch((error) => {
-                console.log(error);
-              });
           })
+          this.apiService.modificarEstablecimiento(this.establecimiento).then(() => {
+            this.abrirVentanaActualizacionCorrecta();
+          })
+            .catch((error) => {
+              console.log(error);
+            });
         } else {
           alert('Error - ' + results + ' & Status - ' + status)
         }

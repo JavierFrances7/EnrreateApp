@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController, MenuController, NavController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { Usuario } from 'src/app/modelo/usuario';
 import { ApiServiceProvider } from 'src/app/providers/api-service/apiservice';
 import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
@@ -17,7 +17,7 @@ export class ConfiguracionUsuarioPage implements OnInit {
 
   private usuario = new Usuario();
 
-  constructor(public menuCtrl: MenuController, private router: Router, private navCtrl: NavController, public apiService: ApiServiceProvider, public formBuilder: FormBuilder, public firebaseAuthService: FirebaseAuthService, public alertController: AlertController) { }
+  constructor( private router: Router, private navCtrl: NavController, public apiService: ApiServiceProvider, public formBuilder: FormBuilder, public firebaseAuthService: FirebaseAuthService, public alertController: AlertController) { }
 
   ngOnInit() {
 

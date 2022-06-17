@@ -11,22 +11,19 @@
     <ion-card class="card-titulo">
       <h3 style="text-align:center ;">Sin responder</h3>
     </ion-card>
-
+    <p class="mini">Haz click para responder</p>
     <div *ngFor="let pregunta of preguntas; let indice=index;">
-      <ion-card
+      <ion-card class="cards"
         *ngIf="pregunta.establecimiento.uidEstablecimiento == uidEstablecimientoActual && (pregunta.respuesta == null || pregunta.respuesta == undefined)"
         (click)="responderPregunta(pregunta)">
         <ion-grid>
           <ion-row>
             <ion-col>
               <ion-row>
-                <p>Establecimiento: {{pregunta.establecimiento.nombreEstablecimiento}}</p>
+                <p><b>Pregunta: </b>{{pregunta.pregunta}}</p>
               </ion-row>
               <ion-row>
-                <p>Pregunta: {{pregunta.pregunta}}</p>
-              </ion-row>
-              <ion-row>
-                <p>Respuesta: {{pregunta.respuesta}}</p>
+                <p><b>Respuesta: </b>{{pregunta.respuesta}}</p>
               </ion-row>
             </ion-col>
           </ion-row>

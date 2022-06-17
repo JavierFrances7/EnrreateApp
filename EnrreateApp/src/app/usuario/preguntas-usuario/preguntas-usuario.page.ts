@@ -36,6 +36,11 @@ export class PreguntasUsuarioPage implements OnInit {
     this.apiService.getPreguntasEstablecimientos()
       .then((preguntasEstablecimiento: PreguntaEstablecimiento[]) => {
         this.preguntas = preguntasEstablecimiento;
+        console.log(this.preguntas[0].fecha)
+        console.log(this.preguntas[1].fecha)
+        console.log(this.preguntas[2].fecha)
+        console.log(this.preguntas[3].fecha)
+
       })
       .catch((error: string) => {
         console.log(error);

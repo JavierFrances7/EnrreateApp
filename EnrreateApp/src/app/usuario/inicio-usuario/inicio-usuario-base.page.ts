@@ -109,17 +109,17 @@ export class InicioUsuarioBasePage implements OnInit {
     var infoWindowContent = '<div id="contentInfoWindow">' +
       '<ion-grid>' +
       //Primera fila del grid
-      '<ion-row><ion-col size="3"></ion-col><ion-col size="6">' +
+      '<ion-row><ion-col size="6" offset="3">' +
       '<ion-avatar id="botonVerPerfilEstablecimiento"><ion-img src="' + establecimiento.imagenPerfil + '"></ion-img></ion-avatar>' +
-      '</ion-col><ion-col size="3"></ion-col></ion-row>' +
+      '</ion-col></ion-row>' +
       //Segunda fila del grid
-      '<ion-row><ion-col size="2"></ion-col><ion-col size="8">' +
+      '<ion-row><ion-col size="6" offset="3">' +
       '<p id="tituloInfowindow" style="text-transform: uppercase; text-align: center; font-weight: bold; font-size:15px;">' + establecimiento.nombreEstablecimiento + '</p>' +
-      '</ion-col><ion-col size="2"></ion-col></ion-row>' +
+      '</ion-col></ion-row>' +
       //Tercera fila del grid
-      '<ion-row><p id="direccionInfowindow"  style="text-align: left; ">' + establecimiento.direccion + '</p></ion-row>' +
+      '<ion-row><p id="direccionInfowindow"  style="text-align: left; "><i>' + establecimiento.direccion + '</i></p></ion-row>' +
       //Cuarta fila del grid
-      '<ion-row><p id="aforoMaximoInfowindow"  style="text-align: left; ">Aforo Máximo: ' + establecimiento.aforoMaximo + '</p></ion-row>' +
+      '<ion-row><p id="aforoMaximoInfowindow"  style="text-align: left; "><b>Aforo Máximo: </b>' + establecimiento.aforoMaximo + '</p></ion-row>' +
       //Quinta fila del grid
       '<ion-row><p id="valoracionMediaInfowindow"  style="text-align: left; "><ion-icon name="star"></ion-icon>&nbsp' + establecimiento.valoracionMedia + '</p></ion-row>' +
       '</ion-grid>' +

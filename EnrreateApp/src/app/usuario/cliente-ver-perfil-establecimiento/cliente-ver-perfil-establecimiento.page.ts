@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ComentarioEstablecimiento } from 'src/app/modelo/ComentarioEstablecimiento';
@@ -8,6 +9,7 @@ import { PreguntaEstablecimiento } from 'src/app/modelo/PreguntaEstablecimiento'
 import { Usuario } from 'src/app/modelo/usuario';
 import { ApiServiceProvider } from 'src/app/providers/api-service/apiservice';
 import { FirebaseAuthService } from 'src/app/providers/firebase-auth-service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-cliente-ver-perfil-establecimiento',
@@ -24,12 +26,13 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
   private preguntaEstablecimiento = new PreguntaEstablecimiento();
   eventos = new Array<Evento>();
 
-
   comentarios = new Array<ComentarioEstablecimiento>();
   inputComentario: string;
   encontrado: boolean = false;
   contadorNotas: number = 0;
   sumaNotas: number = 0;
+
+
 
   constructor(private route: ActivatedRoute, public apiService: ApiServiceProvider, public firebaseAuthService: FirebaseAuthService, public alertCtrl: AlertController) { }
 
@@ -96,6 +99,7 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
     this.apiService.getComentariosEstablecimientos()
       .then((comentariosEstablecimiento: ComentarioEstablecimiento[]) => {
         this.comentarios = comentariosEstablecimiento;
+        this.comentarios.reverse();
       })
       .catch((error: string) => {
         console.log(error);
@@ -218,6 +222,7 @@ export class ClienteVerPerfilEstablecimientoPage implements OnInit {
     this.apiService.getEventos()
       .then((eventos: any) => {
         this.eventos = eventos;
+        this.eventos.reverse();
       })
       .catch((error: string) => {
         console.log(error);

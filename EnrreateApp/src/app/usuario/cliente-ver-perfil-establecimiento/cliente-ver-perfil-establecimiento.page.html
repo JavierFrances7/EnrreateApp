@@ -70,8 +70,8 @@
       <h4 style="text-align:center ;">Comentarios</h4>
     </ion-card>
     <ion-item>
-      <ion-input [(ngModel)]="inputComentario" type="text"></ion-input>
-      <ion-button expand="block" class="btn-pregunta" (click)="comentar()"> Comentar
+      <ion-input [(ngModel)]="inputComentario" type="text" placeholder="Comentario"></ion-input>
+      <ion-button expand="block" class="btn-pregunta" (click)="comentar()" [disabled]="inputComentario==null || inputComentario==''"> Comentar
       </ion-button>
     </ion-item>
     <div *ngFor="let comentario of comentarios; let indice=index;">
